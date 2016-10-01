@@ -1,0 +1,103 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwareK9bot;
+
+/**
+ * This OpMode uses the common HardwareJellyfish class to define the devices on the robot.
+ * All device access is managed through the HardwareJellyfish class. (See this class for device names)
+ * The code is structured as a LinearOpMode
+ *
+ * This particular OpMode executes a basic Omni Drive Teleop for the Jellyfish bot
+ * It moves the bot in all directions
+ * 
+ */
+
+@TeleOp(name="Jellyfish: TeleOp Omni", group="Jellyfish")
+
+public class JellyfishTeleopOmni_Linear extends LinearOpMode {
+
+    /* Declare OpMode members. */
+    HardwareJellyfish   robot           = new HardwareJellyfish();              // Use a K9'shardware
+
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        double x;
+        double y;
+
+        /* Initialize the hardware variables.
+         * The init() method of the hardware class does all the work here
+         */
+        robot.init(hardwareMap);
+
+        // Send telemetry message to signify robot waiting;
+        telemetry.addData("Say", "Hello Driver");    //
+        telemetry.update();
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+
+        // run until the end of the match (driver presses STOP)
+        while (opModeIsActive()) {
+
+            // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
+            y = -gamepad1.right_stick_y;
+            robot.frontLeftMotor.setPower(y);
+            robot.backLeftMotor.setPower(y);
+            robot.frontRightMotor.setPower(y);
+            robot.backRightMotor.setPower(y);
+
+            x = -gamepad1.right_stick_x;
+            robot.frontLeftMotor.setPower(x);
+            robot.backLeftMotor.setPower(x);
+            robot.frontRightMotor.setPower(x);
+            robot.backRightMotor.setPower(x);
+
+
+            if(y>0) {
+                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+            }
+            else if(y<0){
+                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            }
+
+            if(x>0) {
+                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            }
+            else if(x<0){
+                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+            }
+
+
+
+            // Send telemetry message to signify robot running;
+//            telemetry.addData("arm",   "%.2f", armPosition);
+//            telemetry.addData("claw",  "%.2f", clawPosition);
+            //telemetry.addData("x",  "%.2f", x);
+            telemetry.addData("y", "%.2f", y);
+            telemetry.update();
+
+            // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
+            robot.waitForTick(40);
+            idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+        }
+    }
+}
