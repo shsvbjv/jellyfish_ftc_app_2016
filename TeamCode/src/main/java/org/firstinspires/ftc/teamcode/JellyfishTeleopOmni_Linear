@@ -23,7 +23,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwareK9bot;
 public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareJellyfish   robot           = new HardwareJellyfish();              // Use a K9'shardware
+    HardwareJellyfish   robot           = new HardwareJellyfish();              // Use a K9's hardware
 
 
     @Override
@@ -48,44 +48,49 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
             // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
             y = -gamepad1.right_stick_y;
-            robot.frontLeftMotor.setPower(y);
-            robot.backLeftMotor.setPower(y);
-            robot.frontRightMotor.setPower(y);
-            robot.backRightMotor.setPower(y);
+            
 
-            x = -gamepad1.right_stick_x;
-            robot.frontLeftMotor.setPower(x);
-            robot.backLeftMotor.setPower(x);
-            robot.frontRightMotor.setPower(x);
-            robot.backRightMotor.setPower(x);
+//            x = -gamepad1.right_stick_x;
+//            robot.frontLeftMotor.setPower(x);
+//            robot.backLeftMotor.setPower(x);
+//            robot.frontRightMotor.setPower(x);
+//            robot.backRightMotor.setPower(x);
 
 
             if(y>0) {
+                robot.frontLeftMotor.setPower(y);
+                robot.backLeftMotor.setPower(y);
+                robot.frontRightMotor.setPower(y);
+                robot.backRightMotor.setPower(y);
+                
                 robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                 robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                 robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
             }
-            else if(y<0){
+            else {
+                robot.frontLeftMotor.setPower(-y);
+                robot.backLeftMotor.setPower(-y);
+                robot.frontRightMotor.setPower(-y);
+                robot.backRightMotor.setPower(-y);
+                
                 robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                 robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
             }
 
-            if(x>0) {
-                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-            }
-            else if(x<0){
-                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-            }
-
+//            if(x>0) {
+//                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+//                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//                robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+//            }
+//            else if(x<0){
+//                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+//                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+//                robot.backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
             // Send telemetry message to signify robot running;
@@ -98,6 +103,8 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
             robot.waitForTick(40);
             idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+            }
+            
         }
     }
-}
+
