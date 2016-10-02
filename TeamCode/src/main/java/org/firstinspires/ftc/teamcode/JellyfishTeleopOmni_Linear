@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
@@ -20,17 +20,17 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwareK9bot;
 
 @TeleOp(name="Jellyfish: TeleOp Omni", group="Jellyfish")
 
-public class JellyfishTeleopOmni_Linear extends LinearOpMode {
+public class JellyfishTeleopOmni_Linear extends OpMode {
 
     /* Declare OpMode members. */
     HardwareJellyfish   robot           = new HardwareJellyfish();              // Use a K9's hardware
 
 
+    /*
+     * Code to run ONCE when the driver hits INIT
+     */
     @Override
-    public void runOpMode() throws InterruptedException {
-        double x;
-        double y;
-
+    public void init() {
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
@@ -38,59 +38,43 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");    //
-        telemetry.update();
+        updateTelemetry(telemetry);
+    }
 
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
+    /*
+     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+     */
+    @Override
+    public void init_loop() {
+    }
 
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
+    /*
+     * Code to run ONCE when the driver hits PLAY
+     */
+    @Override
+    public void start() {
+    }
+    @Override
+    public void loop(){
+        double x;
+        double y;
+
 
             // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
             y = -gamepad1.right_stick_y;
-            
 
-//            x = -gamepad1.right_stick_x;
+
+//            x = gamepad1.right_stick_x;
 //            robot.frontLeftMotor.setPower(x);
 //            robot.backLeftMotor.setPower(x);
 //            robot.frontRightMotor.setPower(x);
 //            robot.backRightMotor.setPower(x);
 
+            robot.frontLeftMotor.setPower(y);
+            robot.backLeftMotor.setPower(y);
+            robot.frontRightMotor.setPower(y);
+            robot.backRightMotor.setPower(y);
 
-            if(y>0) {
-                robot.frontLeftMotor.setPower(y);
-                robot.backLeftMotor.setPower(y);
-                robot.frontRightMotor.setPower(y);
-                robot.backRightMotor.setPower(y);
-                
-                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-            }
-            else {
-                robot.frontLeftMotor.setPower(-y);
-                robot.backLeftMotor.setPower(-y);
-                robot.frontRightMotor.setPower(-y);
-                robot.backRightMotor.setPower(-y);
-                
-                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-            }
-
-//            if(x>0) {
-//                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-//                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-//                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-//                robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-//            }
-//            else if(x<0){
-//                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-//                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-//                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-//                robot.backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
             // Send telemetry message to signify robot running;
@@ -100,11 +84,8 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             telemetry.addData("y", "%.2f", y);
             telemetry.update();
 
-            // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-            robot.waitForTick(40);
-            idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
             }
-            
+
         }
-    }
+    
 
