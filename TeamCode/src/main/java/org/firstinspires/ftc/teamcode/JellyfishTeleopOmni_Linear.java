@@ -62,18 +62,13 @@ public class JellyfishTeleopOmni_Linear extends OpMode {
 
         // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
         y = -gamepad1.right_stick_y;
+        x = gamepad1.right_stick_x;
 
 
-//            x = gamepad1.right_stick_x;
-//            robot.frontLeftMotor.setPower(x);
-//            robot.backLeftMotor.setPower(x);
-//            robot.frontRightMotor.setPower(x);
-//            robot.backRightMotor.setPower(x);
-
-        robot.frontLeftMotor.setPower(y);
-        robot.backLeftMotor.setPower(y);
-        robot.frontRightMotor.setPower(y);
-        robot.backRightMotor.setPower(y);
+        robot.frontLeftMotor.setPower(Range.clip(y+x,-1,1));
+        robot.backLeftMotor.setPower(Range.clip(y-x,-1,1));
+        robot.frontRightMotor.setPower(Range.clip(y-x,-1,1));
+        robot.backRightMotor.setPower(Range.clip(y+x,-1,1));
 
 
 
@@ -82,6 +77,7 @@ public class JellyfishTeleopOmni_Linear extends OpMode {
 //            telemetry.addData("claw",  "%.2f", clawPosition);
         //telemetry.addData("x",  "%.2f", x);
         telemetry.addData("y", "%.2f", y);
+        telemetry.addData("x", "%.2f", x);
         telemetry.update();
 
     }
