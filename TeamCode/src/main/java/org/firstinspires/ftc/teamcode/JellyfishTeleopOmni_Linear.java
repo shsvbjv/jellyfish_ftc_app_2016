@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwareK9bot;
  *
  * This particular OpMode executes a basic Omni Drive Teleop for the Jellyfish bot
  * It moves the bot in all directions
- * 
+ *
  */
 
 @TeleOp(name="Jellyfish: TeleOp Omni", group="Jellyfish")
@@ -60,8 +60,8 @@ public class JellyfishTeleopOmni_Linear extends OpMode {
         double y;
 
 
-            // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
-            y = -gamepad1.right_stick_y;
+        // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
+        y = -gamepad1.right_stick_y;
 
 
 //            x = gamepad1.right_stick_x;
@@ -70,22 +70,20 @@ public class JellyfishTeleopOmni_Linear extends OpMode {
 //            robot.frontRightMotor.setPower(x);
 //            robot.backRightMotor.setPower(x);
 
-            robot.frontLeftMotor.setPower(y);
-            robot.backLeftMotor.setPower(y);
-            robot.frontRightMotor.setPower(y);
-            robot.backRightMotor.setPower(y);
+        robot.frontLeftMotor.setPower(y);
+        robot.backLeftMotor.setPower(y);
+        robot.frontRightMotor.setPower(y);
+        robot.backRightMotor.setPower(y);
 
 
 
-            // Send telemetry message to signify robot running;
+        // Send telemetry message to signify robot running;
 //            telemetry.addData("arm",   "%.2f", armPosition);
 //            telemetry.addData("claw",  "%.2f", clawPosition);
-            //telemetry.addData("x",  "%.2f", x);
-            telemetry.addData("y", "%.2f", y);
-            telemetry.update();
+        //telemetry.addData("x",  "%.2f", x);
+        telemetry.addData("y", "%.2f", y);
+        telemetry.update();
 
-            }
+    }
 
-        }
-    
-
+}
