@@ -20,7 +20,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwareK9bot;
 
 @TeleOp(name="Jellyfish: TeleOp Omni", group="Jellyfish")
 
-public class JellyfishTeleopOmni_Linear extends OpMode {
+public class JellyfishTeleopOmni extends OpMode {
 
     /* Declare OpMode members. */
     HardwareJellyfish   robot           = new HardwareJellyfish();              // Use a K9's hardware
@@ -58,25 +58,29 @@ public class JellyfishTeleopOmni_Linear extends OpMode {
     public void loop(){
         double x;
         double y;
+        double x2;
 
 
             // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
         y = gamepad1.right_stick_y;
         x = gamepad1.right_stick_x;
+        x2 = gamepad1.left_stick_x;
 
-            robot.backLeftMotor.setPower(Range.clip(y + x, -1, 1));
-            robot.frontLeftMotor.setPower(Range.clip(y - x, -1, 1));
-            robot.backRightMotor.setPower(Range.clip(y - x, -1, 1));
-            robot.frontRightMotor.setPower(Range.clip(y + x, -1, 1));
-        
+            robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
+            robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
+            robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
+            robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
+
+
 
             // Send telemetry message to signify robot running;
 //            telemetry.addData("arm",   "%.2f", armPosition);
 //            telemetry.addData("claw",  "%.2f", clawPosition);
-            //telemetry.addData("x",  "%.2f", x);
+            telemetry.addData("x",  "%.2f", x);
             telemetry.addData("y", "%.2f", y);
+            telemetry.addData("backleft", "%.2f", Range.clip(y + x, -1, 1));
+            telemetry.addData("frontleft", "%.2f", Range.clip(y - x, -1, 1));
             telemetry.update();
-
             }
 
         }
