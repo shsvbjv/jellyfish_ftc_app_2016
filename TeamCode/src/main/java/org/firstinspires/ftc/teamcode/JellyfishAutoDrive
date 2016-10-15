@@ -36,16 +36,16 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Jellyfish: Auto Drive", group="Jellyfish")
+@Autonomous(name="Jellyfish: Auto Drive Distance", group="Jellyfish")
 
-public class JellyfishAutoDrive extends LinearOpMode {
+public class JellyfishAutoDriveDistance extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJellyfishAuto         robot   = new HardwareJellyfishAuto();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
+    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -77,7 +77,7 @@ public class JellyfishAutoDrive extends LinearOpMode {
         robot.backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0",  "Starting at %7d :%7d",
+        telemetry.addData("Path0",  "Starting at %7d :%7d :%7d :%7d",
                 robot.frontLeftMotor.getCurrentPosition(),
                 robot.frontRightMotor.getCurrentPosition(),
                 robot.backLeftMotor.getCurrentPosition(),
@@ -152,11 +152,11 @@ public class JellyfishAutoDrive extends LinearOpMode {
                     robot.backRightMotor.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newFrontLeftTarget,
+                telemetry.addData("Path1",  "Running to %7d :%7d :%7d :%7d", newFrontLeftTarget,
                                                                     newFrontRightTarget,
                                                                     newBackLeftTarget,
                                                                     newBackRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
+                telemetry.addData("Path2",  "Running at %7d :%7d :%7d :%7d",
                                             robot.frontLeftMotor.getCurrentPosition(),
                                             robot.frontRightMotor.getCurrentPosition(),
                                             robot.backLeftMotor.getCurrentPosition(),
