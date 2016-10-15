@@ -23,7 +23,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwareK9bot;
 public class JellyfishTeleopOmni extends OpMode {
 
     /* Declare OpMode members. */
-    HardwareJellyfish   robot           = new HardwareJellyfish();              // Use a K9's hardware
+    HardwareJellyfishTeleop   robot           = new HardwareJellyfishTeleop();              // Use a K9's hardware
+    double          buttonPosition     = robot.BUTTON_HOME;
+    final double    BUTTON_SPEED       = 0.01 ;
 
 
     /*
@@ -70,6 +72,9 @@ public class JellyfishTeleopOmni extends OpMode {
             robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
             robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
             robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
+
+            if (gamepad1.a)
+                 buttonPosition += BUTTON_SPEED;
 
 
 
