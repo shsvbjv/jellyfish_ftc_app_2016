@@ -24,13 +24,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *   As the arm servo approaches 0, the arm position moves up (away from the floor).
  *   As the claw servo approaches 0, the claw opens up (drops the game element).
  */
-public class HardwareJellyfish
+public class HardwareJellyfishTeleop
 {
     /* Public OpMode members. */
     public DcMotor  frontLeftMotor   = null;
     public DcMotor  frontRightMotor  = null;
     public DcMotor  backLeftMotor    = null;
     public DcMotor  backRightMotor   = null;
+    public Servo    buttonPusherServo = null;
 
 
     /* Local OpMode members. */
@@ -38,7 +39,7 @@ public class HardwareJellyfish
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public HardwareJellyfish() {
+    public HardwareJellyfishTeleop() {
     }
 
     /* Initialize standard Hardware interfaces */
@@ -71,6 +72,11 @@ public class HardwareJellyfish
         frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        buttonPusherServo = hwMap.servo.get("button push");
+        buttonPusherServo.setPosition(0.5);
+        buttonPusherServo.setDirection(Servo.Direction.FORWARD);
+
 
         // Define and initialize ALL installed servos.
 //        arm = hwMap.servo.get("arm");

@@ -24,7 +24,7 @@ public class JellyfishTeleopOmni extends OpMode {
 
     /* Declare OpMode members. */
     HardwareJellyfishTeleop   robot           = new HardwareJellyfishTeleop();              // Use a K9's hardware
-    double          buttonPosition     = robot.BUTTON_HOME;
+    //double          buttonPosition     = robot.BUTTON_HOME;
     final double    BUTTON_SPEED       = 0.01 ;
 
 
@@ -74,7 +74,9 @@ public class JellyfishTeleopOmni extends OpMode {
             robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
 
             if (gamepad1.a)
-                 buttonPosition += BUTTON_SPEED;
+                robot.buttonPusherServo.setPosition(0.8);
+            else robot.buttonPusherServo.setPosition(0.5);
+
 
 
 
