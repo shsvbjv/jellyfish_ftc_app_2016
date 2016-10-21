@@ -1,14 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 /**
  * This is NOT an opmode.
- *
+ *NANDINI IS THE MOST AMAZING PERSON EVER!!!!!
  * This class can be used to define all the specific hardware for a single robot.
  * In this case that robot is a K9 robot.
  *
@@ -31,7 +34,13 @@ public class HardwareJellyfishTeleop
     public DcMotor  frontRightMotor  = null;
     public DcMotor  backLeftMotor    = null;
     public DcMotor  backRightMotor   = null;
-    public Servo    buttonPusherServo = null;
+    public Servo    leftButtonPusherServo = null;
+    public Servo    rightButtonPusherServo = null;
+    public DcMotor  intakeBeltMotor = null;
+    public DcMotor  flywheelTopMotor = null;
+    public DcMotor  flywheelBottomMotor= null;
+
+    public ModernRoboticsI2cGyro gyro = null;
 
 
     /* Local OpMode members. */
@@ -43,7 +52,7 @@ public class HardwareJellyfishTeleop
     }
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap) {
+    public void init(HardwareMap ahwMap, Telemetry telemetry) {
         // save reference to HW Map
         hwMap = ahwMap;
 
@@ -52,6 +61,12 @@ public class HardwareJellyfishTeleop
         frontRightMotor  = hwMap.dcMotor.get("motor_rf");
         backLeftMotor   = hwMap.dcMotor.get("motor_lb");
         backRightMotor  = hwMap.dcMotor.get("motor_rb");
+        intakeBeltMotor = hwMap.dcMotor.get("intake");
+        flywheelTopMotor = hwMap.dcMotor.get("flywheeltop");
+        flywheelBottomMotor = hwMap.dcMotor.get("flywheelbottom");
+
+
+        gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
         frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
@@ -59,6 +74,9 @@ public class HardwareJellyfishTeleop
         frontRightMotor.setPower(0);
         backLeftMotor.setPower(0);
         backRightMotor.setPower(0);
+        intakeBeltMotor.setPower(0);
+        flywheelTopMotor.setPower(0);
+        flywheelBottomMotor.setPower(0);
 
         //Set direction of all motors
         frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -72,17 +90,36 @@ public class HardwareJellyfishTeleop
         frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        flywheelTopMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        flywheelBottomMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        buttonPusherServo = hwMap.servo.get("button push");
-        buttonPusherServo.setPosition(0.5);
-        buttonPusherServo.setDirection(Servo.Direction.FORWARD);
+        leftButtonPusherServo = hwMap.servo.get("left button push");
+        leftButtonPusherServo.setPosition(0.5);
+        leftButtonPusherServo.setDirection(Servo.Direction.FORWARD);
+
+        rightButtonPusherServo = hwMap.servo.get("right button push");
+        rightButtonPusherServo.setPosition(0.5);
+        rightButtonPusherServo.setDirection(Servo.Direction.FORWARD);
+
+        telemetry.addData(">", "Calibrating Gyro");    //
+        telemetry.update();
+
+        gyro.calibrate();
+
+        // make sure the gyro is calibrated before continuing
+//        while (gyro.isCalibrating())  {
+//            try {
+//                Thread.sleep(50);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+        telemetry.addData(">", "Robot Ready.");    //
+        telemetry.update();
 
 
-        // Define and initialize ALL installed servos.
-//        arm = hwMap.servo.get("arm");
-//        claw = hwMap.servo.get("claw");
-//        arm.setPosition(ARM_HOME);
-//        claw.setPosition(CLAW_HOME);
     }
 
     /***
