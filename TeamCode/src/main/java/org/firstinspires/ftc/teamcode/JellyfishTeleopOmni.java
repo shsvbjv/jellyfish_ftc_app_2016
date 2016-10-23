@@ -24,7 +24,16 @@ public class JellyfishTeleopOmni extends OpMode {
     //double          buttonPosition     = robot.BUTTON_HOME;
     final double    BUTTON_SPEED       = 0.01 ;
     boolean prevY = false;
+    boolean prevA = false;
     boolean intakeout = false;
+    boolean intakein = false;
+    boolean prevRB = false;
+    boolean flywheel = false;
+    static final double INITIAL_FLYWHEEL_SPEED = .5;
+    static final double FLYWHEEL_SPEED_INCREMENT = 0.05;
+    double topflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
+    double bottomflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
+
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -59,19 +68,58 @@ public class JellyfishTeleopOmni extends OpMode {
         double x;
         double y;
         double x2;
-        
-        //pushing y once will turn motor on, pushing it again will turn it off
+
+        //pushing y once will turn intake on, pushing it again will turn it off
 
         if ((prevY == false) &&
                 (gamepad2.y)) {
             intakeout = !intakeout;
-            //set motors to on or off
-            //if intakeout is true motor on
-            //if intakeout is false motor off
 
         }
 
         prevY = gamepad2.y;
+
+        if ((prevA == false) &&
+                (gamepad2.a)) {
+            intakein = !intakein;
+
+        }
+
+        prevA = gamepad2.a;
+
+        if(intakein) {
+            robot.intakeBeltMotor.setPower(1);
+            robot.conveyerBeltMotor.setPower(1);
+        }
+        else if (intakeout){
+            robot.intakeBeltMotor.setPower(-1);
+            robot.conveyerBeltMotor.setPower(-1);
+
+        }
+        else robot.intakeBeltMotor.setPower(0);
+        robot.conveyerBeltMotor.setPower(0);
+
+        //pushing rb once will turn flywheels on. pushing again will turn them off
+
+        if ((prevRB == false) &&
+                (gamepad2.right_bumper)) {
+            flywheel = !flywheel;
+
+        }
+        prevRB = gamepad2.right_bumper;
+
+        if(flywheel) {
+            robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
+            robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
+
+        }
+        else {
+            robot.flywheelTopMotorRampControl.setPowerTo(0);
+            robot.flywheelBottomMotorRampControl.setPowerTo(0);
+        }
+
+
+
 
         // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
         y = gamepad1.right_stick_y;
@@ -91,42 +139,58 @@ public class JellyfishTeleopOmni extends OpMode {
             robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
         }
 
+        //left and right beacon button pushers
+
         if (gamepad2.x)
-            robot.leftButtonPusherServo.setPosition(0.8);
-        else robot.leftButtonPusherServo.setPosition(0.5);
+            robot.leftButtonPusherServo.setPosition(1);
+        else robot.leftButtonPusherServo.setPosition(0);
 
         if (gamepad2.b)
-            robot.rightButtonPusherServo.setPosition(0.8);
-        else robot.rightButtonPusherServo.setPosition(0.5);
+            robot.rightButtonPusherServo.setPosition(0);
+        else robot.rightButtonPusherServo.setPosition(1);
 
-        if(gamepad2.a) {
-            //intake in
-            robot.intakeBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.intakeBeltMotor.setPower(1);
-        }
 
-        if(gamepad2.y) {
-            //intake out
-            robot.intakeBeltMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-            robot.intakeBeltMotor.setPower(-1);
-        }
+        //flywheel motors go faster or slower
 
-        if(gamepad2.right_bumper)  {
-            robot.flywheelTopMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.flywheelBottomMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-
+        if (gamepad2.dpad_down && gamepad2.right_trigger > 0){
+            bottomflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
+            bottomflywheelSpeed = Range.clip(bottomflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+            robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
 
         }
 
+        if (gamepad2.dpad_down && gamepad2.left_trigger > 0){
+            bottomflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
+            bottomflywheelSpeed = Range.clip(bottomflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+            robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
+
+        }
+
+        if (gamepad2.dpad_up && gamepad2.right_trigger > 0){
+            topflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
+            topflywheelSpeed = Range.clip(topflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+            robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
+
+        }
+
+        if (gamepad2.dpad_up && gamepad2.left_trigger > 0){
+            topflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
+            topflywheelSpeed = Range.clip(topflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+            robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
+
+        }
+
+        //motors start slow and get faster
+        robot.flywheelTopMotorRampControl.checkMotor();
+        robot.flywheelBottomMotorRampControl.checkMotor();
 
         // Send telemetry message to signify robot running;
-//            telemetry.addData("arm",   "%.2f", armPosition);
-//            telemetry.addData("claw",  "%.2f", clawPosition);
         telemetry.addData("x",  "%.2f", x);
         telemetry.addData("y", "%.2f", y);
         telemetry.addData("backleft", "%.2f", Range.clip(y + x, -1, 1));
         telemetry.addData("frontleft", "%.2f", Range.clip(y - x, -1, 1));
-        telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
+        telemetry.addData("conveyer", "%.2f", robot.conveyerBeltMotor.getPower());
+        //telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
         telemetry.update();
     }
 
