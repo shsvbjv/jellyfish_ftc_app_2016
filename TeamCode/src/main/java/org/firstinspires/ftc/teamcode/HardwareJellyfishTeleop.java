@@ -20,12 +20,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  *
  * Motor channel:  Left  drive motor:        "left motor"
  * Motor channel:  Right drive motor:        "right motor"
- * Servo channel:  Servo to raise/lower arm: "arm"
- * Servo channel:  Servo to open/close claw: "claw"
- *
- * Note: the configuration of the servos is such that:
- *   As the arm servo approaches 0, the arm position moves up (away from the floor).
- *   As the claw servo approaches 0, the claw opens up (drops the game element).
  */
 public class HardwareJellyfishTeleop
 {
@@ -112,7 +106,7 @@ public class HardwareJellyfishTeleop
         leftButtonPusherServo.setDirection(Servo.Direction.FORWARD);
 
         rightButtonPusherServo = hwMap.servo.get("right button push");
-        rightButtonPusherServo.setPosition(0);
+        rightButtonPusherServo.setPosition(1);
         rightButtonPusherServo.setDirection(Servo.Direction.FORWARD);
 
         flywheelTopMotorRampControl = new RampedMotorControl(flywheelTopMotor, 5.0);
