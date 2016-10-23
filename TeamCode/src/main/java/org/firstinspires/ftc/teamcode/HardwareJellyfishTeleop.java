@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
  * This is NOT an opmode.
- *NANDINI IS THE MOST AMAZING PERSON EVER!!!!!
+ * NANDINI IS THE MOST AMAZING PERSON EVER!!!!!
  * This class can be used to define all the specific hardware for a single robot.
  * In this case that robot is a K9 robot.
  *
@@ -34,13 +34,18 @@ public class HardwareJellyfishTeleop
     public DcMotor  frontRightMotor  = null;
     public DcMotor  backLeftMotor    = null;
     public DcMotor  backRightMotor   = null;
-    public Servo    leftButtonPusherServo = null;
-    public Servo    rightButtonPusherServo = null;
     public DcMotor  intakeBeltMotor = null;
     public DcMotor  flywheelTopMotor = null;
     public DcMotor  flywheelBottomMotor= null;
+    public DcMotor conveyerBeltMotor = null;
 
-    public ModernRoboticsI2cGyro gyro = null;
+    public RampedMotorControl flywheelTopMotorRampControl = null;
+    public RampedMotorControl flywheelBottomMotorRampControl = null;
+
+    public Servo    leftButtonPusherServo = null;
+    public Servo    rightButtonPusherServo = null;
+
+    //public ModernRoboticsI2cGyro gyro = null;
 
 
     /* Local OpMode members. */
@@ -64,9 +69,10 @@ public class HardwareJellyfishTeleop
         intakeBeltMotor = hwMap.dcMotor.get("intake");
         flywheelTopMotor = hwMap.dcMotor.get("flywheeltop");
         flywheelBottomMotor = hwMap.dcMotor.get("flywheelbottom");
+        conveyerBeltMotor = hwMap.dcMotor.get("conveyerbelt");
 
 
-        gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
+        //gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
         frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
@@ -77,12 +83,18 @@ public class HardwareJellyfishTeleop
         intakeBeltMotor.setPower(0);
         flywheelTopMotor.setPower(0);
         flywheelBottomMotor.setPower(0);
+        conveyerBeltMotor.setPower(0);
 
         //Set direction of all motors
-        frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        intakeBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        flywheelTopMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        flywheelBottomMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        conveyerBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -93,19 +105,23 @@ public class HardwareJellyfishTeleop
         intakeBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         flywheelTopMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         flywheelBottomMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        conveyerBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftButtonPusherServo = hwMap.servo.get("left button push");
-        leftButtonPusherServo.setPosition(0.5);
+        leftButtonPusherServo.setPosition(0);
         leftButtonPusherServo.setDirection(Servo.Direction.FORWARD);
 
         rightButtonPusherServo = hwMap.servo.get("right button push");
-        rightButtonPusherServo.setPosition(0.5);
+        rightButtonPusherServo.setPosition(0);
         rightButtonPusherServo.setDirection(Servo.Direction.FORWARD);
 
-        telemetry.addData(">", "Calibrating Gyro");    //
-        telemetry.update();
+        flywheelTopMotorRampControl = new RampedMotorControl(flywheelTopMotor, 5.0);
+        flywheelBottomMotorRampControl = new RampedMotorControl(flywheelBottomMotor, 5.0);
 
-        gyro.calibrate();
+//        telemetry.addData(">", "Calibrating Gyro");    //
+//        telemetry.update();
+
+       // gyro.calibrate();
 
         // make sure the gyro is calibrated before continuing
 //        while (gyro.isCalibrating())  {
