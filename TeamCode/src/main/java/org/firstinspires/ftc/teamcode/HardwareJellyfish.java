@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
  * This is NOT an opmode.
- * NANDINI IS THE MOST AMAZING PERSON EVER!!!!!
+ * NANDINI IS THE LEAST AMAZING PERSON EVER!!!!!
  * This class can be used to define all the specific hardware for a single robot.
  * In this case that robot is a K9 robot.
  *
@@ -21,7 +22,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Motor channel:  Left  drive motor:        "left motor"
  * Motor channel:  Right drive motor:        "right motor"
  */
-public class HardwareJellyfishTeleop
+public class HardwareJellyfish
 {
     /* Public OpMode members. */
     public DcMotor  frontLeftMotor   = null;
@@ -30,7 +31,7 @@ public class HardwareJellyfishTeleop
     public DcMotor  backRightMotor   = null;
     public DcMotor  intakeBeltMotor = null;
     public DcMotor  flywheelTopMotor = null;
-    public DcMotor  flywheelBottomMotor= null;
+    public DcMotor  flywheelBottomMotor = null;
     public DcMotor conveyerBeltMotor = null;
 
     public RampedMotorControl flywheelTopMotorRampControl = null;
@@ -38,6 +39,9 @@ public class HardwareJellyfishTeleop
 
     public Servo    leftButtonPusherServo = null;
     public Servo    rightButtonPusherServo = null;
+
+    //public ColorSensor colorSensor;
+
 
     //public ModernRoboticsI2cGyro gyro = null;
 
@@ -47,7 +51,7 @@ public class HardwareJellyfishTeleop
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public HardwareJellyfishTeleop() {
+    public HardwareJellyfish() {
     }
 
     /* Initialize standard Hardware interfaces */
@@ -64,6 +68,7 @@ public class HardwareJellyfishTeleop
         flywheelTopMotor = hwMap.dcMotor.get("flywheeltop");
         flywheelBottomMotor = hwMap.dcMotor.get("flywheelbottom");
         conveyerBeltMotor = hwMap.dcMotor.get("conveyerbelt");
+        //colorSensor = hwMap.colorSensor.get("color sensor");
 
 
         //gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
@@ -81,9 +86,9 @@ public class HardwareJellyfishTeleop
 
         //Set direction of all motors
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         intakeBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         flywheelTopMotor.setDirection(DcMotorSimple.Direction.FORWARD);

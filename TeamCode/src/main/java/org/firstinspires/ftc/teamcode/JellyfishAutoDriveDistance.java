@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -41,7 +42,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class JellyfishAutoDriveDistance extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareJellyfishAuto         robot   = new HardwareJellyfishAuto();   // Use a Pushbot's hardware
+    HardwareJellyfish         robot   = new HardwareJellyfish();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
@@ -59,7 +60,7 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, telemetry);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //

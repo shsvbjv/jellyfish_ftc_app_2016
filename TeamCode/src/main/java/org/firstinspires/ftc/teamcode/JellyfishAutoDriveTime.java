@@ -34,7 +34,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class JellyfishAutoDriveTime extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareJellyfishAuto         robot   = new HardwareJellyfishAuto();   // Use a Pushbot's hardware
+    HardwareJellyfish         robot   = new HardwareJellyfish();   // Use a Pushbot's hardware
 
              private ElapsedTime     runtime = new ElapsedTime();
 
@@ -51,7 +51,7 @@ public class JellyfishAutoDriveTime extends LinearOpMode {
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, telemetry);
 
 
         // Send telemetry message to signify robot waiting;
@@ -74,9 +74,9 @@ public class JellyfishAutoDriveTime extends LinearOpMode {
         //runtime < number of seconds to run robot
         while (opModeIsActive() && (runtime.seconds() < 3.0)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.addData(">", "Robot Heading = %d", robot.gyro.getIntegratedZValue());
-            telemetry.update();
-            idle();
+            //telemetry.addData(">", "Robot Heading = %d", robot.gyro.getIntegratedZValue());
+            //telemetry.update();
+             idle();
         }
         robot.frontLeftMotor.setPower(0);
         robot.frontRightMotor.setPower(0);
