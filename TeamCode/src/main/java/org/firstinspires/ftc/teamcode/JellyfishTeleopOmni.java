@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -18,10 +17,10 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Jellyfish: TeleOp Omni", group="Jellyfish")
 
-public class JellyfishTeleopOmni extends LinearOpMode {
+public class JellyfishTeleopOmni extends OpMode {
 
     /* Declare OpMode members. */
-    HardwareJellyfish   robot           = new HardwareJellyfish();              // Use a K9's hardware
+    HardwareJellyfishTeleop   robot           = new HardwareJellyfishTeleop();              // Use a K9's hardware
     //double          buttonPosition     = robot.BUTTON_HOME;
     final double    BUTTON_SPEED       = 0.01 ;
     boolean prevY = false;
@@ -40,7 +39,7 @@ public class JellyfishTeleopOmni extends LinearOpMode {
      * Code to run ONCE when the driver hits INIT
      */
     @Override
-    public void runOpMode() throws InterruptedException{
+    public void init() {
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
@@ -49,7 +48,23 @@ public class JellyfishTeleopOmni extends LinearOpMode {
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");    //
         updateTelemetry(telemetry);
+    }
 
+    /*
+     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+     */
+    @Override
+    public void init_loop() {
+    }
+
+    /*
+     * Code to run ONCE when the driver hits PLAY
+     */
+    @Override
+    public void start() {
+    }
+    @Override
+    public void loop(){
         double x;
         double y;
         double x2;
@@ -177,10 +192,6 @@ public class JellyfishTeleopOmni extends LinearOpMode {
         telemetry.addData("conveyer", "%.2f", robot.conveyerBeltMotor.getPower());
         //telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
         telemetry.update();
-
-        // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-        robot.waitForTick(40);
-        idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
     }
 
 }
