@@ -20,7 +20,7 @@ import com.qualcomm.robotcore.util.Range;
 public class JellyfishTeleopOmni extends OpMode {
 
     /* Declare OpMode members. */
-    HardwareJellyfishTeleop   robot           = new HardwareJellyfishTeleop();              // Use a K9's hardware
+    HardwareJellyfish   robot           = new HardwareJellyfish();              // Use a K9's hardware
     //double          buttonPosition     = robot.BUTTON_HOME;
     final double    BUTTON_SPEED       = 0.01 ;
     boolean prevY = false;
