@@ -41,10 +41,10 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class JellyfishAutoDriveDistance extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareJellyfishAuto         robot   = new HardwareJellyfishAuto();   // Use a Pushbot's hardware
+    HardwareJellyfish         robot   = new HardwareJellyfish();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
+    static final double     COUNTS_PER_MOTOR_REV    = 1220 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -59,7 +59,7 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, telemetry);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -89,7 +89,7 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  12,  12, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+        encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
         //encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
@@ -120,10 +120,10 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newFrontLeftTarget = robot.frontLeftMotor.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newFrontRightTarget = robot.frontRightMotor.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newBackLeftTarget = robot.backLeftMotor.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newBackRightTarget = robot.backRightMotor.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newFrontLeftTarget = robot.frontLeftMotor.getCurrentPosition() + (int)((leftInches * COUNTS_PER_INCH)/Math.sqrt(2));
+            newFrontRightTarget = robot.frontRightMotor.getCurrentPosition() + (int)((rightInches * COUNTS_PER_INCH)/Math.sqrt(2));
+            newBackLeftTarget = robot.backLeftMotor.getCurrentPosition() + (int)((leftInches * COUNTS_PER_INCH)/Math.sqrt(2));
+            newBackRightTarget = robot.backRightMotor.getCurrentPosition() + (int)((rightInches * COUNTS_PER_INCH)/Math.sqrt(2));
 
             robot.frontLeftMotor.setTargetPosition(newFrontLeftTarget);
             robot.frontRightMotor.setTargetPosition(newFrontRightTarget);
