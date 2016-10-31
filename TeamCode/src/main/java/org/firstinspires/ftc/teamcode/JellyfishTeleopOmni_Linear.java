@@ -29,11 +29,11 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     boolean intakeout = false;
     boolean intakein = false;
     boolean prevRB = false;
-    boolean flywheel = false;
-    static final double INITIAL_FLYWHEEL_SPEED = .5;
-    static final double FLYWHEEL_SPEED_INCREMENT = 0.05;
-    double topflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
-    double bottomflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
+    //boolean flywheel = false;
+//    static final double INITIAL_FLYWHEEL_SPEED = .5;
+//    static final double FLYWHEEL_SPEED_INCREMENT = 0.05;
+//    double topflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
+//    double bottomflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
 
 
     /*
@@ -78,31 +78,31 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
             if (intakein) {
                 robot.intakeBeltMotor.setPower(1);
-                robot.conveyerBeltMotor.setPower(1);
+                //robot.conveyerBeltMotor.setPower(1);
             } else if (intakeout) {
                 robot.intakeBeltMotor.setPower(-1);
-                robot.conveyerBeltMotor.setPower(-1);
+                //robot.conveyerBeltMotor.setPower(-1);
 
             } else robot.intakeBeltMotor.setPower(0);
-            robot.conveyerBeltMotor.setPower(0);
+            //robot.conveyerBeltMotor.setPower(0);
 
             //pushing rb once will turn flywheels on. pushing again will turn them off
 
-            if ((prevRB == false) &&
-                    (gamepad2.right_bumper)) {
-                flywheel = !flywheel;
+//            if ((prevRB == false) &&
+//                    (gamepad2.right_bumper)) {
+//                //flywheel = !flywheel;
+//
+//            }
+//            prevRB = gamepad2.right_bumper;
 
-            }
-            prevRB = gamepad2.right_bumper;
-
-            if (flywheel) {
-                robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
-                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
-
-            } else {
-                robot.flywheelTopMotorRampControl.setPowerTo(0);
-                robot.flywheelBottomMotorRampControl.setPowerTo(0);
-            }
+            //if (flywheel) {
+                //robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
+//                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
+//
+//            } else {
+//                robot.flywheelTopMotorRampControl.setPowerTo(0);
+//                robot.flywheelBottomMotorRampControl.setPowerTo(0);
+//            }
 
 
             // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
@@ -123,56 +123,57 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             }
 
             //left and right beacon button pushers
+            //start at .1 and +- .15
 
             if (gamepad2.x)
-                robot.leftButtonPusherServo.setPosition(1);
-            else robot.leftButtonPusherServo.setPosition(0);
+                robot.leftButtonPusherServo.setPosition(.25);
+            else if(gamepad2.b)
+                robot.leftButtonPusherServo.setPosition(.65);
+            else robot.leftButtonPusherServo.setPosition(.44);
 
-            if (gamepad2.b)
-                robot.rightButtonPusherServo.setPosition(0);
-            else robot.rightButtonPusherServo.setPosition(1);
+
 
 
             //flywheel motors go faster or slower
 
-            if (gamepad2.dpad_down && gamepad2.right_trigger > 0) {
-                bottomflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
-                bottomflywheelSpeed = Range.clip(bottomflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
+//            if (gamepad2.dpad_down && gamepad2.right_trigger > 0) {
+//                bottomflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
+//                bottomflywheelSpeed = Range.clip(bottomflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+//                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
+//
+//            }
+//
+//            if (gamepad2.dpad_down && gamepad2.left_trigger > 0) {
+//                bottomflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
+//                bottomflywheelSpeed = Range.clip(bottomflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+//                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
+//
+//            }
 
-            }
-
-            if (gamepad2.dpad_down && gamepad2.left_trigger > 0) {
-                bottomflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
-                bottomflywheelSpeed = Range.clip(bottomflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
-
-            }
-
-            if (gamepad2.dpad_up && gamepad2.right_trigger > 0) {
-                topflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
-                topflywheelSpeed = Range.clip(topflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-                robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
-
-            }
-
-            if (gamepad2.dpad_up && gamepad2.left_trigger > 0) {
-                topflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
-                topflywheelSpeed = Range.clip(topflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-                robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
-
-            }
+//            if (gamepad2.dpad_up && gamepad2.right_trigger > 0) {
+//                topflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
+//                topflywheelSpeed = Range.clip(topflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+//                robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
+//
+//            }
+//
+//            if (gamepad2.dpad_up && gamepad2.left_trigger > 0) {
+//                topflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
+//                topflywheelSpeed = Range.clip(topflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+//                robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
+//
+//            }
 
             //motors start slow and get faster
-            robot.flywheelTopMotorRampControl.checkMotor();
-            robot.flywheelBottomMotorRampControl.checkMotor();
+//            robot.flywheelTopMotorRampControl.checkMotor();
+//            robot.flywheelBottomMotorRampControl.checkMotor();
 
             // Send telemetry message to signify robot running;
             telemetry.addData("x", "%.2f", x);
             telemetry.addData("y", "%.2f", y);
             telemetry.addData("backleft", "%.2f", Range.clip(y + x, -1, 1));
             telemetry.addData("frontleft", "%.2f", Range.clip(y - x, -1, 1));
-            telemetry.addData("conveyer", "%.2f", robot.conveyerBeltMotor.getPower());
+            //telemetry.addData("conveyer", "%.2f", robot.conveyerBeltMotor.getPower());
             //telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
             telemetry.update();
 
