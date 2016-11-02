@@ -50,6 +50,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
         telemetry.addData("Say", "Hello Driver");    //
         telemetry.update();
 
+
         waitForStart();
 
         while (opModeIsActive()) {
@@ -173,9 +174,21 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             telemetry.addData("y", "%.2f", y);
             telemetry.addData("backleft", "%.2f", Range.clip(y + x, -1, 1));
             telemetry.addData("frontleft", "%.2f", Range.clip(y - x, -1, 1));
+            telemetry.addData("Clear", robot.colorSensor.alpha());
+            telemetry.addData("Red  ", robot.colorSensor.red());
+            telemetry.addData("Green", robot.colorSensor.green());
+            telemetry.addData("Blue ", robot.colorSensor.blue());
+
+            telemetry.addData("Raw",    robot.odsSensor.getRawLightDetected());
+            telemetry.addData("Normal", robot.odsSensor.getLightDetected());
+
+
+            //telemetry.addData("Hue", hsvValues[0]);
+
             //telemetry.addData("conveyer", "%.2f", robot.conveyerBeltMotor.getPower());
             //telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
             telemetry.update();
+
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
             robot.waitForTick(40);

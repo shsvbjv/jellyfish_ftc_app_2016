@@ -3,9 +3,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsAnalogOpticalDistanceSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -24,6 +26,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Motor channel:  Right drive motor:        "right motor"
  */
 public class HardwareJellyfish
+
 {
     /* Public OpMode members. */
     public DcMotor  frontLeftMotor   = null;
@@ -34,15 +37,18 @@ public class HardwareJellyfish
     public DcMotor  flywheelTopMotor = null;
     public DcMotor  flywheelBottomMotor= null;
 //    public DcMotor  conveyerBeltMotor = null;
+
+    public ColorSensor colorSensor;
+    OpticalDistanceSensor odsSensor;
 //
 //    public RampedMotorControl flywheelTopMotorRampControl = null;
 //    public RampedMotorControl flywheelBottomMotorRampControl = null;
 
     public Servo    leftButtonPusherServo = null;
 
-    //ModernRoboticsI2cGyro gyro    = null;
+    ModernRoboticsI2cGyro gyro    = null;
 //    ModernRoboticsI2cColorSensor colorSensor = null;
-//    ModernRoboticsAnalogOpticalDistanceSensor opticalDistanceSensor = null;
+    ModernRoboticsAnalogOpticalDistanceSensor opticalDistanceSensor = null;
 
 
 
@@ -71,10 +77,8 @@ public class HardwareJellyfish
 //        conveyerBeltMotor = hwMap.dcMotor.get("conveyerbelt");
 
 
-        //gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
-//        colorSensor = (ModernRoboticsI2cColorSensor)hwMap.colorSensor.get("color") ;
-//        opticalDistanceSensor = (ModernRoboticsAnalogOpticalDistanceSensor)
-//                                hwMap.opticalDistanceSensor.get("od") ;
+        gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
+        colorSensor = (ModernRoboticsI2cColorSensor)hwMap.colorSensor.get("color") ;
 
         // Set all motors to zero power
         frontLeftMotor.setPower(0);
@@ -111,26 +115,35 @@ public class HardwareJellyfish
         leftButtonPusherServo = hwMap.servo.get("left button push");
         leftButtonPusherServo.setPosition(.42);
         leftButtonPusherServo.setDirection(Servo.Direction.FORWARD);
+        boolean bLedOn = false;
+
+        // get a reference to our ColorSensor object.
+        colorSensor = hwMap.colorSensor.get("color");
+
+        // Set the LED in the beginning
+        colorSensor.enableLed(bLedOn);
+
+        odsSensor = hwMap.opticalDistanceSensor.get("ods");
 
 
 
-//        flywheelTopMotorRampControl = new RampedMotorControl(flywheelTopMotor, 5.0);
+        //flywheelTopMotorRampControl = new RampedMotorControl(flywheelTopMotor, 5.0);
 //        flywheelBottomMotorRampControl = new RampedMotorControl(flywheelBottomMotor, 5.0);
 
 //        telemetry.addData(">", "Calibrating Gyro");    //
 //        telemetry.update();
 
-       // gyro.calibrate();
+        gyro.calibrate();
 
-        // make sure the gyro is calibrated before continuing
-//        while (gyro.isCalibrating())  {
-//            try {
-//                Thread.sleep(50);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
+         //make sure the gyro is calibrated before continuing
+             while (gyro.isCalibrating())  {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
         telemetry.addData(">", "Robot Ready.");    //
         telemetry.update();
 
