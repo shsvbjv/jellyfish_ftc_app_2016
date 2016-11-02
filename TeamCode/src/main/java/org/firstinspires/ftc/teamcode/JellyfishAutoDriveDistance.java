@@ -89,8 +89,12 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        //encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+        encoderDrive(TURN_SPEED,   12, 0, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(TURN_SPEED,   0, 12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(TURN_SPEED,   12, 12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+
+
         //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
 
@@ -109,21 +113,23 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
      *  3) Driver stops the opmode running.
      */
     public void encoderDrive(double speed,
-                             double leftInches, double rightInches,
+                             double xInches, double yInches,
                              double timeoutS) throws InterruptedException {
         int newFrontLeftTarget;
         int newFrontRightTarget;
         int newBackLeftTarget;
         int newBackRightTarget;
 
+        yInches = -yInches;
+
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newFrontLeftTarget = robot.frontLeftMotor.getCurrentPosition() + (int)((leftInches * COUNTS_PER_INCH)/Math.sqrt(2));
-            newFrontRightTarget = robot.frontRightMotor.getCurrentPosition() + (int)((rightInches * COUNTS_PER_INCH)/Math.sqrt(2));
-            newBackLeftTarget = robot.backLeftMotor.getCurrentPosition() + (int)((leftInches * COUNTS_PER_INCH)/Math.sqrt(2));
-            newBackRightTarget = robot.backRightMotor.getCurrentPosition() + (int)((rightInches * COUNTS_PER_INCH)/Math.sqrt(2));
+            newFrontLeftTarget = robot.frontLeftMotor.getCurrentPosition() + (int)(((yInches - xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
+            newFrontRightTarget = robot.frontRightMotor.getCurrentPosition() + (int)(((yInches + xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
+            newBackLeftTarget = robot.backLeftMotor.getCurrentPosition() + (int)(((yInches + xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
+            newBackRightTarget = robot.backRightMotor.getCurrentPosition() + (int)(((yInches - xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
 
             robot.frontLeftMotor.setTargetPosition(newFrontLeftTarget);
             robot.frontRightMotor.setTargetPosition(newFrontRightTarget);
