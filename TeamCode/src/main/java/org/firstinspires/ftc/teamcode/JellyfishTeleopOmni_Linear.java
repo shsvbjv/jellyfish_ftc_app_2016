@@ -61,30 +61,29 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
             //pushing y once will turn intake on, pushing it again will turn it off
 
-            if ((prevY == false) &&
-                    (gamepad2.y)) {
-                intakeout = !intakeout;
+//            if ((prevY == false) &&
+//                    (gamepad2.y)) {
+//                intakeout = !intakeout;
+//
+//            }
+//
+//            prevY = gamepad2.y;
+//
+//            if ((prevA == false) &&
+//                    (gamepad2.a)) {
+//                intakein = !intakein;
+//
+//            }
 
-            }
-
-            prevY = gamepad2.y;
-
-            if ((prevA == false) &&
-                    (gamepad2.a)) {
-                intakein = !intakein;
-
-            }
-
-            prevA = gamepad2.a;
-
-            if (intakein) {
-                robot.intakeBeltMotor.setPower(1);
-                //robot.conveyerBeltMotor.setPower(1);
-            } else if (intakeout) {
-                robot.intakeBeltMotor.setPower(-1);
-                //robot.conveyerBeltMotor.setPower(-1);
-
-            } else robot.intakeBeltMotor.setPower(0);
+//            prevA = gamepad2.a;
+//
+//            if (intakein) {
+//                robot.intakeBeltMotor.setPower(1);
+//            } else if (intakeout) {
+//                robot.intakeBeltMotor.setPower(-1);
+//                //robot.conveyerBeltMotor.setPower(-1);
+//
+//            } else robot.intakeBeltMotor.setPower(0);
             //robot.conveyerBeltMotor.setPower(0);
 
             //pushing rb once will turn flywheels on. pushing again will turn them off
@@ -97,7 +96,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 //            prevRB = gamepad2.right_bumper;
 
             //if (flywheel) {
-                //robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
+            //robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
 //                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
 //
 //            } else {
@@ -131,6 +130,13 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             else if(gamepad2.b)
                 robot.leftButtonPusherServo.setPosition(.65);
             else robot.leftButtonPusherServo.setPosition(.44);
+            
+            if(gamepad2.a) {
+                robot.intakeBeltMotor.setPower(1);
+            }
+            if(gamepad2.y) {
+                robot.intakeBeltMotor.setPower(-1);
+            }
 
 
 
