@@ -34,8 +34,8 @@ public class HardwareJellyfish
     public DcMotor  backLeftMotor    = null;
     public DcMotor  backRightMotor   = null;
     public DcMotor  intakeBeltMotor = null;
-    public DcMotor  flywheelTopMotor = null;
-    public DcMotor  flywheelBottomMotor= null;
+    //public DcMotor  flywheelTopMotor = null;
+   // public DcMotor  flywheelBottomMotor= null;
 //    public DcMotor  conveyerBeltMotor = null;
 
     public ColorSensor colorSensor;
@@ -46,9 +46,9 @@ public class HardwareJellyfish
 
     public Servo    leftButtonPusherServo = null;
 
-    ModernRoboticsI2cGyro gyro    = null;
-//    ModernRoboticsI2cColorSensor colorSensor = null;
-    ModernRoboticsAnalogOpticalDistanceSensor opticalDistanceSensor = null;
+  //  ModernRoboticsI2cGyro gyro    = null;
+    //    ModernRoboticsI2cColorSensor colorSensor = null;
+   // ModernRoboticsAnalogOpticalDistanceSensor opticalDistanceSensor = null;
 
 
 
@@ -77,7 +77,7 @@ public class HardwareJellyfish
 //        conveyerBeltMotor = hwMap.dcMotor.get("conveyerbelt");
 
 
-        gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
+       // gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
         colorSensor = (ModernRoboticsI2cColorSensor)hwMap.colorSensor.get("color") ;
 
         // Set all motors to zero power
@@ -133,17 +133,17 @@ public class HardwareJellyfish
 //        telemetry.addData(">", "Calibrating Gyro");    //
 //        telemetry.update();
 
-        gyro.calibrate();
+        //gyro.calibrate();
 
-         //make sure the gyro is calibrated before continuing
-             while (gyro.isCalibrating())  {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        }
+        //make sure the gyro is calibrated before continuing
+//        while (gyro.isCalibrating())  {
+//            try {
+//                Thread.sleep(50);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
         telemetry.addData(">", "Robot Ready.");    //
         telemetry.update();
 
