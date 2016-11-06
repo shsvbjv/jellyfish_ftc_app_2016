@@ -39,7 +39,7 @@ public class HardwareJellyfish
 //    public DcMotor  conveyerBeltMotor = null;
 
     public ColorSensor colorSensor;
-    public OpticalDistanceSensor odsSensor;
+    //OpticalDistanceSensor odsSensor;
 //
 //    public RampedMotorControl flywheelTopMotorRampControl = null;
 //    public RampedMotorControl flywheelBottomMotorRampControl = null;
@@ -120,7 +120,7 @@ public class HardwareJellyfish
         // Set the LED in the beginning
         colorSensor.enableLed(bLedOn);
 
-        odsSensor = hwMap.opticalDistanceSensor.get("ods");
+        //odsSensor = hwMap.opticalDistanceSensor.get("ods");
 
 
 
