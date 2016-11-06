@@ -70,19 +70,21 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        encoderDrive(DRIVE_SPEED,  0 ,18, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,  0 ,32, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
-        encoderTurn(TURN_SPEED, -45, 4.0); // Turn left 45 degrees
+        encoderTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
 
-        encoderDrive(DRIVE_SPEED,   0, 26, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,   0, 30, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
-        encoderTurn(TURN_SPEED, -80, 4.0); // Turn left 100 degress
+        encoderTurn(TURN_SPEED, 65, 4.0); // Turn left 100 degress
 
         encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0 );
 
         beaconPress();
 
-        encoderDrive(DRIVE_SPEED, 47, 0, 4.0 ); //right
+        encoderDrive(DRIVE_SPEED, 50, 0, 4.0 ); //right
+
+        encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
 
         beaconPress();
 
@@ -262,11 +264,16 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
     public void beaconPress() throws InterruptedException {
         encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
 
+        sleep(500);
+
         if(robot.colorSensor.red() > robot.colorSensor.blue()) {
             return;
         }
-        else encoderDrive(DRIVE_SPEED, 0, -4, 4.0);
-        encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
+        else {
+            sleep(5000);
+            encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, 15, 4.0);
+        }
 
     }
 }
