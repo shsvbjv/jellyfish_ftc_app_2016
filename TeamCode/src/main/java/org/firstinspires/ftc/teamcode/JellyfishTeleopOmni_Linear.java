@@ -110,27 +110,28 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             x = gamepad1.right_stick_x;
             x2 = gamepad1.left_stick_x;
 
-            if (gamepad1.right_bumper) {
-                robot.backLeftMotor.setPower(Range.clip((y + x - x2) / 2, -1, 1));
-                robot.frontLeftMotor.setPower(Range.clip((y - x - x2) / 2, -1, 1));
-                robot.backRightMotor.setPower(Range.clip((y - x + x2) / 2, -1, 1));
-                robot.frontRightMotor.setPower(Range.clip((y + x + x2) / 2, -1, 1));
-            } else {
+//
                 robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
                 robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
                 robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
                 robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
-            }
+//
 
             //left and right beacon button pushers
             //start at .1 and +- .15
 
-            if (gamepad2.x)
+            if (gamepad2.x) {
                 robot.leftButtonPusherServo.setPosition(.25);
-            else if(gamepad2.b)
+            }
+            else if(gamepad2.b) {
                 robot.leftButtonPusherServo.setPosition(.65);
-            else robot.leftButtonPusherServo.setPosition(.44);
-            
+            }
+            else {
+                robot.leftButtonPusherServo.setPosition(.44);
+            }
+
+
+
             if(gamepad2.a) {
                 robot.intakeBeltMotor.setPower(1);
             }
@@ -186,8 +187,8 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             telemetry.addData("Green", robot.colorSensor.green());
             telemetry.addData("Blue ", robot.colorSensor.blue());
 
-            telemetry.addData("Raw",    robot.odsSensor.getRawLightDetected());
-            telemetry.addData("Normal", robot.odsSensor.getLightDetected());
+//            telemetry.addData("Raw",    robot.odsSensor.getRawLightDetected());
+//            telemetry.addData("Normal", robot.odsSensor.getLightDetected());
 
 
             //telemetry.addData("Hue", hsvValues[0]);
@@ -198,7 +199,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-            robot.waitForTick(40);
+            robot.waitForTick(20);
             idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
         }
     }
