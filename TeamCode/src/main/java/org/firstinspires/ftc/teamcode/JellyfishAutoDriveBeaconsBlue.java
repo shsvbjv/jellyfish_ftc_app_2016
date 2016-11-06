@@ -1,9 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  * Hit beacons
@@ -66,19 +70,19 @@ public class JellyfishAutoDriveBeaconsBlue extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        encoderDrive(DRIVE_SPEED,  0 ,18, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,  0 ,30, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
-        encoderTurn(TURN_SPEED, 45, 4.0); // Turn right 45 degrees
+        encoderTurn(TURN_SPEED, -45, 4.0); // Turn right 45 degrees
 
-        encoderDrive(DRIVE_SPEED,   0, 26, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,   0, 24, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
-        encoderTurn(TURN_SPEED, 80, 4.0); // Turn right 100 degress
-
-        encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0 );
+        encoderTurn(TURN_SPEED, -65, 4.0); // Turn right 100 degress
 
         beaconPress();
 
         encoderDrive(DRIVE_SPEED, -47, 0, 4.0 ); //left
+
+        encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
 
         beaconPress();
 
@@ -256,13 +260,18 @@ public class JellyfishAutoDriveBeaconsBlue extends LinearOpMode {
         }
     }
     public void beaconPress() throws InterruptedException {
-        encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, 27, 4.0);
 
-        if(robot.colorSensor.red() > robot.colorSensor.blue()) {
-            return;
+        sleep(500);
+
+        if(robot.colorSensor.blue() > robot.colorSensor.red()) {
+            encoderDrive(DRIVE_SPEED, 0, -2, 4.0);
         }
-        else encoderDrive(DRIVE_SPEED, 0, -4, 4.0);
-        encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
+        else {
+            sleep(5000);
+            encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, 15, 4.0);
+        }
 
     }
 }
