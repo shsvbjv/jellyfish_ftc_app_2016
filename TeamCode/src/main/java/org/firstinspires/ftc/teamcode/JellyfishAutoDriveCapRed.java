@@ -67,11 +67,9 @@ public class JellyfishAutoDriveCapRed extends LinearOpMode {
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
         encoderDrive(DRIVE_SPEED,   0, 23.5, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         sleep(100);
-        encoderTurn(TURN_SPEED, -45, 4.0); // Turn left 45 degrees
+        encoderTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
         sleep(100);
         encoderDrive(DRIVE_SPEED,   0, 24, 4.0);
-        sleep(100);
-        encoderDrive(DRIVE_SPEED, 6, 0, 4.0);
 
 
 
