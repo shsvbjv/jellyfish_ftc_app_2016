@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Push cap ball
  * Shoot at corner vortex
  * Park on corner vortex
- * NEED TO TEST
+ * TESTED
  */
 
 @Autonomous(name="Jellyfish: Auto Cap Shoot Blue", group="Jellyfish")
