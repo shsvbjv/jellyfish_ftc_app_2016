@@ -134,9 +134,10 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             if(gamepad2.a) {
                 robot.intakeBeltMotor.setPower(1);
             }
-            if(gamepad2.y) {
+            else if(gamepad2.y) {
                 robot.intakeBeltMotor.setPower(-1);
             }
+            else robot.intakeBeltMotor.setPower(0);
 
 
 

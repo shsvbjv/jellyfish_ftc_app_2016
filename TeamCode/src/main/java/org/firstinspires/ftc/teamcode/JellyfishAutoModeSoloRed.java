@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
@@ -36,9 +37,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Jellyfish: Auto Mode Solo", group="Jellyfish")
+@Autonomous(name="Jellyfish: Auto Mode Solo Red ", group="Jellyfish")
 
-public class JellyfishAutoModeSolo extends LinearOpMode {
+public class JellyfishAutoModeSoloRed extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJellyfish         robot   = new HardwareJellyfish();   // Use a Pushbot's hardware
@@ -92,17 +93,19 @@ public class JellyfishAutoModeSolo extends LinearOpMode {
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
         encoderDrive(DRIVE_SPEED,  0 ,18, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         sleep(500);
-        encoderTurn(TURN_SPEED, 60, 4.0); // Turn right 45 degrees
+        encoderTurn(TURN_SPEED, 45, 4.0); // Turn right 45 degrees
         sleep(500);
         encoderDrive(DRIVE_SPEED,   0, 23.5 * Math.sqrt(2), 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         sleep(500);
-        encoderTurn(TURN_SPEED, -135, 4.0); // Turn left 100 degress
+        encoderTurn(TURN_SPEED, 135, 4.0); // Turn left 100 degress
         sleep(500);
         encoderDrive(DRIVE_SPEED, 23.5,0, 4.0 );
         sleep(500);
-        //////////////ADD press button
+        encoderDrive(DRIVE_SPEED, -5.5, 0 , 4.0);
+        sleep(500);
+        beaconPress();
         encoderDrive(DRIVE_SPEED, 0, -47, 4.0 );
-        //////////////ADD press button
+        beaconPress();
         encoderDrive(DRIVE_SPEED, -23.5, 0, 4.0 );
         sleep(500);
         encoderTurn(TURN_SPEED, 30, 4.0);
@@ -280,5 +283,14 @@ public class JellyfishAutoModeSolo extends LinearOpMode {
 
             //  sleep(250);   // optional pause after each move
         }
+    }
+    public void beaconPress() throws InterruptedException {
+        if(robot.colorSensor.red() > robot.colorSensor.blue()) {
+                robot.leftButtonPusherServo.setPosition(.65);
+
+        }
+        else robot.leftButtonPusherServo.setPosition(.25);
+        sleep(1000);
+        robot.leftButtonPusherServo.setPosition(.44);
     }
 }

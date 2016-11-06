@@ -39,7 +39,7 @@ public class HardwareJellyfish
 //    public DcMotor  conveyerBeltMotor = null;
 
     public ColorSensor colorSensor;
-    OpticalDistanceSensor odsSensor;
+    public OpticalDistanceSensor odsSensor;
 //
 //    public RampedMotorControl flywheelTopMotorRampControl = null;
 //    public RampedMotorControl flywheelBottomMotorRampControl = null;
@@ -47,8 +47,6 @@ public class HardwareJellyfish
     public Servo    leftButtonPusherServo = null;
 
   //  ModernRoboticsI2cGyro gyro    = null;
-    //    ModernRoboticsI2cColorSensor colorSensor = null;
-   // ModernRoboticsAnalogOpticalDistanceSensor opticalDistanceSensor = null;
 
 
 
@@ -78,7 +76,6 @@ public class HardwareJellyfish
 
 
        // gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
-        colorSensor = (ModernRoboticsI2cColorSensor)hwMap.colorSensor.get("color") ;
 
         // Set all motors to zero power
         frontLeftMotor.setPower(0);
@@ -115,7 +112,7 @@ public class HardwareJellyfish
         leftButtonPusherServo = hwMap.servo.get("left button push");
         leftButtonPusherServo.setPosition(.42);
         leftButtonPusherServo.setDirection(Servo.Direction.FORWARD);
-        boolean bLedOn = false;
+        boolean bLedOn = true;
 
         // get a reference to our ColorSensor object.
         colorSensor = hwMap.colorSensor.get("color");
