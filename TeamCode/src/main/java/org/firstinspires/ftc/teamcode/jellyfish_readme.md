@@ -6,7 +6,21 @@ This is so everyone on the team is in sync with which files to be used to test-d
 This will also help track which code was used for which tournament.
 
 For example, 
-Nov6_tournament = "XYZ.java", "CONFIG.xml"
+rel_tourney1106 = "XYZ.java", "CONFIG.xml"
 
 **********
-Nov6_tournament = " ", " "
+rel_tourney1106 = 
+ 	HardwareJellyfish.java
+	JellyfishAutoCapShootBlue.java
+	JellyfishAutoCapShootRed.java
+	JellyfishAutoDriveBeaconsBlue.java
+	JellyfishAutoDriveBeaconsRed.java
+	JellyfishAutoDriveCapBlue.java
+	JellyfishAutoDriveCapRed.java
+	JellyfishAutoDriveDistance.java
+	JellyfishAutoModeSoloRed.java
+	JellyfishTeleopOmni.java
+	JellyfishTeleopOmni_Linear.java
+	RampedMotorControl.java
+	jellyfish_reame.md
+	
