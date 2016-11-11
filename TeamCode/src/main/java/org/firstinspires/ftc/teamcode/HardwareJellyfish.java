@@ -1,9 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsAnalogOpticalDistanceSensor;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -21,7 +25,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Motor channel:  Left  drive motor:        "left motor"
  * Motor channel:  Right drive motor:        "right motor"
  */
-public class HardwareJellyfishTeleop
+public class HardwareJellyfish
+
 {
     /* Public OpMode members. */
     public DcMotor  frontLeftMotor   = null;
@@ -29,17 +34,20 @@ public class HardwareJellyfishTeleop
     public DcMotor  backLeftMotor    = null;
     public DcMotor  backRightMotor   = null;
     public DcMotor  intakeBeltMotor = null;
-    public DcMotor  flywheelTopMotor = null;
-    public DcMotor  flywheelBottomMotor= null;
-    public DcMotor conveyerBeltMotor = null;
+    //public DcMotor  flywheelTopMotor = null;
+   // public DcMotor  flywheelBottomMotor= null;
+//    public DcMotor  conveyerBeltMotor = null;
 
-    public RampedMotorControl flywheelTopMotorRampControl = null;
-    public RampedMotorControl flywheelBottomMotorRampControl = null;
+    public ColorSensor colorSensor;
+    //OpticalDistanceSensor odsSensor;
+//
+//    public RampedMotorControl flywheelTopMotorRampControl = null;
+//    public RampedMotorControl flywheelBottomMotorRampControl = null;
 
     public Servo    leftButtonPusherServo = null;
-    public Servo    rightButtonPusherServo = null;
 
-    //public ModernRoboticsI2cGyro gyro = null;
+  //  ModernRoboticsI2cGyro gyro    = null;
+
 
 
     /* Local OpMode members. */
@@ -47,7 +55,7 @@ public class HardwareJellyfishTeleop
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public HardwareJellyfishTeleop() {
+    public HardwareJellyfish() {
     }
 
     /* Initialize standard Hardware interfaces */
@@ -60,14 +68,14 @@ public class HardwareJellyfishTeleop
         frontRightMotor  = hwMap.dcMotor.get("motor_rf");
         backLeftMotor   = hwMap.dcMotor.get("motor_lb");
         backRightMotor  = hwMap.dcMotor.get("motor_rb");
+
         intakeBeltMotor = hwMap.dcMotor.get("intake");
-        flywheelTopMotor = hwMap.dcMotor.get("flywheeltop");
-        flywheelBottomMotor = hwMap.dcMotor.get("flywheelbottom");
-        conveyerBeltMotor = hwMap.dcMotor.get("conveyerbelt");
+//        flywheelTopMotor = hwMap.dcMotor.get("flywheeltop");
+//        flywheelBottomMotor = hwMap.dcMotor.get("flywheelbottom");
+//        conveyerBeltMotor = hwMap.dcMotor.get("conveyerbelt");
 
 
-        //gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
-        frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+       // gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
 
         // Set all motors to zero power
         frontLeftMotor.setPower(0);
@@ -75,20 +83,20 @@ public class HardwareJellyfishTeleop
         backLeftMotor.setPower(0);
         backRightMotor.setPower(0);
         intakeBeltMotor.setPower(0);
-        flywheelTopMotor.setPower(0);
-        flywheelBottomMotor.setPower(0);
-        conveyerBeltMotor.setPower(0);
+//        flywheelTopMotor.setPower(0);
+//        flywheelBottomMotor.setPower(0);
+//        conveyerBeltMotor.setPower(0);
 
         //Set direction of all motors
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         intakeBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        flywheelTopMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        flywheelBottomMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        conveyerBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+//        flywheelTopMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+//        flywheelBottomMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//        conveyerBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -97,27 +105,34 @@ public class HardwareJellyfishTeleop
         backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        flywheelTopMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        flywheelBottomMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        conveyerBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        flywheelTopMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        flywheelBottomMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        conveyerBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftButtonPusherServo = hwMap.servo.get("left button push");
-        leftButtonPusherServo.setPosition(0);
+        leftButtonPusherServo.setPosition(.42);
         leftButtonPusherServo.setDirection(Servo.Direction.FORWARD);
+        boolean bLedOn = true;
 
-        rightButtonPusherServo = hwMap.servo.get("right button push");
-        rightButtonPusherServo.setPosition(1);
-        rightButtonPusherServo.setDirection(Servo.Direction.FORWARD);
+        // get a reference to our ColorSensor object.
+        colorSensor = hwMap.colorSensor.get("color");
 
-        flywheelTopMotorRampControl = new RampedMotorControl(flywheelTopMotor, 5.0);
-        flywheelBottomMotorRampControl = new RampedMotorControl(flywheelBottomMotor, 5.0);
+        // Set the LED in the beginning
+        colorSensor.enableLed(bLedOn);
+
+        //odsSensor = hwMap.opticalDistanceSensor.get("ods");
+
+
+
+        //flywheelTopMotorRampControl = new RampedMotorControl(flywheelTopMotor, 5.0);
+//        flywheelBottomMotorRampControl = new RampedMotorControl(flywheelBottomMotor, 5.0);
 
 //        telemetry.addData(">", "Calibrating Gyro");    //
 //        telemetry.update();
 
-       // gyro.calibrate();
+        //gyro.calibrate();
 
-        // make sure the gyro is calibrated before continuing
+        //make sure the gyro is calibrated before continuing
 //        while (gyro.isCalibrating())  {
 //            try {
 //                Thread.sleep(50);

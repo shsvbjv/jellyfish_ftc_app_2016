@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
@@ -36,9 +37,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Jellyfish: Auto Drive Distance", group="Jellyfish")
+@Autonomous(name="Jellyfish: Auto Mode Solo Red ", group="Jellyfish")
 
-public class JellyfishAutoDriveDistance extends LinearOpMode {
+public class JellyfishAutoModeSoloRed extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJellyfish         robot   = new HardwareJellyfish();   // Use a Pushbot's hardware
@@ -48,7 +49,7 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415);
+            (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
 
@@ -90,14 +91,26 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        encoderDrive(DRIVE_SPEED,   12, 0, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        sleep(2000);
+        encoderDrive(DRIVE_SPEED,  0 ,18, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        sleep(500);
         encoderTurn(TURN_SPEED, 45, 4.0); // Turn right 45 degrees
-        sleep(2000);
-        encoderDrive(DRIVE_SPEED,   0, 12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        sleep(2000);
-        encoderTurn(TURN_SPEED, -100, 4.0); // Turn left 100 degress
-
+        sleep(500);
+        encoderDrive(DRIVE_SPEED,   0, 23.5 * Math.sqrt(2), 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        sleep(500);
+        encoderTurn(TURN_SPEED, 135, 4.0); // Turn left 100 degress
+        sleep(500);
+        encoderDrive(DRIVE_SPEED, 23.5,0, 4.0 );
+        sleep(500);
+        encoderDrive(DRIVE_SPEED, -5.5, 0 , 4.0);
+        sleep(500);
+        beaconPress();
+        encoderDrive(DRIVE_SPEED, 0, -47, 4.0 );
+        beaconPress();
+        encoderDrive(DRIVE_SPEED, -23.5, 0, 4.0 );
+        sleep(500);
+        encoderTurn(TURN_SPEED, 30, 4.0);
+        sleep(500);
+        encoderDrive(DRIVE_SPEED, 0, 23.5 * Math.sqrt(2), 4.0);
 
 
 
@@ -157,22 +170,22 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
-                   (runtime.seconds() < timeoutS) &&
-                   (robot.frontLeftMotor.isBusy() &&
-                    robot.frontRightMotor.isBusy() &&
-                    robot.backLeftMotor.isBusy() &&
-                    robot.backRightMotor.isBusy())) {
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.frontLeftMotor.isBusy() &&
+                            robot.frontRightMotor.isBusy() &&
+                            robot.backLeftMotor.isBusy() &&
+                            robot.backRightMotor.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d :%7d :%7d", newFrontLeftTarget,
-                                                                    newFrontRightTarget,
-                                                                    newBackLeftTarget,
-                                                                    newBackRightTarget);
+                        newFrontRightTarget,
+                        newBackLeftTarget,
+                        newBackRightTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d :%7d :%7d",
-                                            robot.frontLeftMotor.getCurrentPosition(),
-                                            robot.frontRightMotor.getCurrentPosition(),
-                                            robot.backLeftMotor.getCurrentPosition(),
-                                            robot.backRightMotor.getCurrentPosition());
+                        robot.frontLeftMotor.getCurrentPosition(),
+                        robot.frontRightMotor.getCurrentPosition(),
+                        robot.backLeftMotor.getCurrentPosition(),
+                        robot.backRightMotor.getCurrentPosition());
                 telemetry.update();
 
                 // Allow time for other processes to run.
@@ -196,8 +209,8 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
     }
 
     public void encoderTurn(double speed,
-                             double degrees,
-                             double timeoutS) throws InterruptedException {
+                            double degrees,
+                            double timeoutS) throws InterruptedException {
         int newFrontLeftTarget;
         int newFrontRightTarget;
         int newBackLeftTarget;
@@ -270,5 +283,14 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
 
             //  sleep(250);   // optional pause after each move
         }
+    }
+    public void beaconPress() throws InterruptedException {
+        if(robot.colorSensor.red() > robot.colorSensor.blue()) {
+                robot.leftButtonPusherServo.setPosition(.65);
+
+        }
+        else robot.leftButtonPusherServo.setPosition(.25);
+        sleep(1000);
+        robot.leftButtonPusherServo.setPosition(.44);
     }
 }

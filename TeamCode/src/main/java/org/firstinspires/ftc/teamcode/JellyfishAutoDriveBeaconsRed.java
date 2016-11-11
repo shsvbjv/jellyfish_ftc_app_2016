@@ -1,4 +1,3 @@
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -6,39 +5,20 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
- * This file illustrates the concept of driving a path based on encoder counts.
- * It uses the common Pushbot hardware class to define the drive on the robot.
- * The code is structured as a LinearOpMode
- *
- * The code REQUIRES that you DO have encoders on the wheels,
- *   otherwise you would use: PushbotAutoDriveByTime;
- *
- *  This code ALSO requires that the drive Motors have been configured such that a positive
- *  power command moves them forwards, and causes the encoders to count UP.
- *
- *   The desired path in this example is:
- *   - Drive forward for 48 inches
- *   - Spin right for 12 Inches
- *   - Drive Backwards for 24 inches
- *   - Stop and close the claw.
- *
- *  The code is written using a method called: encoderDrive(speed, leftInches, rightInches, timeoutS)
- *  that performs the actual movement.
- *  This methods assumes that each movement is relative to the last stopping place.
- *  There are other ways to perform encoder based moves, but this method is probably the simplest.
- *  This code uses the RUN_TO_POSITION mode to enable the Motor controllers to generate the run profile
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ * Hit beacons
+ * Push cap ball
+ * Park on center vortex
+ * NEED TO TEST
  */
 
-@Autonomous(name="Jellyfish: Auto Drive Distance", group="Jellyfish")
+@Autonomous(name="Jellyfish: Auto Beacons Red ", group="Jellyfish")
 
-public class JellyfishAutoDriveDistance extends LinearOpMode {
+public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJellyfish         robot   = new HardwareJellyfish();   // Use a Pushbot's hardware
@@ -48,7 +28,7 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415);
+            (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
 
@@ -90,13 +70,23 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        encoderDrive(DRIVE_SPEED,   12, 0, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        sleep(2000);
-        encoderTurn(TURN_SPEED, 45, 4.0); // Turn right 45 degrees
-        sleep(2000);
-        encoderDrive(DRIVE_SPEED,   0, 12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        sleep(2000);
-        encoderTurn(TURN_SPEED, -100, 4.0); // Turn left 100 degress
+        encoderDrive(DRIVE_SPEED,  0 ,32, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+
+        encoderTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
+
+        encoderDrive(DRIVE_SPEED,   0, 30, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+
+        encoderTurn(TURN_SPEED, 65, 4.0); // Turn left 100 degress
+
+        encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0 );
+
+        beaconPress();
+
+        encoderDrive(DRIVE_SPEED, 50, 0, 4.0 ); //right
+
+        encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+
+        beaconPress();
 
 
 
@@ -157,22 +147,22 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
-                   (runtime.seconds() < timeoutS) &&
-                   (robot.frontLeftMotor.isBusy() &&
-                    robot.frontRightMotor.isBusy() &&
-                    robot.backLeftMotor.isBusy() &&
-                    robot.backRightMotor.isBusy())) {
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.frontLeftMotor.isBusy() &&
+                            robot.frontRightMotor.isBusy() &&
+                            robot.backLeftMotor.isBusy() &&
+                            robot.backRightMotor.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d :%7d :%7d", newFrontLeftTarget,
-                                                                    newFrontRightTarget,
-                                                                    newBackLeftTarget,
-                                                                    newBackRightTarget);
+                        newFrontRightTarget,
+                        newBackLeftTarget,
+                        newBackRightTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d :%7d :%7d",
-                                            robot.frontLeftMotor.getCurrentPosition(),
-                                            robot.frontRightMotor.getCurrentPosition(),
-                                            robot.backLeftMotor.getCurrentPosition(),
-                                            robot.backRightMotor.getCurrentPosition());
+                        robot.frontLeftMotor.getCurrentPosition(),
+                        robot.frontRightMotor.getCurrentPosition(),
+                        robot.backLeftMotor.getCurrentPosition(),
+                        robot.backRightMotor.getCurrentPosition());
                 telemetry.update();
 
                 // Allow time for other processes to run.
@@ -196,8 +186,8 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
     }
 
     public void encoderTurn(double speed,
-                             double degrees,
-                             double timeoutS) throws InterruptedException {
+                            double degrees,
+                            double timeoutS) throws InterruptedException {
         int newFrontLeftTarget;
         int newFrontRightTarget;
         int newBackLeftTarget;
@@ -270,5 +260,20 @@ public class JellyfishAutoDriveDistance extends LinearOpMode {
 
             //  sleep(250);   // optional pause after each move
         }
+    }
+    public void beaconPress() throws InterruptedException {
+        encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
+
+        sleep(500);
+
+        if(robot.colorSensor.red() > robot.colorSensor.blue()) {
+            return;
+        }
+        else {
+            sleep(5000);
+            encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, 15, 4.0);
+        }
+
     }
 }

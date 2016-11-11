@@ -72,7 +72,7 @@ public class RampedMotorControl {
     // checkMotor() - this should be called during the main loop. If a motor
     // isn't at the target speed, we'll move it towards that speed.
     //
-    void checkMotor(void)
+    void checkMotor()
     {
         long t = System.currentTimeMillis();
 
