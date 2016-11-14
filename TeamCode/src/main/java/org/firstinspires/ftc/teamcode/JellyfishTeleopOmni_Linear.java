@@ -120,15 +120,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             //left and right beacon button pushers
             //start at .1 and +- .15
 
-            if (gamepad2.x) {
-                robot.leftButtonPusherServo.setPosition(.25);
-            }
-            else if(gamepad2.b) {
-                robot.leftButtonPusherServo.setPosition(.65);
-            }
-            else {
-                robot.leftButtonPusherServo.setPosition(.44);
-            }
+
 
 
 
