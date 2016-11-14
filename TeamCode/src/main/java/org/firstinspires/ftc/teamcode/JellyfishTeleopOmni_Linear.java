@@ -1,173 +1,207 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsAnalogOpticalDistanceSensor;
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+import com.qualcomm.robotcore.util.Range;
 
 /**
- * This is NOT an opmode.
- * NANDINI IS THE MOST AMAZING PERSON EVER!!!!!
- * This class can be used to define all the specific hardware for a single robot.
- * In this case that robot is a K9 robot.
+ * This OpMode uses the common HardwareJellyfish class to define the devices on the robot.
+ * All device access is managed through the HardwareJellyfish class. (See this class for device names)
+ * The code is structured as a LinearOpMode
  *
- * This hardware class assumes the following device names have been configured on the robot:
- * Note:  All names are lower case and some have single spaces between words.
+ * This particular OpMode executes a basic Omni Drive Teleop for the bot
+ * It moves the bot in all directions
  *
- * Motor channel:  Left  drive motor:        "left motor"
- * Motor channel:  Right drive motor:        "right motor"
  */
-public class HardwareJellyfish
 
-{
-    /* Public OpMode members. */
-    public DcMotor  frontLeftMotor   = null;
-    public DcMotor  frontRightMotor  = null;
-    public DcMotor  backLeftMotor    = null;
-    public DcMotor  backRightMotor   = null;
-    public DcMotor  intakeBeltMotor = null;
-    //public DcMotor  flywheelTopMotor = null;
-   // public DcMotor  flywheelBottomMotor= null;
-//    public DcMotor  conveyerBeltMotor = null;
+@TeleOp(name="Jellyfish: TeleOp Omni Linear", group="Jellyfish")
 
-    public ColorSensor colorSensor;
-    OpticalDistanceSensor odsSensorL;
-    OpticalDistanceSensor odsSensorR;
-//
-//    public RampedMotorControl flywheelTopMotorRampControl = null;
-//    public RampedMotorControl flywheelBottomMotorRampControl = null;
+public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
-   // public Servo    leftButtonPusherServo = null;
-
-   ModernRoboticsI2cGyro gyro    = null;
+    /* Declare OpMode members. */
+    HardwareJellyfish   robot           = new HardwareJellyfish();
+    //double          buttonPosition     = robot.BUTTON_HOME;
+    final double    BUTTON_SPEED       = 0.01 ;
+    boolean prevY = false;
+    boolean prevA = false;
+    boolean intakeout = false;
+    boolean intakein = false;
+    boolean prevRB = false;
+    //boolean flywheel = false;
+//    static final double INITIAL_FLYWHEEL_SPEED = .5;
+//    static final double FLYWHEEL_SPEED_INCREMENT = 0.05;
+//    double topflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
+//    double bottomflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
 
 
-
-    /* Local OpMode members. */
-    HardwareMap hwMap  = null;
-    private ElapsedTime period  = new ElapsedTime();
-
-    /* Constructor */
-    public HardwareJellyfish() {
-    }
-
-    /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap, Telemetry telemetry) {
-        // save reference to HW Map
-        hwMap = ahwMap;
-
-        // Define and Initialize Motors
-        frontLeftMotor   = hwMap.dcMotor.get("motor_lf");
-        frontRightMotor  = hwMap.dcMotor.get("motor_rf");
-        backLeftMotor   = hwMap.dcMotor.get("motor_lb");
-        backRightMotor  = hwMap.dcMotor.get("motor_rb");
-
-        intakeBeltMotor = hwMap.dcMotor.get("intake");
-//        flywheelTopMotor = hwMap.dcMotor.get("flywheeltop");
-//        flywheelBottomMotor = hwMap.dcMotor.get("flywheelbottom");
-//        conveyerBeltMotor = hwMap.dcMotor.get("conveyerbelt");
-
-
-        gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
-
-        // Set all motors to zero power
-        frontLeftMotor.setPower(0);
-        frontRightMotor.setPower(0);
-        backLeftMotor.setPower(0);
-        backRightMotor.setPower(0);
-        intakeBeltMotor.setPower(0);
-//        flywheelTopMotor.setPower(0);
-//        flywheelBottomMotor.setPower(0);
-//        conveyerBeltMotor.setPower(0);
-
-        //Set direction of all motors
-        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        intakeBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-//        flywheelTopMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-//        flywheelBottomMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-//        conveyerBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        // Set all motors to run without encoders.
-        // May want to use RUN_USING_ENCODERS if encoders are installed.
-        frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        intakeBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        flywheelTopMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        flywheelBottomMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        conveyerBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-//        leftButtonPusherServo = hwMap.servo.get("left button push");
-//        leftButtonPusherServo.setPosition(.42);
-//        leftButtonPusherServo.setDirection(Servo.Direction.FORWARD);
-        boolean bLedOn = true;
-
-        // get a reference to our ColorSensor object.
-        colorSensor = hwMap.colorSensor.get("color");
-
-        // Set the LED in the beginning
-        colorSensor.enableLed(bLedOn);
-
-        odsSensorL = hwMap.opticalDistanceSensor.get("odsleft");
-        odsSensorR = hwMap.opticalDistanceSensor.get("odsright");
-
-
-
-
-        //flywheelTopMotorRampControl = new RampedMotorControl(flywheelTopMotor, 5.0);
-//        flywheelBottomMotorRampControl = new RampedMotorControl(flywheelBottomMotor, 5.0);
-
-        telemetry.addData(">", "Calibrating Gyro");    //
-        telemetry.update();
-
-        gyro.calibrate();
-
-        //make sure the gyro is calibrated before continuing
-        while (gyro.isCalibrating())  {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        }
-        telemetry.addData(">", "Robot Ready.");    //
-        telemetry.update();
-
-
-    }
-
-    /***
-     *
-     * waitForTick implements a periodic delay. However, this acts like a metronome with a regular
-     * periodic tick.  This is used to compensate for varying processing times for each cycle.
-     * The function looks at the elapsed cycle time, and sleeps for the remaining time interval.
-     *
-     * @param periodMs  Length of wait cycle in mSec.
-     * @throws InterruptedException
+    /*
+     * Code to run ONCE when the driver hits INIT
      */
-    public void waitForTick(long periodMs)  throws InterruptedException {
+    @Override
+    public void runOpMode() throws InterruptedException {
+        /* Initialize the hardware variables.
+         * The init() method of the hardware class does all the work here
+         */
+        robot.init(hardwareMap, telemetry);
 
-        long  remaining = periodMs - (long)period.milliseconds();
+        // Send telemetry message to signify robot waiting;
+        telemetry.addData("Say", "Hello Driver");    //
+        telemetry.update();
 
-        // sleep for the remaining portion of the regular cycle period.
-        if (remaining > 0)
-            Thread.sleep(remaining);
 
-        // Reset the cycle clock for the next pass.
-        period.reset();
+        waitForStart();
+
+        while (opModeIsActive()) {
+
+            double x;
+            double y;
+            double x2;
+
+            //pushing y once will turn intake on, pushing it again will turn it off
+
+//            if ((prevY == false) &&
+//                    (gamepad2.y)) {
+//                intakeout = !intakeout;
+//
+//            }
+//
+//            prevY = gamepad2.y;
+//
+//            if ((prevA == false) &&
+//                    (gamepad2.a)) {
+//                intakein = !intakein;
+//
+//            }
+
+//            prevA = gamepad2.a;
+//
+//            if (intakein) {
+//                robot.intakeBeltMotor.setPower(1);
+//            } else if (intakeout) {
+//                robot.intakeBeltMotor.setPower(-1);
+//                //robot.conveyerBeltMotor.setPower(-1);
+//
+//            } else robot.intakeBeltMotor.setPower(0);
+            //robot.conveyerBeltMotor.setPower(0);
+
+            //pushing rb once will turn flywheels on. pushing again will turn them off
+
+//            if ((prevRB == false) &&
+//                    (gamepad2.right_bumper)) {
+//                //flywheel = !flywheel;
+//
+//            }
+//            prevRB = gamepad2.right_bumper;
+
+            //if (flywheel) {
+            //robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
+//                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
+//
+//            } else {
+//                robot.flywheelTopMotorRampControl.setPowerTo(0);
+//                robot.flywheelBottomMotorRampControl.setPowerTo(0);
+//            }
+
+
+            // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
+            y = gamepad1.right_stick_y;
+            x = gamepad1.right_stick_x;
+            x2 = gamepad1.left_stick_x;
+
+//
+                robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
+                robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
+                robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
+                robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
+//
+
+            //left and right beacon button pushers
+            //start at .1 and +- .15
+
+//            if (gamepad2.x) {
+//                robot.leftButtonPusherServo.setPosition(.25);
+//            }
+//            else if(gamepad2.b) {
+//                robot.leftButtonPusherServo.setPosition(.65);
+//            }
+//            else {
+//                robot.leftButtonPusherServo.setPosition(.44);
+//            }
+
+
+
+            if(gamepad2.a) {
+                robot.intakeBeltMotor.setPower(1);
+            }
+            else if(gamepad2.y) {
+                robot.intakeBeltMotor.setPower(-1);
+            }
+            else robot.intakeBeltMotor.setPower(0);
+
+
+
+
+            //flywheel motors go faster or slower
+
+//            if (gamepad2.dpad_down && gamepad2.right_trigger > 0) {
+//                bottomflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
+//                bottomflywheelSpeed = Range.clip(bottomflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+//                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
+//
+//            }
+//
+//            if (gamepad2.dpad_down && gamepad2.left_trigger > 0) {
+//                bottomflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
+//                bottomflywheelSpeed = Range.clip(bottomflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+//                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
+//
+//            }
+
+//            if (gamepad2.dpad_up && gamepad2.right_trigger > 0) {
+//                topflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
+//                topflywheelSpeed = Range.clip(topflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+//                robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
+//
+//            }
+//
+//            if (gamepad2.dpad_up && gamepad2.left_trigger > 0) {
+//                topflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
+//                topflywheelSpeed = Range.clip(topflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+//                robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
+//
+//            }
+
+            //motors start slow and get faster
+//            robot.flywheelTopMotorRampControl.checkMotor();
+//            robot.flywheelBottomMotorRampControl.checkMotor();
+
+            // Send telemetry message to signify robot running;
+
+            telemetry.addData("Clear", robot.colorSensor.alpha());
+            telemetry.addData("Red  ", robot.colorSensor.red());
+            telemetry.addData("Green", robot.colorSensor.green());
+            telemetry.addData("Blue ", robot.colorSensor.blue());
+
+            telemetry.addData("Raw Left",  "%.2f",  robot.odsSensorL.getRawLightDetected());
+            telemetry.addData("Normal Left", "%.2f", robot.odsSensorL.getLightDetected());
+
+            telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
+            telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
+
+
+
+            //telemetry.addData("Hue", hsvValues[0]);
+
+            //telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
+            telemetry.update();
+
+
+            // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
+            robot.waitForTick(20);
+            idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+        }
     }
+
 }
