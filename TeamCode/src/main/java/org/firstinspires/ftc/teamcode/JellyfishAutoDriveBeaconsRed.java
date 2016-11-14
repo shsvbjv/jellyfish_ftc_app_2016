@@ -72,27 +72,21 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
         encoderDrive(DRIVE_SPEED,  0 ,32, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
-        encoderTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
+        turn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
 
-        encoderDrive(DRIVE_SPEED,   0, 30, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,   0, 30, 4.0);
 
-        encoderTurn(TURN_SPEED, 65, 4.0); // Turn left 100 degress
+        encoderTurn(TURN_SPEED, 65, 4.0); // Turn left 65 degress
 
         encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0 );
 
         beaconPress();
 
-        encoderDrive(DRIVE_SPEED, 50, 0, 4.0 ); //right
+        encoderDrive(DRIVE_SPEED, 50, 0, 4.0 ); // move right
 
         encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
 
         beaconPress();
-
-
-
-
-        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
-
 
         sleep(1000);     // pause for servos to move
 
@@ -261,6 +255,29 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
+
+    
+    public void turn(double speed,
+                            double degrees,
+                            double timeoutS) throws InterruptedException {
+
+        double final_heading = robot.gyro.getHeading() + degrees;
+
+        encoderTurn(speed, degrees, timeoutS);
+
+        while (robot.gyro.getHeading() < (final_heading - .5) || robot.gyro.getHeading() > (final_heading + .5)) {
+
+            if (robot.gyro.getHeading() < (final_heading - .5)) {
+
+                encoderTurn(speed, 1, 1.0);
+
+            } else {
+                encoderTurn(speed, -1, 1.0);
+            }
+
+        }
+    }
+
     public void beaconPress() throws InterruptedException {
         encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
 
