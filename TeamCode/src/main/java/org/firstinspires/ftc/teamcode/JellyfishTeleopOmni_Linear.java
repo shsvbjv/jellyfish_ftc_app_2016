@@ -185,7 +185,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             telemetry.addData("Blue ", robot.colorSensor.blue());
 
             telemetry.addData("Raw Left",  "%.2f",  robot.odsSensorL.getRawLightDetected());
-            telemetry.addData("Normal Left", "%.2f", robot.odsSensorL.getLightDetected());
+            telemetry.addData("Raw Right", "%.2f", robot.odsSensorR.getRawLightDetected());
 
             telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
             telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
