@@ -91,7 +91,7 @@ public class ODStest extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
         //encoderDrive(DRIVE_SPEED,   12, 0, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDriveWithODSLeft(0.1, 30, 0, 4.0);
+        encoderDriveWithODSLeft(0.05, 30, 0, 4.0);
 
 
         //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
@@ -231,29 +231,29 @@ public class ODStest extends LinearOpMode {
                             robot.frontRightMotor.isBusy() &&
                             robot.backLeftMotor.isBusy() &&
                             robot.backRightMotor.isBusy())&&
-                    robot.odsSensorL.getRawLightDetected()<0.2)
-
+                    robot.odsSensorL.getRawLightDetected()<0.25) {
 
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d :%7d :%7d", newFrontLeftTarget,
+                telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", newFrontLeftTarget,
                         newFrontRightTarget,
                         newBackLeftTarget,
                         newBackRightTarget);
-            telemetry.addData("Path2",  "Running at %7d :%7d :%7d :%7d",
-                    robot.frontLeftMotor.getCurrentPosition(),
-                    robot.frontRightMotor.getCurrentPosition(),
-                    robot.backLeftMotor.getCurrentPosition(),
-                    robot.backRightMotor.getCurrentPosition());
+                telemetry.addData("Path2", "Running at %7d :%7d :%7d :%7d",
+                        robot.frontLeftMotor.getCurrentPosition(),
+                        robot.frontRightMotor.getCurrentPosition(),
+                        robot.backLeftMotor.getCurrentPosition(),
+                        robot.backRightMotor.getCurrentPosition());
 
-            telemetry.addData("right", "%.2f", robot.odsSensorR.getRawLightDetected());
-            telemetry.addData("left", "%.2f", robot.odsSensorL.getRawLightDetected());
+                telemetry.addData("right", "%.2f", robot.odsSensorR.getRawLightDetected());
+                telemetry.addData("left", "%.2f", robot.odsSensorL.getRawLightDetected());
 
 
-            telemetry.update();
+                telemetry.update();
 
-            // Allow time for other processes to run.
-            idle();
+                // Allow time for other processes to run.
+                idle();
+            }
         }
 
         // Stop all motion;
@@ -315,16 +315,15 @@ public class ODStest extends LinearOpMode {
                             robot.frontRightMotor.isBusy() &&
                             robot.backLeftMotor.isBusy() &&
                             robot.backRightMotor.isBusy())&&
-                    robot.odsSensorR.getRawLightDetected()<0.1)
-
+                    robot.odsSensorR.getRawLightDetected()<0.1) {
 
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d :%7d :%7d", newFrontLeftTarget,
+                telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", newFrontLeftTarget,
                         newFrontRightTarget,
                         newBackLeftTarget,
                         newBackRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d :%7d :%7d",
+                telemetry.addData("Path2", "Running at %7d :%7d :%7d :%7d",
                         robot.frontLeftMotor.getCurrentPosition(),
                         robot.frontRightMotor.getCurrentPosition(),
                         robot.backLeftMotor.getCurrentPosition(),
@@ -338,6 +337,7 @@ public class ODStest extends LinearOpMode {
 
                 // Allow time for other processes to run.
                 idle();
+            }
             }
 
             // Stop all motion;
