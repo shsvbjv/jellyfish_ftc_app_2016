@@ -194,7 +194,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             //telemetry.addData("Hue", hsvValues[0]);
 
             //telemetry.addData("conveyer", "%.2f", robot.conveyerBeltMotor.getPower());
-            //telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
+            telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
             telemetry.update();
 
 

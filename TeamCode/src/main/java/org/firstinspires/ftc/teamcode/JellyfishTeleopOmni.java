@@ -188,7 +188,7 @@ public class JellyfishTeleopOmni extends OpMode {
         telemetry.addData("backleft", "%.2f", Range.clip(y + x, -1, 1));
         telemetry.addData("frontleft", "%.2f", Range.clip(y - x, -1, 1));
         //telemetry.addData("conveyer", "%.2f", robot.conveyerBeltMotor.getPower());
-        //telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
+        telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
         telemetry.update();
     }
 

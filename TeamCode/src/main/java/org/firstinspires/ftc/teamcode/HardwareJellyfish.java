@@ -46,7 +46,7 @@ public class HardwareJellyfish
 
     public Servo    leftButtonPusherServo = null;
 
-  //  ModernRoboticsI2cGyro gyro    = null;
+    ModernRoboticsI2cGyro gyro    = null;
 
 
 
@@ -75,7 +75,7 @@ public class HardwareJellyfish
 //        conveyerBeltMotor = hwMap.dcMotor.get("conveyerbelt");
 
 
-       // gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
+        gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
 
         // Set all motors to zero power
         frontLeftMotor.setPower(0);
@@ -127,20 +127,20 @@ public class HardwareJellyfish
         //flywheelTopMotorRampControl = new RampedMotorControl(flywheelTopMotor, 5.0);
 //        flywheelBottomMotorRampControl = new RampedMotorControl(flywheelBottomMotor, 5.0);
 
-//        telemetry.addData(">", "Calibrating Gyro");    //
-//        telemetry.update();
+        telemetry.addData(">", "Calibrating Gyro");    //
+        telemetry.update();
 
-        //gyro.calibrate();
+        gyro.calibrate();
 
         //make sure the gyro is calibrated before continuing
-//        while (gyro.isCalibrating())  {
-//            try {
-//                Thread.sleep(50);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
+        while (gyro.isCalibrating())  {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
         telemetry.addData(">", "Robot Ready.");    //
         telemetry.update();
 
