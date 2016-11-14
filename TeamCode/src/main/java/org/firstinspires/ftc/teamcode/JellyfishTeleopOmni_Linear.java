@@ -120,7 +120,15 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             //left and right beacon button pushers
             //start at .1 and +- .15
 
-
+//            if (gamepad2.x) {
+//                robot.leftButtonPusherServo.setPosition(.25);
+//            }
+//            else if(gamepad2.b) {
+//                robot.leftButtonPusherServo.setPosition(.65);
+//            }
+//            else {
+//                robot.leftButtonPusherServo.setPosition(.44);
+//            }
 
 
 
@@ -170,17 +178,18 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 //            robot.flywheelBottomMotorRampControl.checkMotor();
 
             // Send telemetry message to signify robot running;
-            telemetry.addData("x", "%.2f", x);
-            telemetry.addData("y", "%.2f", y);
-            telemetry.addData("backleft", "%.2f", Range.clip(y + x, -1, 1));
-            telemetry.addData("frontleft", "%.2f", Range.clip(y - x, -1, 1));
+
             telemetry.addData("Clear", robot.colorSensor.alpha());
             telemetry.addData("Red  ", robot.colorSensor.red());
             telemetry.addData("Green", robot.colorSensor.green());
             telemetry.addData("Blue ", robot.colorSensor.blue());
 
-//            telemetry.addData("Raw",    robot.odsSensor.getRawLightDetected());
-//            telemetry.addData("Normal", robot.odsSensor.getLightDetected());
+            telemetry.addData("Raw Left",  "%.2f",  robot.odsSensorL.getRawLightDetected());
+            telemetry.addData("Normal Left", "%.2f", robot.odsSensorL.getLightDetected());
+
+            telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
+            telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
+
 
 
             //telemetry.addData("Hue", hsvValues[0]);
