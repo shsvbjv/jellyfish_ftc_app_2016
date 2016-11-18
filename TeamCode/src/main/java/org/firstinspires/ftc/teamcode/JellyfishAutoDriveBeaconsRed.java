@@ -255,6 +255,106 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
+    public void gyroTurnCounterClock(double speed,
+                                  double degrees,
+                                  double timeoutS) throws InterruptedException {
+
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.frontLeftMotor.setPower(Math.abs(speed));
+            robot.frontRightMotor.setPower(Math.abs(speed));
+            robot.backLeftMotor.setPower(Math.abs(speed));
+            robot.backRightMotor.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.gyro.getHeading() != degrees)) {
+
+
+
+                // Display it for the driver.
+
+                telemetry.addData("gyro",  "%7d", robot.gyro.getHeading());
+
+                telemetry.update();
+
+                // Allow time for other processes to run.
+                idle();
+            }
+
+            // Stop all motion;
+            robot.frontLeftMotor.setPower(0);
+            robot.frontRightMotor.setPower(0);
+            robot.backLeftMotor.setPower(0);
+            robot.backRightMotor.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
+
+    public void gyroTurnClockwise(double speed,
+                                  double degrees,
+                                  double timeoutS) throws InterruptedException {
+
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.frontLeftMotor.setPower(Math.abs(speed));
+            robot.frontRightMotor.setPower(Math.abs(speed));
+            robot.backLeftMotor.setPower(Math.abs(speed));
+            robot.backRightMotor.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.gyro.getHeading() != degrees)) {
+
+
+                // Display it for the driver.
+
+                telemetry.addData("gyro",  "%7d", robot.gyro.getHeading());
+
+                telemetry.update();
+
+                // Allow time for other processes to run.
+                idle();
+            }
+
+            // Stop all motion;
+            robot.frontLeftMotor.setPower(0);
+            robot.frontRightMotor.setPower(0);
+            robot.backLeftMotor.setPower(0);
+            robot.backRightMotor.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
 
     
     public void turn(double speed,
@@ -275,6 +375,18 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
                 encoderTurn(speed, -1, 1.0);
             }
 
+        }
+    }
+
+    public void gyroTurn(double speed,
+                         double degrees,
+                         double timeoutS) throws InterruptedException {
+
+        if(robot.gyro.getHeading() < degrees) {
+            gyroTurnClockwise(speed, degrees, timeoutS);
+        }
+        else {
+            gyroTurnCounterClock(speed, degrees, timeoutS);
         }
     }
 
