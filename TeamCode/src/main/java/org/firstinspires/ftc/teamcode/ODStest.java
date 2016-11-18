@@ -231,7 +231,7 @@ public class ODStest extends LinearOpMode {
                             robot.frontRightMotor.isBusy() &&
                             robot.backLeftMotor.isBusy() &&
                             robot.backRightMotor.isBusy())&&
-                    robot.odsSensorL.getRawLightDetected()<0.25) {
+                    robot.odsSensorL.getRawLightDetected()<0.3) {
 
 
                 // Display it for the driver.
