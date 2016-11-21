@@ -72,7 +72,7 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
         encoderDrive(DRIVE_SPEED,  0 ,32, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
-        turn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
+        gyroTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
 
         encoderDrive(DRIVE_SPEED,   0, 30, 4.0);
 
@@ -255,67 +255,20 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
-    public void gyroTurnCounterClock(double speed,
-                                  double degrees,
-                                  double timeoutS) throws InterruptedException {
-
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-            // Determine new target position, and pass to motor controller
-
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            robot.frontLeftMotor.setPower(Math.abs(speed));
-            robot.frontRightMotor.setPower(Math.abs(speed));
-            robot.backLeftMotor.setPower(Math.abs(speed));
-            robot.backRightMotor.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
-                    (robot.gyro.getHeading() != degrees)) {
-
-
-
-                // Display it for the driver.
-
-                telemetry.addData("gyro",  "%7d", robot.gyro.getHeading());
-
-                telemetry.update();
-
-                // Allow time for other processes to run.
-                idle();
-            }
-
-            // Stop all motion;
-            robot.frontLeftMotor.setPower(0);
-            robot.frontRightMotor.setPower(0);
-            robot.backLeftMotor.setPower(0);
-            robot.backRightMotor.setPower(0);
-
-            // Turn off RUN_TO_POSITION
-            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
-        }
-    }
 
     public void gyroTurnClockwise(double speed,
                                   double degrees,
                                   double timeoutS) throws InterruptedException {
 
-
+        degrees = -degrees;
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
-            // Determine new target position, and pass to motor controller
 
+            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
             // reset the timeout time and start motion.
             runtime.reset();
@@ -327,13 +280,63 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (robot.gyro.getHeading() != degrees)) {
+                    (robot.gyro.getHeading() < degrees) ) {
 
 
                 // Display it for the driver.
 
-                telemetry.addData("gyro",  "%7d", robot.gyro.getHeading());
+                telemetry.addData("Gyro",  ":%3d", robot.gyro.getHeading());
+                telemetry.update();
 
+                // Allow time for other processes to run.
+                idle();
+
+                sleep(10);
+            }
+
+            // Stop all motion;
+            robot.frontLeftMotor.setPower(0);
+            robot.frontRightMotor.setPower(0);
+            robot.backLeftMotor.setPower(0);
+            robot.backRightMotor.setPower(0);
+
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
+
+    public void gyroTurnCounterClock(double speed,
+                                     double degrees,
+                                     double timeoutS) throws InterruptedException {
+
+        degrees = -degrees;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+
+            // Turn On RUN_TO_POSITION
+            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.frontLeftMotor.setPower(Math.abs(speed));
+            robot.frontRightMotor.setPower(Math.abs(speed));
+            robot.backLeftMotor.setPower(Math.abs(speed));
+            robot.backRightMotor.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.gyro.getHeading() > degrees)) {
+
+                // Display it for the driver.
+
+                telemetry.addData("Gyro",  ":%3d", robot.gyro.getHeading());
                 telemetry.update();
 
                 // Allow time for other processes to run.
@@ -346,20 +349,25 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
             robot.backLeftMotor.setPower(0);
             robot.backRightMotor.setPower(0);
 
-            // Turn off RUN_TO_POSITION
-            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
             //  sleep(250);   // optional pause after each move
         }
     }
 
-    
+    public void gyroTurn(double speed,
+                         double degrees,
+                         double timeoutS) throws InterruptedException {
+
+        if(robot.gyro.getHeading() > degrees) {
+            gyroTurnCounterClock(speed, degrees, timeoutS);
+        }
+        else {
+            gyroTurnClockwise(speed, degrees, timeoutS);
+        }
+    }
+
     public void turn(double speed,
-                            double degrees,
-                            double timeoutS) throws InterruptedException {
+                     double degrees,
+                     double timeoutS) throws InterruptedException {
 
         double final_heading = robot.gyro.getHeading() + degrees;
 
@@ -378,18 +386,6 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
         }
     }
 
-    public void gyroTurn(double speed,
-                         double degrees,
-                         double timeoutS) throws InterruptedException {
-
-        if(robot.gyro.getHeading() < degrees) {
-            gyroTurnClockwise(speed, degrees, timeoutS);
-        }
-        else {
-            gyroTurnCounterClock(speed, degrees, timeoutS);
-        }
-    }
-
     public void beaconPress() throws InterruptedException {
         encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
 
@@ -401,7 +397,7 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
         else {
             sleep(5000);
             encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
-        encoderDrive(DRIVE_SPEED, 0, 15, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, 15, 4.0);
         }
 
     }
