@@ -1,24 +1,21 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
 /**
- * Hit beacons
  * Push cap ball
- * Park on center vortex
- * NEED TO TEST
+ * Shoot at corner vortex
+ * Park on corner vortex
+ * TESTED
  */
 
-@Autonomous(name="Jellyfish: Auto Beacons Red ", group="Jellyfish")
+@Autonomous(name="Jellyfish: Auto Cap Shoot Blue Test", group="Jellyfish")
 
-public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
+public class AutoTest extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJellyfish         robot   = new HardwareJellyfish();   // Use a Pushbot's hardware
@@ -70,23 +67,25 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        //encoderDrive(DRIVE_SPEED,  0 ,32, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,   12, 24, 4.0);  // forward
+        sleep(100);
+        /*encoderTurn(TURN_SPEED, -45, 4.0); // Turn right 45 degrees
+        sleep(100);
+        encoderDrive(DRIVE_SPEED,   0, 24, 4.0);  //forward
+        sleep(100);
+        encoderTurn(TURN_SPEED, -105, 4.0); // Turn right 105 degress
+        sleep(100);
+        encoderDrive(DRIVE_SPEED, 0, 50, 4.0); //forward
+        sleep(100);
+        robot.intakeBeltMotor.setPower(-1); //shoot
+        sleep(5000);
+        robot.intakeBeltMotor.setPower(0); //stop*/
 
-        gyroTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
 
-        /*encoderDrive(DRIVE_SPEED,   0, 30, 4.0);
 
-        encoderTurn(TURN_SPEED, 65, 4.0); // Turn left 65 degress
 
-        encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0 );
+        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
-        beaconPress();
-
-        encoderDrive(DRIVE_SPEED, 50, 0, 4.0 ); // move right
-
-        encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
-
-        beaconPress();*/
 
         sleep(1000);     // pause for servos to move
 
@@ -110,7 +109,7 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
         int newBackLeftTarget;
         int newBackRightTarget;
 
-        yInches = -yInches;
+        //yInches = -yInches;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
@@ -133,17 +132,29 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
             robot.backRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
+            double x;
+            double y;
+            if(xInches > yInches){
+                x = 1;
+                y = yInches/xInches;
+            }
+            else {
+                y = 1;
+                x = xInches/yInches;
+            }
+            x = x * speed;
+            y = y * speed;
             runtime.reset();
-            robot.frontLeftMotor.setPower(Math.abs(speed));
-            robot.frontRightMotor.setPower(Math.abs(speed));
-            robot.backLeftMotor.setPower(Math.abs(speed));
-            robot.backRightMotor.setPower(Math.abs(speed));
+            robot.backLeftMotor.setPower(Range.clip(y + x, -1, 1));
+            robot.frontLeftMotor.setPower(Range.clip(y - x , -1, 1));
+            robot.backRightMotor.setPower(Range.clip(y - x, -1, 1));
+            robot.frontRightMotor.setPower(Range.clip(y + x, -1, 1));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (robot.frontLeftMotor.isBusy() &&
-                            robot.frontRightMotor.isBusy() &&
+                    (/*robot.frontLeftMotor.isBusy() &&
+                            robot.frontRightMotor.isBusy() &&*/
                             robot.backLeftMotor.isBusy() &&
                             robot.backRightMotor.isBusy())) {
 
@@ -254,151 +265,5 @@ public class JellyfishAutoDriveBeaconsRed extends LinearOpMode {
 
             //  sleep(250);   // optional pause after each move
         }
-    }
-
-    public void gyroTurnClockwise(double speed,
-                                  double degrees,
-                                  double timeoutS) throws InterruptedException {
-
-        //degrees = -degrees;
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-
-            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            robot.frontLeftMotor.setPower(-Math.abs(speed));
-            robot.frontRightMotor.setPower(Math.abs(speed));
-            robot.backLeftMotor.setPower(-Math.abs(speed));
-            robot.backRightMotor.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
-                    (robot.gyro.getHeading() < degrees) ) {
-
-
-                // Display it for the driver.
-
-                telemetry.addData("Gyro",  ":%3d", robot.gyro.getHeading());
-                telemetry.update();
-
-                // Allow time for other processes to run.
-                idle();
-
-                sleep(10);
-            }
-
-            // Stop all motion;
-            robot.frontLeftMotor.setPower(0);
-            robot.frontRightMotor.setPower(0);
-            robot.backLeftMotor.setPower(0);
-            robot.backRightMotor.setPower(0);
-
-
-            //  sleep(250);   // optional pause after each move
-        }
-    }
-
-    public void gyroTurnCounterClock(double speed,
-                                     double degrees,
-                                     double timeoutS) throws InterruptedException {
-
-        degrees = -degrees;
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-            // Determine new target position, and pass to motor controller
-
-            // Turn On RUN_TO_POSITION
-            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            robot.frontLeftMotor.setPower(Math.abs(speed));
-            robot.frontRightMotor.setPower(Math.abs(speed));
-            robot.backLeftMotor.setPower(Math.abs(speed));
-            robot.backRightMotor.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
-                    (robot.gyro.getHeading() > degrees)) {
-
-                // Display it for the driver.
-
-                telemetry.addData("Gyro",  ":%3d", robot.gyro.getHeading());
-                telemetry.update();
-
-                // Allow time for other processes to run.
-                idle();
-            }
-
-            // Stop all motion;
-            robot.frontLeftMotor.setPower(0);
-            robot.frontRightMotor.setPower(0);
-            robot.backLeftMotor.setPower(0);
-            robot.backRightMotor.setPower(0);
-
-            //  sleep(250);   // optional pause after each move
-        }
-    }
-
-    public void gyroTurn(double speed,
-                         double degrees,
-                         double timeoutS) throws InterruptedException {
-
-        if(robot.gyro.getHeading() > degrees) {
-            gyroTurnCounterClock(speed, degrees, timeoutS);
-        }
-        else {
-            gyroTurnClockwise(speed, degrees, timeoutS);
-        }
-    }
-
-    public void turn(double speed,
-                     double degrees,
-                     double timeoutS) throws InterruptedException {
-
-        double final_heading = robot.gyro.getHeading() + degrees;
-
-        encoderTurn(speed, degrees, timeoutS);
-
-        while (robot.gyro.getHeading() < (final_heading - .5) || robot.gyro.getHeading() > (final_heading + .5)) {
-
-            if (robot.gyro.getHeading() < (final_heading - .5)) {
-
-                encoderTurn(speed, 1, 1.0);
-
-            } else {
-                encoderTurn(speed, -1, 1.0);
-            }
-
-        }
-    }
-
-    public void beaconPress() throws InterruptedException {
-        encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
-
-        sleep(500);
-
-        if(robot.colorSensor.red() > robot.colorSensor.blue()) {
-            return;
-        }
-        else {
-            sleep(5000);
-            encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, 15, 4.0);
-        }
-
     }
 }
