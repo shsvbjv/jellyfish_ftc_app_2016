@@ -88,6 +88,10 @@ public class HardwareJellyfish
 //        flywheelBottomMotor.setPower(0);
 //        conveyerBeltMotor.setPower(0);
 
+        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //Set direction of all motors
         
         //I REVERSED THE MOTOR DIRECTIONS
@@ -130,6 +134,7 @@ public class HardwareJellyfish
 
 
 
+
         //flywheelTopMotorRampControl = new RampedMotorControl(flywheelTopMotor, 5.0);
 //        flywheelBottomMotorRampControl = new RampedMotorControl(flywheelBottomMotor, 5.0);
 
@@ -151,7 +156,10 @@ public class HardwareJellyfish
         telemetry.update();
 
 
+
     }
+
+
 
     /***
      *
