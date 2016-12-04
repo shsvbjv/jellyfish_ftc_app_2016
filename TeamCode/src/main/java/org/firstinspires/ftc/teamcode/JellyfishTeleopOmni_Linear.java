@@ -27,14 +27,15 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     final double    BUTTON_SPEED       = 0.01 ;
     boolean prevY = false;
     boolean prevA = false;
-    boolean intakeout = false;
-    boolean intakein = false;
-    boolean prevRB = false;
+    boolean flywheelleft = false;
+    boolean flywheelright = false;
+    boolean prevX = false;
+    double speed = 1;
     //boolean flywheel = false;
-//    static final double INITIAL_FLYWHEEL_SPEED = .5;
-//    static final double FLYWHEEL_SPEED_INCREMENT = 0.05;
-//    double topflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
-//    double bottomflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
+    static final double INITIAL_FLYWHEEL_SPEED = .5;
+    static final double FLYWHEEL_SPEED_INCREMENT = 0.05;
+    double leftflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
+    double rightflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
 
 
     /*
@@ -62,48 +63,19 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
             //pushing y once will turn intake on, pushing it again will turn it off
 
-//            if ((prevY == false) &&
-//                    (gamepad2.y)) {
-//                intakeout = !intakeout;
-//
-//            }
-//
-//            prevY = gamepad2.y;
-//
-//            if ((prevA == false) &&
-//                    (gamepad2.a)) {
-//                intakein = !intakein;
-//
-//            }
+            if ((prevX == false) &&
+                    (gamepad2.x)) {
 
-//            prevA = gamepad2.a;
-//
-//            if (intakein) {
-//                robot.intakeBeltMotor.setPower(1);
-//            } else if (intakeout) {
-//                robot.intakeBeltMotor.setPower(-1);
-//                //robot.conveyerBeltMotor.setPower(-1);
-//
-//            } else robot.intakeBeltMotor.setPower(0);
-            //robot.conveyerBeltMotor.setPower(0);
+                flywheelleft = !flywheelleft;
+                flywheelright = !flywheelright;
 
-            //pushing rb once will turn flywheels on. pushing again will turn them off
+            }
 
-//            if ((prevRB == false) &&
-//                    (gamepad2.right_bumper)) {
-//                //flywheel = !flywheel;
-//
-//            }
-//            prevRB = gamepad2.right_bumper;
+            prevX = gamepad2.x;
 
-            //if (flywheel) {
-            //robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
-//                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
+
 //
-//            } else {
-//                robot.flywheelTopMotorRampControl.setPowerTo(0);
-//                robot.flywheelBottomMotorRampControl.setPowerTo(0);
-//            }
+//
 
 
             // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
@@ -112,98 +84,81 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             x2 = gamepad1.left_stick_x;
 
 //
-                robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
-                robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
-                robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
-                robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
-//
-
-            //left and right beacon button pushers
-            //start at .1 and +- .15
-
-//            if (gamepad2.x) {
-//                robot.leftButtonPusherServo.setPosition(.25);
-//            }
-//            else if(gamepad2.b) {
-//                robot.leftButtonPusherServo.setPosition(.65);
-//            }
-//            else {
-//                robot.leftButtonPusherServo.setPosition(.44);
-//            }
+            robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
+            robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
+            robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
+            robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
 
 
-
-            if(gamepad2.a) {
+            if (gamepad2.a) {
                 robot.intakeBeltMotor.setPower(1);
-            }
-            else if(gamepad2.y) {
+            } else if (gamepad2.y) {
                 robot.intakeBeltMotor.setPower(-1);
-            }
-            else robot.intakeBeltMotor.setPower(0);
+            } else robot.intakeBeltMotor.setPower(0);
+
 
 
 
 
             //flywheel motors go faster or slower
 
-//            if (gamepad2.dpad_down && gamepad2.right_trigger > 0) {
-//                bottomflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
-//                bottomflywheelSpeed = Range.clip(bottomflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-//                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
+            if (gamepad2.dpad_down && gamepad2.right_trigger > 0) {
+                rightflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
+                rightflywheelSpeed = Range.clip(rightflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+                robot.flywheelRightMotorRampControl.setPowerTo(rightflywheelSpeed);
+
+            }
+
+            if (gamepad2.dpad_down && gamepad2.left_trigger > 0) {
+                rightflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
+                rightflywheelSpeed = Range.clip(rightflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+                robot.flywheelRightMotorRampControl.setPowerTo(rightflywheelSpeed);
+
+            }
+
+            if (gamepad2.dpad_up && gamepad2.right_trigger > 0) {
+                leftflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
+                leftflywheelSpeed = Range.clip(leftflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+                robot.flywheelLeftMotorRampControl.setPowerTo(leftflywheelSpeed);
+
+            }
+
+            if (gamepad2.dpad_up && gamepad2.left_trigger > 0) {
+                leftflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
+                leftflywheelSpeed = Range.clip(leftflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+                robot.flywheelLeftMotorRampControl.setPowerTo(leftflywheelSpeed);
 //
 //            }
-//
-//            if (gamepad2.dpad_down && gamepad2.left_trigger > 0) {
-//                bottomflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
-//                bottomflywheelSpeed = Range.clip(bottomflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-//                robot.flywheelBottomMotorRampControl.setPowerTo(bottomflywheelSpeed);
-//
-//            }
 
-//            if (gamepad2.dpad_up && gamepad2.right_trigger > 0) {
-//                topflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
-//                topflywheelSpeed = Range.clip(topflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-//                robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
-//
-//            }
-//
-//            if (gamepad2.dpad_up && gamepad2.left_trigger > 0) {
-//                topflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
-//                topflywheelSpeed = Range.clip(topflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-//                robot.flywheelTopMotorRampControl.setPowerTo(topflywheelSpeed);
-//
-//            }
+                //motors start slow and get faster
+            robot.flywheelLeftMotorRampControl.checkMotor();
+            robot.flywheelRightMotorRampControl.checkMotor();
 
-            //motors start slow and get faster
-//            robot.flywheelTopMotorRampControl.checkMotor();
-//            robot.flywheelBottomMotorRampControl.checkMotor();
+                // Send telemetry message to signify robot running;
 
-            // Send telemetry message to signify robot running;
+                telemetry.addData("Clear", robot.colorSensor.alpha());
+                telemetry.addData("Red  ", robot.colorSensor.red());
+                telemetry.addData("Green", robot.colorSensor.green());
+                telemetry.addData("Blue ", robot.colorSensor.blue());
 
-            telemetry.addData("Clear", robot.colorSensor.alpha());
-            telemetry.addData("Red  ", robot.colorSensor.red());
-            telemetry.addData("Green", robot.colorSensor.green());
-            telemetry.addData("Blue ", robot.colorSensor.blue());
+                telemetry.addData("Raw Left", "%.2f", robot.odsSensorL.getRawLightDetected());
+                telemetry.addData("Raw Right", "%.2f", robot.odsSensorR.getRawLightDetected());
 
-            telemetry.addData("Raw Left",  "%.2f",  robot.odsSensorL.getRawLightDetected());
-            telemetry.addData("Raw Right", "%.2f", robot.odsSensorR.getRawLightDetected());
-
-            telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
-            telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
+                telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
+                telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
 
 
+                //telemetry.addData("Hue", hsvValues[0]);
 
-            //telemetry.addData("Hue", hsvValues[0]);
-
-            //telemetry.addData("conveyer", "%.2f", robot.conveyerBeltMotor.getPower());
-            telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
-            telemetry.update();
+                //telemetry.addData("conveyer", "%.2f", robot.conveyerBeltMotor.getPower());
+                telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
+                telemetry.update();
 
 
-            // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-            robot.waitForTick(20);
-            idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+                // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
+                robot.waitForTick(20);
+                idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+            }
         }
     }
-
 }

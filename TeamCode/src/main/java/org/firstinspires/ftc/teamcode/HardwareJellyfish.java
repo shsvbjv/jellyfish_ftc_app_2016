@@ -34,18 +34,16 @@ public class HardwareJellyfish
     public DcMotor  backLeftMotor    = null;
     public DcMotor  backRightMotor   = null;
     public DcMotor  intakeBeltMotor = null;
-    //public DcMotor  flywheelTopMotor = null;
-   // public DcMotor  flywheelBottomMotor= null;
-//    public DcMotor  conveyerBeltMotor = null;
+    public DcMotor  flywheelLeftMotor = null;
+    public DcMotor  flywheelRightMotor= null;
 
     public ColorSensor colorSensor;
     OpticalDistanceSensor odsSensorL;
     OpticalDistanceSensor odsSensorR;
 //
-//    public RampedMotorControl flywheelTopMotorRampControl = null;
-//    public RampedMotorControl flywheelBottomMotorRampControl = null;
+    public RampedMotorControl flywheelLeftMotorRampControl = null;
+    public RampedMotorControl flywheelRightMotorRampControl = null;
 
-   // public Servo    leftButtonPusherServo = null;
 
     ModernRoboticsI2cGyro gyro    = null;
 
@@ -71,9 +69,8 @@ public class HardwareJellyfish
         backRightMotor  = hwMap.dcMotor.get("motor_rb");
 
         intakeBeltMotor = hwMap.dcMotor.get("intake");
-//        flywheelTopMotor = hwMap.dcMotor.get("flywheeltop");
-//        flywheelBottomMotor = hwMap.dcMotor.get("flywheelbottom");
-//        conveyerBeltMotor = hwMap.dcMotor.get("conveyerbelt");
+        flywheelLeftMotor = hwMap.dcMotor.get("flywheelleft");
+        flywheelRightMotor = hwMap.dcMotor.get("flywheelright");
 
 
         gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
@@ -84,9 +81,8 @@ public class HardwareJellyfish
         backLeftMotor.setPower(0);
         backRightMotor.setPower(0);
         intakeBeltMotor.setPower(0);
-//        flywheelTopMotor.setPower(0);
-//        flywheelBottomMotor.setPower(0);
-//        conveyerBeltMotor.setPower(0);
+        flywheelLeftMotor.setPower(0);
+        flywheelRightMotor.setPower(0);
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -94,17 +90,17 @@ public class HardwareJellyfish
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //Set direction of all motors
         
-        //I REVERSED THE MOTOR DIRECTIONS
-        //CHECK TELEOP TO MAKE SURE MOVEMENT IS CORRECT
+
         frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD); 
         backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD); 
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE); 
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE); 
 
         intakeBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-//        flywheelTopMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-//        flywheelBottomMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-//        conveyerBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        //MAKE SURE THESE ARE OPPOSITE DIRECTIONS OTHERWISE YOU WILL BREAK MOTORS
+        flywheelLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        flywheelRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -113,13 +109,9 @@ public class HardwareJellyfish
         backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        flywheelTopMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        flywheelBottomMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        conveyerBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        flywheelRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-//        leftButtonPusherServo = hwMap.servo.get("left button push");
-//        leftButtonPusherServo.setPosition(.42);
-//        leftButtonPusherServo.setDirection(Servo.Direction.FORWARD);
         boolean bLedOn = true;
 
         // get a reference to our ColorSensor object.
@@ -135,8 +127,8 @@ public class HardwareJellyfish
 
 
 
-        //flywheelTopMotorRampControl = new RampedMotorControl(flywheelTopMotor, 5.0);
-//        flywheelBottomMotorRampControl = new RampedMotorControl(flywheelBottomMotor, 5.0);
+        flywheelLeftMotorRampControl = new RampedMotorControl(flywheelLeftMotor, 5.0);
+        flywheelRightMotorRampControl = new RampedMotorControl(flywheelRightMotor, 5.0);
 
         telemetry.addData(">", "Calibrating Gyro");    //
         telemetry.update();

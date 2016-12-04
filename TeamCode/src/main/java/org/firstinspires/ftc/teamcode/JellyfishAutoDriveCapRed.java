@@ -65,12 +65,13 @@ public class JellyfishAutoDriveCapRed extends JellyfishAutoBase {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        encoderDrive(DRIVE_SPEED,   0, 23.5, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        sleep(100);
-        encoderTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
-        sleep(100);
-        encoderDrive(DRIVE_SPEED,   0, 24, 4.0);
+//        encoderDrive(DRIVE_SPEED,   0, 23.5, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+//        sleep(100);
+//        encoderTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
+//        sleep(100);
+//        encoderDrive(DRIVE_SPEED,   0, 24, 4.0);
 
+        encoderDrive(DRIVE_SPEED, 0, 12, 4.0);
 
 
 
