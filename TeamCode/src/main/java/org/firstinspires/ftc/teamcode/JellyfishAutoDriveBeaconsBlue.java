@@ -69,13 +69,13 @@ public class JellyfishAutoDriveBeaconsBlue extends JellyfishAutoBase {
 
         encoderTurn(TURN_SPEED, -65, 4.0); // Turn right 100 degress
 
-        beaconPress();
+        beaconPressBlue();
 
         encoderDrive(DRIVE_SPEED, -47, 0, 4.0 ); //left
 
         encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
 
-        beaconPress();
+        beaconPressBlue();
 
 
 

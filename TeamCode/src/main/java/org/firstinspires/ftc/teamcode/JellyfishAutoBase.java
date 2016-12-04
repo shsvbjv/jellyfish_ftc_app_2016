@@ -472,13 +472,15 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         if(robot.colorSensor.blue() > robot.colorSensor.red()) {
             encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+            encoderDrive(DRIVE_SPEED, -35.25, 0, 4.0);
 
         }
 
         else {
-            encoderDriveWithODSLeft(DRIVE_SPEED, 30, 0, 4.0);
+            encoderDriveWithODSRight(.3, -24, 0, 4.0);
             encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+            encoderDrive(DRIVE_SPEED, -11.75, 0, 4.0);
 
         }
 
@@ -487,16 +489,60 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
     }
     public void beaconPressRed() throws InterruptedException {
 
-        if(robot.colorSensor.blue() > robot.colorSensor.red()) {
+        if(robot.colorSensor.red() > robot.colorSensor.blue()) {
             encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+            encoderDrive(DRIVE_SPEED, 35.25, 0, 4.0);
+        }
+
+        else {
+            encoderDriveWithODSLeft(.3, 24, 0, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+            encoderDrive(DRIVE_SPEED, 11.75, 0, 4.0);
+        }
+
+        sleep(500);
+
+    }
+
+    public void beaconPressBlue2() throws InterruptedException {
+
+        if(robot.colorSensor.blue() > robot.colorSensor.red()) {
+            encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, -36, 4.0);
+            encoderTurn(TURN_SPEED, -45, 4.0 );
+            encoderDrive(DRIVE_SPEED, 0, -36, 4.0);
 
         }
 
         else {
-            encoderDriveWithODSLeft(DRIVE_SPEED, 30, 0, 4.0);
+            encoderDriveWithODSRight(.3, -24, 0, 4.0);
             encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, -33, 4.0);
+            encoderTurn(TURN_SPEED, -45, 4.0 );
+            encoderDrive(DRIVE_SPEED, 0, -39, 4.0);
+
+        }
+
+        sleep(500);
+
+    }
+    public void beaconPressRed2() throws InterruptedException {
+
+        if(robot.colorSensor.red() > robot.colorSensor.blue()) {
+            encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, -36, 4.0);
+            encoderTurn(TURN_SPEED, 45, 4.0 );
+            encoderDrive(DRIVE_SPEED, 0, -36, 4.0);
+        }
+
+        else {
+            encoderDriveWithODSLeft(.3, 24, 0, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, -33, 4.0);
+            encoderTurn(TURN_SPEED, 45, 4.0 );
+            encoderDrive(DRIVE_SPEED, 0, -39, 4.0);
 
         }
 

@@ -2,13 +2,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -37,9 +31,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Jellyfish: Auto Mode Solo Red ", group="Jellyfish")
+@Autonomous(name="Jellyfish: Auto Mode Solo Blue ", group="Jellyfish")
 
-public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
+public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
 
     /* Declare OpMode members. */
 
@@ -82,17 +76,17 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(DRIVE_SPEED, 35.25, 0, 4.0);
+        encoderDrive(DRIVE_SPEED, -35.25, 0, 4.0);
 
         encoderDrive(DRIVE_SPEED, 0, 45, 4.0);
 
-        encoderDriveWithODSRight(.3, 24, 0, 4.0);
+        encoderDriveWithODSLeft(.3, 24, 0, 4.0);
 
-        beaconPressRed();
+        beaconPressBlue();
 
-        encoderDriveWithODSRight(DRIVE_SPEED, 24, 0, 4.0);
+        encoderDriveWithODSLeft(DRIVE_SPEED, 24, 0, 4.0);
 
-        beaconPressRed2();
+        beaconPressBlue2();
 
 
 

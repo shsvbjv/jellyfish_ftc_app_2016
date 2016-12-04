@@ -35,14 +35,14 @@ public class HardwareJellyfish
     public DcMotor  backRightMotor   = null;
     public DcMotor  intakeBeltMotor = null;
     public DcMotor  flywheelLeftMotor = null;
-    public DcMotor  flywheelRightMotor= null;
+    // public DcMotor  flywheelRightMotor= null;
 
     public ColorSensor colorSensor;
     OpticalDistanceSensor odsSensorL;
     OpticalDistanceSensor odsSensorR;
 //
     public RampedMotorControl flywheelLeftMotorRampControl = null;
-    public RampedMotorControl flywheelRightMotorRampControl = null;
+ //   public RampedMotorControl flywheelRightMotorRampControl = null;
 
 
     ModernRoboticsI2cGyro gyro    = null;
@@ -70,7 +70,7 @@ public class HardwareJellyfish
 
         intakeBeltMotor = hwMap.dcMotor.get("intake");
         flywheelLeftMotor = hwMap.dcMotor.get("flywheelleft");
-        flywheelRightMotor = hwMap.dcMotor.get("flywheelright");
+     //   flywheelRightMotor = hwMap.dcMotor.get("flywheelright");
 
 
         gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
@@ -82,7 +82,7 @@ public class HardwareJellyfish
         backRightMotor.setPower(0);
         intakeBeltMotor.setPower(0);
         flywheelLeftMotor.setPower(0);
-        flywheelRightMotor.setPower(0);
+     //   flywheelRightMotor.setPower(0);
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -100,7 +100,7 @@ public class HardwareJellyfish
 
         //MAKE SURE THESE ARE OPPOSITE DIRECTIONS OTHERWISE YOU WILL BREAK MOTORS
         flywheelLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        flywheelRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+       // flywheelRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -110,7 +110,7 @@ public class HardwareJellyfish
         backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        flywheelRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ///  flywheelRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         boolean bLedOn = true;
 
@@ -128,7 +128,7 @@ public class HardwareJellyfish
 
 
         flywheelLeftMotorRampControl = new RampedMotorControl(flywheelLeftMotor, 5.0);
-        flywheelRightMotorRampControl = new RampedMotorControl(flywheelRightMotor, 5.0);
+     //   flywheelRightMotorRampControl = new RampedMotorControl(flywheelRightMotor, 5.0);
 
         telemetry.addData(">", "Calibrating Gyro");    //
         telemetry.update();
