@@ -75,7 +75,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
 
             if(flywheelleft) {
-                robot.flywheelLeftMotorRampControl.setPowerTo(leftflywheelSpeed);
+                robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
             }
             else robot.flywheelLeftMotorRampControl.setPowerTo(0);
 
@@ -124,15 +124,15 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
             if (gamepad2.dpad_up && gamepad2.right_bumper) {
                 leftflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
-                leftflywheelSpeed = Range.clip(leftflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-                robot.flywheelLeftMotorRampControl.setPowerTo(leftflywheelSpeed);
+                leftflywheelSpeed = Range.clip(leftflywheelSpeed, 0, 1.0);
+                robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
 
             }
 
             if (gamepad2.dpad_up && gamepad2.left_bumper) {
                 leftflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
-                leftflywheelSpeed = Range.clip(leftflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-                robot.flywheelLeftMotorRampControl.setPowerTo(leftflywheelSpeed);
+                leftflywheelSpeed = Range.clip(leftflywheelSpeed, 0, 1.0);
+                robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
 
            }
 
@@ -154,6 +154,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
                 telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
                 telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
 
+                telemetry.addData("flywheel", "%.2f", robot.flywheelLeftMotor.getPower());
 
                 //telemetry.addData("Hue", hsvValues[0]);
 
