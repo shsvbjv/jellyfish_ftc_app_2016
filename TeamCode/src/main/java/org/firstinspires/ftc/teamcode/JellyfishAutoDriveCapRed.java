@@ -62,7 +62,8 @@ public class JellyfishAutoDriveCapRed extends JellyfishAutoBase {
 //        sleep(100);
 //        encoderDrive(DRIVE_SPEED,   0, 24, 4.0);
 
-        encoderDrive(DRIVE_SPEED, 0, 12, 4.0);
+        shoot(1, 3.0);
+        intake(1, 3.0);
 
 
 

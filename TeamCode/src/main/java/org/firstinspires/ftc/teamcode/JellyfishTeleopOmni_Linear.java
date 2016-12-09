@@ -136,6 +136,24 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
            }
 
+            if(gamepad2.dpad_left) {
+                robot.leftGate.setPosition(0.8);
+                robot.rightGate.setPosition(0.3);
+            }
+            else {
+                robot.leftGate.setPosition(0.5);
+                robot.rightGate.setPosition(0.5);
+            }
+
+            if(gamepad2.dpad_right) {
+                robot.leftGate.setPosition(0.3);
+                robot.rightGate.setPosition(0.8);
+            }
+            else {
+                robot.leftGate.setPosition(0.5);
+                robot.rightGate.setPosition(0.5);
+            }
+
 
                 //motors start slow and get faster
             robot.flywheelLeftMotorRampControl.checkMotor();

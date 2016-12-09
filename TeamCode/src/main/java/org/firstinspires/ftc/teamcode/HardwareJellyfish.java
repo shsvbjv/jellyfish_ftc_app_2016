@@ -40,6 +40,9 @@ public class HardwareJellyfish
     public ColorSensor colorSensor;
     OpticalDistanceSensor odsSensorL;
     OpticalDistanceSensor odsSensorR;
+
+    public Servo leftGate = null;
+    public Servo rightGate = null;
 //
     public RampedMotorControl flywheelLeftMotorRampControl = null;
  //   public RampedMotorControl flywheelRightMotorRampControl = null;
@@ -111,6 +114,18 @@ public class HardwareJellyfish
         intakeBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ///  flywheelRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftGate = hwMap.servo.get("left gate");
+        rightGate = hwMap.servo.get("right gate");
+
+        leftGate.setPosition(0.5);
+        rightGate.setPosition(0.5);
+
+        leftGate.setDirection(Servo.Direction.FORWARD);
+        rightGate.setDirection(Servo.Direction.REVERSE);
+
+
+
 
         boolean bLedOn = true;
 

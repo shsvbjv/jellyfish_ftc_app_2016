@@ -549,4 +549,74 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         sleep(500);
 
     }
+    public void shoot(double speed,
+                             double time) throws InterruptedException {
+
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            robot.flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.flywheelLeftMotorRampControl.rampPowerTo(Math.abs(speed));
+
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < time)) {
+
+
+                telemetry.update();
+
+                // Allow time for other processes to run.
+                idle();
+            }
+
+            // Stop all motion;
+            robot.flywheelLeftMotorRampControl.rampPowerTo(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
+    public void intake(double speed,
+                      double time) throws InterruptedException {
+
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            robot.intakeBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.intakeBeltMotor.setPower(Math.abs(speed));
+
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < time)) {
+
+
+                telemetry.update();
+
+                // Allow time for other processes to run.
+                idle();
+            }
+
+            // Stop all motion;
+            robot.intakeBeltMotor.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.intakeBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
 }
