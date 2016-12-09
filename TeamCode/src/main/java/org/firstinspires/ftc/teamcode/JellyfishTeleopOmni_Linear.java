@@ -23,8 +23,9 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJellyfish   robot           = new HardwareJellyfish();
-    //double          buttonPosition     = robot.BUTTON_HOME;
-    final double    BUTTON_SPEED       = 0.01 ;
+    double          leftPosition     = robot.leftServo.getPosition();
+    double          rightPosition     = robot.rightServo.getPosition();
+    final double    SERVO_SPEED       = 0.05 ;
     boolean prevY = false;
     boolean prevA = false;
     boolean flywheelleft = false;
@@ -136,22 +137,31 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
            }
 
+
+            //move servos
             if(gamepad2.dpad_left) {
-                robot.leftGate.setPosition(0.8);
-                robot.rightGate.setPosition(0.3);
+
+                leftPosition += SERVO_SPEED;
+                rightPosition -= SERVO_SPEED;
+
             }
             else {
-                robot.leftGate.setPosition(0.5);
-                robot.rightGate.setPosition(0.5);
+
+                robot.leftServo.setPosition(0.5);
+                robot.rightServo.setPosition(0.5);
+
             }
 
             if(gamepad2.dpad_right) {
-                robot.leftGate.setPosition(0.3);
-                robot.rightGate.setPosition(0.8);
+
+                rightPosition += SERVO_SPEED;
+                leftPosition -= SERVO_SPEED;
+
             }
             else {
-                robot.leftGate.setPosition(0.5);
-                robot.rightGate.setPosition(0.5);
+                robot.leftServo.setPosition(0.5);
+                robot.rightServo.setPosition(0.5);
+
             }
 
 

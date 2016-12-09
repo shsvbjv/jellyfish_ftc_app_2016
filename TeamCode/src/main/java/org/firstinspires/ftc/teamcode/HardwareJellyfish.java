@@ -41,8 +41,8 @@ public class HardwareJellyfish
     OpticalDistanceSensor odsSensorL;
     OpticalDistanceSensor odsSensorR;
 
-    public Servo leftGate = null;
-    public Servo rightGate = null;
+    public Servo leftServo = null;
+    public Servo rightServo = null;
 //
     public RampedMotorControl flywheelLeftMotorRampControl = null;
  //   public RampedMotorControl flywheelRightMotorRampControl = null;
@@ -115,14 +115,14 @@ public class HardwareJellyfish
         flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ///  flywheelRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        leftGate = hwMap.servo.get("left gate");
-        rightGate = hwMap.servo.get("right gate");
+        leftServo = hwMap.servo.get("left gate");
+        rightServo = hwMap.servo.get("right gate");
 
-        leftGate.setPosition(0.5);
-        rightGate.setPosition(0.5);
+        leftServo.setPosition(0.5);
+        rightServo.setPosition(0.5);
 
-        leftGate.setDirection(Servo.Direction.FORWARD);
-        rightGate.setDirection(Servo.Direction.REVERSE);
+        leftServo.setDirection(Servo.Direction.FORWARD);
+        rightServo.setDirection(Servo.Direction.REVERSE);
 
 
 
