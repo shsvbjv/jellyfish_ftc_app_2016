@@ -556,7 +556,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
                              double time) throws InterruptedException {
 
 
-        // Ensure that the opmode is still active
+        // Ensure that the opmode is still active .
         if (opModeIsActive()) {
 
             robot.flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
