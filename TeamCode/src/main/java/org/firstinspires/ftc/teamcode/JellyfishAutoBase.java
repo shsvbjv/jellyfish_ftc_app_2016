@@ -570,10 +570,22 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
 
             intake(1, 5);
 
-            robot.leftServo.setPower(0);
+//            robot.leftServo.setPower(0);
 
             sleep(500);
             intake(1, 2);
+
+            sleep(500);
+            intake(1, 2);
+
+            sleep(500);
+            intake(1, 2);
+
+            sleep(500);
+            intake(1, 2);
+
+
+
 
 
         }
@@ -613,7 +625,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
             runtime.reset();
             robot.intakeBeltMotor.setPower(Math.abs(speed));
 
-            robot.leftServo.setPower(1);
+//            robot.leftServo.setPower(1);
 
 
             // keep looping while we are still active, and there is time left, and both motors are running.
