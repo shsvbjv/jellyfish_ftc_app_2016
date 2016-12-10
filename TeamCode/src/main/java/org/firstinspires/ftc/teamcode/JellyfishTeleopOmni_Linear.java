@@ -23,9 +23,9 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJellyfish   robot           = new HardwareJellyfish();
-    double          leftPosition     = robot.leftServo.getPosition();
-    double          rightPosition     = robot.rightServo.getPosition();
-    final double    SERVO_SPEED       = 0.05 ;
+//    double          leftPosition     = robot.leftServo.getPosition();
+//    double          rightPosition     = robot.rightServo.getPosition();
+//    final double    SERVO_SPEED       = 0.05 ;
     boolean prevY = false;
     boolean prevA = false;
     boolean flywheelleft = false;
@@ -33,7 +33,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     boolean prevX = false;
     double speed = 1;
     //boolean flywheel = false;
-    static final double INITIAL_FLYWHEEL_SPEED = 1;
+    static final double INITIAL_FLYWHEEL_SPEED = .95;
     static final double FLYWHEEL_SPEED_INCREMENT = 0.1;
     double leftflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
     //double rightflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
@@ -141,27 +141,26 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             //move servos
             if(gamepad2.dpad_left) {
 
-                leftPosition += SERVO_SPEED;
-                rightPosition -= SERVO_SPEED;
+                robot.leftServo.setPower(1.0);
+                //robot.rightServo.setPower(1.0);
 
             }
             else {
 
-                robot.leftServo.setPosition(0.5);
-                robot.rightServo.setPosition(0.5);
-
+                robot.leftServo.setPower(0);
+                //robot.rightServo.setPower(0);
             }
 
             if(gamepad2.dpad_right) {
 
-                rightPosition += SERVO_SPEED;
-                leftPosition -= SERVO_SPEED;
+                robot.leftServo.setPower(-1.0);
+                //robot.rightServo.setPower(-1.0);
 
             }
             else {
-                robot.leftServo.setPosition(0.5);
-                robot.rightServo.setPosition(0.5);
 
+                robot.leftServo.setPower(0);
+                //robot.rightServo.setPower(0);
             }
 
 

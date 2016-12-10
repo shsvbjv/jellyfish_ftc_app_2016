@@ -58,19 +58,8 @@ public class AutoTest extends JellyfishAutoBase {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        encoderDrive(DRIVE_SPEED,   12, 24, 4.0);  // forward
-        sleep(100);
-        /*encoderTurn(TURN_SPEED, -45, 4.0); // Turn right 45 degrees
-        sleep(100);
-        encoderDrive(DRIVE_SPEED,   0, 24, 4.0);  //forward
-        sleep(100);
-        encoderTurn(TURN_SPEED, -105, 4.0); // Turn right 105 degress
-        sleep(100);
-        encoderDrive(DRIVE_SPEED, 0, 50, 4.0); //forward
-        sleep(100);
-        robot.intakeBeltMotor.setPower(-1); //shoot
-        sleep(5000);
-        robot.intakeBeltMotor.setPower(0); //stop*/
+
+        shoot(.9, 10);
 
 
 
