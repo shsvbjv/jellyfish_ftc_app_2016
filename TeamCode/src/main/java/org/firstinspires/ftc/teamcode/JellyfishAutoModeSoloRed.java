@@ -72,7 +72,6 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
 
         encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
 
-        shoot(.9, 10);
 
 
 //        encoderDriveWithODSRight(DRIVE_SPEED, 24, 0, 4.0);

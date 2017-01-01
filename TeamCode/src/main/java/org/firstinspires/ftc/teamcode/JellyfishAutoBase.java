@@ -588,8 +588,6 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
 
 
 
-
-
         }
 
 
