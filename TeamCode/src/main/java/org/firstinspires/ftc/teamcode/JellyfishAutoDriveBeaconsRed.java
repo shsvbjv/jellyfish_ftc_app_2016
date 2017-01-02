@@ -63,9 +63,12 @@ public class JellyfishAutoDriveBeaconsRed extends JellyfishAutoBase {
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
         //encoderDrive(DRIVE_SPEED,  0 ,32, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
-        gyroTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
 
-        /*encoderDrive(DRIVE_SPEED,   0, 30, 4.0);
+        encoderDrive(DRIVE_SPEED,  0 ,32, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+
+        encoderTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
+
+        encoderDrive(DRIVE_SPEED,   0, 30, 4.0);
 
         encoderTurn(TURN_SPEED, 65, 4.0); // Turn left 65 degress
 
@@ -77,7 +80,7 @@ public class JellyfishAutoDriveBeaconsRed extends JellyfishAutoBase {
 
         encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
 
-        beaconPress();*/
+        beaconPress();
 
         sleep(1000);     // pause for servos to move
 

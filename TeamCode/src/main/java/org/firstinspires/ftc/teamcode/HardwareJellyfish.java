@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsAnalogOpticalDistanceSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -41,8 +42,8 @@ public class HardwareJellyfish
     OpticalDistanceSensor odsSensorL;
     OpticalDistanceSensor odsSensorR;
 
-    public Servo leftServo = null;
-    public Servo rightServo = null;
+    //public CRServo rightServo = null;
+    public CRServo leftServo = null;
 //
     public RampedMotorControl flywheelLeftMotorRampControl = null;
  //   public RampedMotorControl flywheelRightMotorRampControl = null;
@@ -78,6 +79,8 @@ public class HardwareJellyfish
 
         gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
 
+        gyro.setHeadingMode(ModernRoboticsI2cGyro.HeadingMode.HEADING_CARTESIAN);
+
         // Set all motors to zero power
         frontLeftMotor.setPower(0);
         frontRightMotor.setPower(0);
@@ -94,10 +97,10 @@ public class HardwareJellyfish
         //Set direction of all motors
         
 
-        frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD); 
-        backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD); 
-        frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE); 
-        backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE); 
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         intakeBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
@@ -115,14 +118,17 @@ public class HardwareJellyfish
         flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ///  flywheelRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        leftServo = hwMap.servo.get("left gate");
-        rightServo = hwMap.servo.get("right gate");
+        hwMap.logDevices();
+        //rightServo = hwMap.crservo.get("right");
 
-        leftServo.setPosition(0.5);
-        rightServo.setPosition(0.5);
+        leftServo = hwMap.crservo.get("left");
 
-        leftServo.setDirection(Servo.Direction.FORWARD);
-        rightServo.setDirection(Servo.Direction.REVERSE);
+
+//        leftServo.setPosition(0.5);
+//        rightServo.setPosition(0.5);
+//
+        leftServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        //rightServo.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 
@@ -137,9 +143,6 @@ public class HardwareJellyfish
 
         odsSensorL = hwMap.opticalDistanceSensor.get("odsleft");
         odsSensorR = hwMap.opticalDistanceSensor.get("odsright");
-
-
-
 
 
         flywheelLeftMotorRampControl = new RampedMotorControl(flywheelLeftMotor, 5.0);
