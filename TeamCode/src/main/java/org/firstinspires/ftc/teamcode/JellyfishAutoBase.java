@@ -14,7 +14,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
     protected ElapsedTime runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1220 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = (2.0/3.0) ;     // This is < 1.0 if geared UP
+    static final double     DRIVE_GEAR_REDUCTION    = 1 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -149,7 +149,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
                             robot.frontRightMotor.isBusy() &&
                             robot.backLeftMotor.isBusy() &&
                             robot.backRightMotor.isBusy())&&
-                    robot.odsSensorR.getRawLightDetected()<0.1) {
+                    robot.odsSensorR.getRawLightDetected()<0.15) {
 
 
                 // Display it for the driver.
@@ -470,9 +470,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
             encoderDrive(DRIVE_SPEED, -35.25, 0, 4.0);
 
         }
-        else if(robot.colorSensor.blue() == robot.colorSensor.red()) {
-            shoot(.9, 10);
-        }
+
 
         else {
             encoderDriveWithODSRight(.1, -24, 0, 4.0);
@@ -492,9 +490,6 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
             sleep(1000);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             encoderDrive(DRIVE_SPEED, 35.25, 0, 4.0);
-        }
-        else if(robot.colorSensor.red() == robot.colorSensor.blue()) {
-            shoot(.9, 10);
         }
 
         else {
@@ -544,7 +539,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
             encoderDriveWithODSLeft(.3, 24, 0, 4.0);
             encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -33, 4.0);
-            encoderTurn(TURN_SPEED, 45, 4.0 );
+            encoderTurn(TURN_SPEED, -45, 4.0 );
             encoderDrive(DRIVE_SPEED, 0, -39, 4.0);
 
         }
