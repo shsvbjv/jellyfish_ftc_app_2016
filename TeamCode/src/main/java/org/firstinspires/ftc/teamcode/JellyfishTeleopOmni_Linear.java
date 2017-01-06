@@ -22,8 +22,8 @@ import com.qualcomm.robotcore.util.Range;
 public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareJellyfish   robot           = new HardwareJellyfish();
-//    double          leftPosition     = robot.leftServo.getPosition();
+    HardwareJellyfish robot = new HardwareJellyfish();
+    //    double          leftPosition     = robot.leftServo.getPosition();
 //    double          rightPosition     = robot.rightServo.getPosition();
 //    final double    SERVO_SPEED       = 0.05 ;
     boolean prevY = false;
@@ -32,10 +32,11 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     //boolean flywheelright = false;
     boolean prevX = false;
     double speed = 1;
-    //boolean flywheel = false;
+    boolean prevb = false;
     static final double INITIAL_FLYWHEEL_SPEED = .95;
     static final double FLYWHEEL_SPEED_INCREMENT = 0.1;
     double leftflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
+    boolean conveyor = false;
     //double rightflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
 
 
@@ -64,22 +65,37 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
             //pushing y once will turn intake on, pushing it again will turn it off
 
-            if ((prevX == false) &&
-                    (gamepad2.x)) {
+//            if ((prevX == false) &&
+//                    (gamepad2.x)) {
+//
+//                flywheelleft = !flywheelleft;
+            //flywheelright = !flywheelright;
 
-                flywheelleft = !flywheelleft;
-                //flywheelright = !flywheelright;
+            //     }
 
-            }
-
-            prevX = gamepad2.x;
+            //    prevX = gamepad2.x;
 
 
-            if(flywheelleft) {
-                robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
-            }
-            else robot.flywheelLeftMotorRampControl.setPowerTo(0);
+            //    if(flywheelleft) {
+            //         robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
+            //    }
+            //    else robot.flywheelLeftMotorRampControl.setPowerTo(0);
 
+//            if ((prevb == false) &&
+//                    (gamepad2.b)) {
+//
+//                flywheelleft = !flywheelleft;
+//                //flywheelright = !flywheelright;
+//
+//            }
+//
+//            prevb = gamepad2.b;
+//
+//
+//            if(conveyor) {
+//                robot.conveyorbelt.setPower(1);
+//            }
+//            else robot.conveyorbelt.setPower(0);
 
             // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
             y = gamepad1.right_stick_y;
@@ -106,93 +122,91 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 //            else robot.flywheelLeftMotor.setPower(0);
 
 
-
             //flywheel motors go faster or slower NANDINI IS AWESOME
 
             //if (gamepad2.dpad_down && gamepad2.right_trigger > 0) {
-                //rightflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
-                //rightflywheelSpeed = Range.clip(rightflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-                //robot.flywheelRightMotorRampControl.setPowerTo(rightflywheelSpeed);
+            //rightflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
+            //rightflywheelSpeed = Range.clip(rightflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+            //robot.flywheelRightMotorRampControl.setPowerTo(rightflywheelSpeed);
 
             //}
 
             //if (gamepad2.dpad_down && gamepad2.left_trigger > 0) {
-               //rightflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
-               // rightflywheelSpeed = Range.clip(rightflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-                //robot.flywheelRightMotorRampControl.setPowerTo(rightflywheelSpeed);
+            //rightflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
+            // rightflywheelSpeed = Range.clip(rightflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
+            //robot.flywheelRightMotorRampControl.setPowerTo(rightflywheelSpeed);
 
             //}
 
-            if (gamepad2.dpad_up && gamepad2.right_bumper) {
-                leftflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
-                leftflywheelSpeed = Range.clip(leftflywheelSpeed, 0, 1.0);
-                robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
-
-            }
-
-            if (gamepad2.dpad_up && gamepad2.left_bumper) {
-                leftflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
-                leftflywheelSpeed = Range.clip(leftflywheelSpeed, 0, 1.0);
-                robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
-
-           }
+//            if (gamepad2.dpad_up && gamepad2.right_bumper) {
+//                leftflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
+//                leftflywheelSpeed = Range.clip(leftflywheelSpeed, 0, 1.0);
+//                robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
+//
+//            }
+//
+//            if (gamepad2.dpad_up && gamepad2.left_bumper) {
+//                leftflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
+//                leftflywheelSpeed = Range.clip(leftflywheelSpeed, 0, 1.0);
+//                robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
+//
+//           }
 
 
             //move servos
-            if(gamepad2.dpad_left) {
+            if (gamepad2.dpad_left) {
 
                 robot.leftServo.setPower(1.0);
                 //robot.rightServo.setPower(1.0);
 
-            }
-            else {
+            } else {
 
                 robot.leftServo.setPower(0);
                 //robot.rightServo.setPower(0);
             }
 
-            if(gamepad2.dpad_right) {
+            if (gamepad2.dpad_right) {
 
                 robot.leftServo.setPower(-1.0);
                 //robot.rightServo.setPower(-1.0);
 
-            }
-            else {
+            } else {
 
                 robot.leftServo.setPower(0);
                 //robot.rightServo.setPower(0);
             }
 
 
-                //motors start slow and get faster
-            robot.flywheelLeftMotorRampControl.checkMotor();
-          //  robot.flywheelRightMotorRampControl.checkMotor();
+            //motors start slow and get faster
+            //  robot.flywheelLeftMotorRampControl.checkMotor();
+            //  robot.flywheelRightMotorRampControl.checkMotor();
 
-                // Send telemetry message to signify robot running;
+            // Send telemetry message to signify robot running;
 
-                telemetry.addData("Clear", robot.colorSensor.alpha());
-                telemetry.addData("Red  ", robot.colorSensor.red());
-                telemetry.addData("Green", robot.colorSensor.green());
-                telemetry.addData("Blue ", robot.colorSensor.blue());
+            telemetry.addData("Clear", robot.colorSensor.alpha());
+            telemetry.addData("Red  ", robot.colorSensor.red());
+            telemetry.addData("Green", robot.colorSensor.green());
+            telemetry.addData("Blue ", robot.colorSensor.blue());
 
-                telemetry.addData("Raw Left", "%.2f", robot.odsSensorL.getRawLightDetected());
-                telemetry.addData("Raw Right", "%.2f", robot.odsSensorR.getRawLightDetected());
+            telemetry.addData("Raw Left", "%.2f", robot.odsSensorL.getRawLightDetected());
+            telemetry.addData("Raw Right", "%.2f", robot.odsSensorR.getRawLightDetected());
 
-                telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
-                telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
+            telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
+            telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
 
-                telemetry.addData("flywheel", "%.2f", robot.flywheelLeftMotor.getPower());
+            // telemetry.addData("flywheel", "%.2f", robot.flywheelLeftMotor.getPower());
 
-                //telemetry.addData("Hue", hsvValues[0]);
+            //telemetry.addData("Hue", hsvValues[0]);
 
-                telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
-                telemetry.update();
+            telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
+            telemetry.update();
 
 
-                // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-                robot.waitForTick(20);
-                idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
-            }
+            // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
+            robot.waitForTick(20);
+            idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
         }
     }
+}
+
 

@@ -59,7 +59,7 @@ public class AutoTest extends JellyfishAutoBase {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
 
-        shoot(.9, 10);
+        //shoot(.9, 10);
 
 
 
