@@ -57,9 +57,9 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(DRIVE_SPEED, 43, 0, 4.0);
+        encoderDrive(DRIVE_SPEED, 36, 0, 4.0);
 
-        encoderDrive(DRIVE_SPEED, 0, 53, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, 49, 4.0);
 
         encoderTurn(TURN_SPEED, 15, 4.0);
 //
