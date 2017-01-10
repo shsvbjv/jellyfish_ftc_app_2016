@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 
 
-@Autonomous(name="Jellyfish: Auto Mode Solo Red ", group="Jellyfish")
+@Autonomous(name="test", group="Jellyfish")
 
 public class test extends JellyfishAutoBase {
 
