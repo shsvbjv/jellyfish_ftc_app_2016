@@ -12,9 +12,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 
 
-@Autonomous(name="test ", group="Jellyfish")
+@Autonomous(name="cap shoot blue ", group="Jellyfish")
 
-public class test extends JellyfishAutoBase {
+public class JellyfishAutoCapShootBlue extends JellyfishAutoBase {
 
     /* Declare OpMode members. */
 
