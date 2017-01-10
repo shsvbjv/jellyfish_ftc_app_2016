@@ -1,32 +1,23 @@
+
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
-/**
- * Push cap ball
- * Shoot at corner vortex
- * Park on corner vortex
- * TESTED
- */
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
-@Autonomous(name="Jellyfish: Auto Cap Shoot Blue", group="Jellyfish")
 
-public class JellyfishAutoCapShootBlue extends JellyfishAutoBase {
+
+@Autonomous(name="test ", group="Jellyfish")
+
+public class test extends JellyfishAutoBase {
 
     /* Declare OpMode members. */
-    HardwareJellyfish         robot   = new HardwareJellyfish();   // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1220 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 3.0 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
-    static final double     TURN_SPEED              = 0.5;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -53,7 +44,7 @@ public class JellyfishAutoCapShootBlue extends JellyfishAutoBase {
         robot.backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0",  "Starting at %7d :%7d :%7d :%7d",
+        telemetry.addData("Path0", "Starting at %7d :%7d :%7d :%7d",
                 robot.frontLeftMotor.getCurrentPosition(),
                 robot.frontRightMotor.getCurrentPosition(),
                 robot.backLeftMotor.getCurrentPosition(),
@@ -65,25 +56,9 @@ public class JellyfishAutoCapShootBlue extends JellyfishAutoBase {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        encoderDrive(DRIVE_SPEED,   0, 23.5, 4.0);  // forward
-        sleep(100);
-        encoderTurn(TURN_SPEED, -45, 4.0); // Turn right 45 degrees
-        sleep(100);
-        encoderDrive(DRIVE_SPEED,   0, 24, 4.0);  //forward
-        sleep(100);
-        encoderTurn(TURN_SPEED, -105, 4.0); // Turn right 105 degress
-        sleep(100);
-        encoderDrive(DRIVE_SPEED, 0, 50, 4.0); //forward
-        sleep(100);
-        robot.intakeBeltMotor.setPower(-1); //shoot
-        sleep(5000);
-        robot.intakeBeltMotor.setPower(0); //stop
 
+        encoderDrive(DRIVE_SPEED, 15, 3, 4.0);
 
-
-
-        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
 
         sleep(1000);     // pause for servos to move
