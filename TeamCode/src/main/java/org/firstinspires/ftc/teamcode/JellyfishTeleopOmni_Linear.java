@@ -81,20 +81,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             //    }
             //    else robot.flywheelLeftMotorRampControl.setPowerTo(0);
 
-            if ((prevb == false) &&
-                    (gamepad2.b)) {
 
-                conveyor = !conveyor;
-
-            }
-//
-            prevb = gamepad2.b;
-
-
-            if(conveyor) {
-                robot.conveyorbelt.setPower(1);
-            }
-            else robot.conveyorbelt.setPower(0);
 
             // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
             y = gamepad1.right_stick_y;
@@ -113,6 +100,18 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             } else if (gamepad2.y) {
                 robot.intakeBeltMotor.setPower(-1);
             } else robot.intakeBeltMotor.setPower(0);
+
+
+
+            if(gamepad2.left_stick_y > .9) {
+                robot.conveyorbelt.setPower(1);
+            }
+            else if (gamepad2.left_stick_y < -.9) {
+                robot.conveyorbelt.setPower(-1);
+            }
+            else {
+                robot.conveyorbelt.setPower(0);
+            }
 
 
 //            if(gamepad2.x) {
@@ -184,7 +183,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             telemetry.addData("Blue ", robot.colorSensor.blue());
 
             telemetry.addData("Raw Left", "%.2f", robot.odsSensorL.getRawLightDetected());
-            telemetry.addData("Raw Right", "%.2f", robot.odsSensorR.getRawLightDetected());
+            //telemetry.addData("Raw Right", "%.2f", robot.odsSensorR.getRawLightDetected());
 
             telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
             telemetry.addData("X", "%.2f", gamepad1.right_stick_x);

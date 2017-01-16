@@ -41,7 +41,7 @@ public class HardwareJellyfish
 
     public ColorSensor colorSensor;
     OpticalDistanceSensor odsSensorL;
-    OpticalDistanceSensor odsSensorR;
+    //OpticalDistanceSensor odsSensorR;
 
 //    public Servo left = null;
 
@@ -102,7 +102,7 @@ public class HardwareJellyfish
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        conveyorbelt.setDirection(DcMotorSimple.Direction.FORWARD);
+        conveyorbelt.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //MAKE SURE THESE ARE OPPOSITE DIRECTIONS OTHERWISE YOU WILL BREAK MOTORS
        // flywheelLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -134,7 +134,7 @@ public class HardwareJellyfish
         colorSensor.enableLed(bLedOn);
 
         odsSensorL = hwMap.opticalDistanceSensor.get("odsleft");
-        odsSensorR = hwMap.opticalDistanceSensor.get("odsright");
+        //odsSensorR = hwMap.opticalDistanceSensor.get("odsright");
 
 
        // flywheelLeftMotorRampControl = new RampedMotorControl(flywheelLeftMotor, 5.0);

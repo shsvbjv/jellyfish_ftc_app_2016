@@ -57,7 +57,7 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(DRIVE_SPEED, 36, 0, 4.0);
+        encoderDrive(DRIVE_SPEED, 30, 0, 4.0);
 
         encoderDrive(DRIVE_SPEED, 0, 49, 4.0);
 
@@ -65,15 +65,15 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
 //
 //        sleep(2000);
 
-        encoderDriveWithODSRight(.1, 24, 0, 4.0);
+        encoderDriveWithODSLeft(.1, 24, 0, 4.0);
 
-        beaconPressRed();
+        //beaconPressRed();
 
-        encoderDrive(DRIVE_SPEED,0,5,4.0);
+        //encoderDrive(DRIVE_SPEED,0,5,4.0);
 
-        encoderDriveWithODSRight(.1, 24, 0, 4.0);
+        //encoderDriveWithODSRight(.1, 24, 0, 4.0);
 
-        beaconPressRed2();
+        //beaconPressRed2();
 
 
 
