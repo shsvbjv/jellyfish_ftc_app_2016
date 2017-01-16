@@ -35,17 +35,16 @@ public class HardwareJellyfish
     public DcMotor  backLeftMotor    = null;
     public DcMotor  backRightMotor   = null;
     public DcMotor  intakeBeltMotor = null;
-    //public DcMotor  flywheelLeftMotor = null;
-   // public DcMotor  conveyorbelt   = null;
+    public DcMotor  conveyorbelt   = null;
     // public DcMotor  flywheelRightMotor= null;
+    //public DcMotor  flywheelLeftMotor = null;
 
     public ColorSensor colorSensor;
     OpticalDistanceSensor odsSensorL;
     OpticalDistanceSensor odsSensorR;
 
-    //public CRServo rightServo = null;
-    public CRServo leftServo = null;
-//
+    public Servo left = null;
+
    // public RampedMotorControl flywheelLeftMotorRampControl = null;
  //   public RampedMotorControl flywheelRightMotorRampControl = null;
 
@@ -72,7 +71,7 @@ public class HardwareJellyfish
         frontRightMotor  = hwMap.dcMotor.get("motor_rf");
         backLeftMotor   = hwMap.dcMotor.get("motor_lb");
         backRightMotor  = hwMap.dcMotor.get("motor_rb");
-       // conveyorbelt = hwMap.dcMotor.get("conveyor");
+        conveyorbelt = hwMap.dcMotor.get("conveyor");
         intakeBeltMotor = hwMap.dcMotor.get("intake");
       //  flywheelLeftMotor = hwMap.dcMotor.get("flywheelleft");
      //   flywheelRightMotor = hwMap.dcMotor.get("flywheelright");
@@ -103,7 +102,7 @@ public class HardwareJellyfish
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        //conveyorbelt.setDirection(DcMotorSimple.Direction.FORWARD);
+        conveyorbelt.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //MAKE SURE THESE ARE OPPOSITE DIRECTIONS OTHERWISE YOU WILL BREAK MOTORS
        // flywheelLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -117,22 +116,13 @@ public class HardwareJellyfish
         backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeBeltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
       //  flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //conveyorbelt.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        conveyorbelt.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ///  flywheelRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        left = hwMap.servo.get("servo");
+        left.setPosition(.5);
+
         hwMap.logDevices();
-        //rightServo = hwMap.crservo.get("right");
-
-        leftServo = hwMap.crservo.get("left");
-
-
-//        leftServo.setPosition(0.5);
-//        rightServo.setPosition(0.5);
-//
-        leftServo.setDirection(DcMotorSimple.Direction.FORWARD);
-        //rightServo.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
 
 
         boolean bLedOn = true;

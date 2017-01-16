@@ -81,21 +81,20 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             //    }
             //    else robot.flywheelLeftMotorRampControl.setPowerTo(0);
 
-//            if ((prevb == false) &&
-//                    (gamepad2.b)) {
+            if ((prevb == false) &&
+                    (gamepad2.b)) {
+
+                conveyor = !conveyor;
+
+            }
 //
-//                flywheelleft = !flywheelleft;
-//                //flywheelright = !flywheelright;
-//
-//            }
-//
-//            prevb = gamepad2.b;
-//
-//
-//            if(conveyor) {
-//                robot.conveyorbelt.setPower(1);
-//            }
-//            else robot.conveyorbelt.setPower(0);
+            prevb = gamepad2.b;
+
+
+            if(conveyor) {
+                robot.conveyorbelt.setPower(1);
+            }
+            else robot.conveyorbelt.setPower(0);
 
             // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
             y = gamepad1.right_stick_y;
@@ -155,25 +154,21 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
             //move servos
             if (gamepad2.dpad_left) {
-
-                robot.leftServo.setPower(1.0);
-                //robot.rightServo.setPower(1.0);
+                robot.left.setPosition(0);
 
             } else {
+                robot.left.setPosition(.5);
 
-                robot.leftServo.setPower(0);
-                //robot.rightServo.setPower(0);
             }
 
             if (gamepad2.dpad_right) {
 
-                robot.leftServo.setPower(-1.0);
-                //robot.rightServo.setPower(-1.0);
+                robot.left.setPosition(1);
 
             } else {
 
-                robot.leftServo.setPower(0);
-                //robot.rightServo.setPower(0);
+                robot.left.setPosition(.5);
+
             }
 
 
