@@ -43,7 +43,7 @@ public class HardwareJellyfish
     OpticalDistanceSensor odsSensorL;
     OpticalDistanceSensor odsSensorR;
 
-    public Servo left = null;
+//    public Servo left = null;
 
    // public RampedMotorControl flywheelLeftMotorRampControl = null;
  //   public RampedMotorControl flywheelRightMotorRampControl = null;
@@ -119,8 +119,8 @@ public class HardwareJellyfish
         conveyorbelt.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ///  flywheelRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        left = hwMap.servo.get("servo");
-        left.setPosition(.5);
+//        left = hwMap.servo.get("servo");
+//        left.setPosition(.5);
 
         hwMap.logDevices();
 

@@ -153,23 +153,23 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
 
             //move servos
-            if (gamepad2.dpad_left) {
-                robot.left.setPosition(0);
-
-            } else {
-                robot.left.setPosition(.5);
-
-            }
-
-            if (gamepad2.dpad_right) {
-
-                robot.left.setPosition(1);
-
-            } else {
-
-                robot.left.setPosition(.5);
-
-            }
+//            if (gamepad2.dpad_left) {
+//                robot.left.setPosition(0);
+//
+//            } else {
+//                robot.left.setPosition(.5);
+//
+//            }
+//
+//            if (gamepad2.dpad_right) {
+//
+//                robot.left.setPosition(1);
+//
+//            } else {
+//
+//                robot.left.setPosition(.5);
+//
+//            }
 
 
             //motors start slow and get faster
