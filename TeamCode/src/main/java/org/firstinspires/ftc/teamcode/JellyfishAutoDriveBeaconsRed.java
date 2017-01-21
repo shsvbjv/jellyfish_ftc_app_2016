@@ -74,13 +74,13 @@ public class JellyfishAutoDriveBeaconsRed extends JellyfishAutoBase {
 
         encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0 );
 
-        beaconPress();
+        //beaconPress();
 
         encoderDrive(DRIVE_SPEED, 50, 0, 4.0 ); // move right
 
         encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
 
-        beaconPress();
+        //beaconPress();
 
         sleep(1000);     // pause for servos to move
 

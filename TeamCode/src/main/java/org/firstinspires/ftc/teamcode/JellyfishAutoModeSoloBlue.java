@@ -86,11 +86,11 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
 
         encoderDriveWithODSLeft(.1, -24, 0, 4.0);
 
-        beaconPressBlue();
+        beaconPressB();
 //
-       encoderDriveWithODSLeft(DRIVE_SPEED, -24, 0, 4.0);
-
-        beaconPressBlue2();
+//       encoderDriveWithODSLeft(DRIVE_SPEED, -24, 0, 4.0);
+//
+//        beaconPressBlue2();
 
 
 

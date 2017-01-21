@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.Range;
  * TESTED
  */
 
-@Autonomous(name="Jellyfish: Auto Cap Shoot Blue Test", group="Jellyfish")
+@Autonomous(name="Test", group="Jellyfish")
 
 public class AutoTest extends JellyfishAutoBase {
 
@@ -55,16 +55,9 @@ public class AutoTest extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
 
-        //shoot(.9, 10);
+        encoderDrive(.1, 24, 0, 4.0);
 
-
-
-
-        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
 
         sleep(1000);     // pause for servos to move

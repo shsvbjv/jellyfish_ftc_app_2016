@@ -59,7 +59,7 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
 
         encoderDrive(DRIVE_SPEED, 30, 0, 4.0);
 
-        encoderDrive(DRIVE_SPEED, 0, 49, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, 47, 4.0);
 
         encoderTurn(TURN_SPEED, 15, 4.0);
 //
@@ -67,7 +67,7 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
 
         encoderDriveWithODSLeft(.1, 24, 0, 4.0);
 
-        //beaconPressRed();
+        beaconPressR();
 
         //encoderDrive(DRIVE_SPEED,0,5,4.0);
 
