@@ -134,7 +134,8 @@ public class HardwareJellyfish
         colorSensor.enableLed(bLedOn);
 
         odsSensorL = hwMap.opticalDistanceSensor.get("odsleft");
-        //odsSensorR = hwMap.opticalDistanceSensor.get("odsright");
+        //
+        // odsSensorR = hwMap.opticalDistanceSensor.get("odsright");
 
 
         flywheelLeftMotorRampControl = new RampedMotorControl(flywheelLeftMotor, 5.0);

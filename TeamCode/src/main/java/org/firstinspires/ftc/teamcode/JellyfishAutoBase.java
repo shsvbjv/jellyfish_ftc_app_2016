@@ -65,7 +65,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
                             robot.frontRightMotor.isBusy() &&
                             robot.backLeftMotor.isBusy() &&
                             robot.backRightMotor.isBusy())&&
-                    robot.odsSensorL.getRawLightDetected()< 1.0)
+                    robot.odsSensorL.getRawLightDetected()< .90)
             {
 
 
@@ -678,7 +678,8 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
     public void beaconPressB() throws InterruptedException {
 
         encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
-        encoderDrive(DRIVE_SPEED, 0, -2, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+        sleep(500);
 
         if(robot.colorSensor.red() < robot.colorSensor.blue()) {
 
@@ -687,9 +688,10 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         }
         else{
 
-            wait(4000);
+            sleep(4000);
             encoderDrive(DRIVE_SPEED, 0, 3, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, -2, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+            sleep(1000);
 
             if(robot.colorSensor.red() < robot.colorSensor.blue()) {
 
@@ -698,9 +700,9 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
             }
             else {
 
-                wait(4000);
+                sleep(4000);
                 encoderDrive(DRIVE_SPEED, 0, 3, 4.0);
-                encoderDrive(DRIVE_SPEED, 0, -2, 4.0);
+                encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             }
 
         }
