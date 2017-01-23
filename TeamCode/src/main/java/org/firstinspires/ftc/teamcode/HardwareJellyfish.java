@@ -37,15 +37,15 @@ public class HardwareJellyfish
     public DcMotor  intakeBeltMotor = null;
     public DcMotor  conveyorbelt   = null;
     // public DcMotor  flywheelRightMotor= null;
-    //public DcMotor  flywheelLeftMotor = null;
+     public DcMotor  flywheelLeftMotor = null;
 
     public ColorSensor colorSensor;
     OpticalDistanceSensor odsSensorL;
-    OpticalDistanceSensor odsSensorR;
+    //OpticalDistanceSensor odsSensorR;
 
 //    public Servo left = null;
 
-   // public RampedMotorControl flywheelLeftMotorRampControl = null;
+    public RampedMotorControl flywheelLeftMotorRampControl = null;
  //   public RampedMotorControl flywheelRightMotorRampControl = null;
 
 
@@ -73,7 +73,7 @@ public class HardwareJellyfish
         backRightMotor  = hwMap.dcMotor.get("motor_rb");
         conveyorbelt = hwMap.dcMotor.get("conveyor");
         intakeBeltMotor = hwMap.dcMotor.get("intake");
-      //  flywheelLeftMotor = hwMap.dcMotor.get("flywheelleft");
+        flywheelLeftMotor = hwMap.dcMotor.get("flywheelleft");
      //   flywheelRightMotor = hwMap.dcMotor.get("flywheelright");
 
 
@@ -87,7 +87,7 @@ public class HardwareJellyfish
         backLeftMotor.setPower(0);
         backRightMotor.setPower(0);
         intakeBeltMotor.setPower(0);
-      //  flywheelLeftMotor.setPower(0);
+        flywheelLeftMotor.setPower(0);
      //   flywheelRightMotor.setPower(0);
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -105,7 +105,7 @@ public class HardwareJellyfish
         conveyorbelt.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //MAKE SURE THESE ARE OPPOSITE DIRECTIONS OTHERWISE YOU WILL BREAK MOTORS
-       // flywheelLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        flywheelLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
        // flywheelRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Set all motors to run without encoders.
@@ -134,10 +134,10 @@ public class HardwareJellyfish
         colorSensor.enableLed(bLedOn);
 
         odsSensorL = hwMap.opticalDistanceSensor.get("odsleft");
-        odsSensorR = hwMap.opticalDistanceSensor.get("odsright");
+        //odsSensorR = hwMap.opticalDistanceSensor.get("odsright");
 
 
-       // flywheelLeftMotorRampControl = new RampedMotorControl(flywheelLeftMotor, 5.0);
+        flywheelLeftMotorRampControl = new RampedMotorControl(flywheelLeftMotor, 5.0);
      //   flywheelRightMotorRampControl = new RampedMotorControl(flywheelRightMotor, 5.0);
 
         telemetry.addData(">", "Calibrating Gyro");    //

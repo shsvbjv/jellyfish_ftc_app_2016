@@ -80,7 +80,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
                         robot.backLeftMotor.getCurrentPosition(),
                         robot.backRightMotor.getCurrentPosition());
 
-                telemetry.addData("right", "%.2f", robot.odsSensorR.getRawLightDetected());
+                //telemetry.addData("right", "%.2f", robot.odsSensorR.getRawLightDetected());
                 telemetry.addData("left", "%.2f", robot.odsSensorL.getRawLightDetected());
 
 
@@ -106,89 +106,89 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         //  sleep(250);   // optional pause after each move
     }
 
-    public void encoderDriveWithODSRight (double speed,
-                                          double xInches, double yInches,
-                                          double timeoutS) throws InterruptedException {
-        int newFrontLeftTarget;
-        int newFrontRightTarget;
-        int newBackLeftTarget;
-        int newBackRightTarget;
-
-        yInches = -yInches;
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-            // Determine new target position, and pass to motor controller
-            newFrontLeftTarget = robot.frontLeftMotor.getCurrentPosition() + (int)(((yInches - xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
-            newFrontRightTarget = robot.frontRightMotor.getCurrentPosition() + (int)(((yInches + xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
-            newBackLeftTarget = robot.backLeftMotor.getCurrentPosition() + (int)(((yInches + xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
-            newBackRightTarget = robot.backRightMotor.getCurrentPosition() + (int)(((yInches - xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
-
-            robot.frontLeftMotor.setTargetPosition(newFrontLeftTarget);
-            robot.frontRightMotor.setTargetPosition(newFrontRightTarget);
-            robot.backLeftMotor.setTargetPosition(newBackLeftTarget);
-            robot.backRightMotor.setTargetPosition(newBackRightTarget);
-
-            // Turn On RUN_TO_POSITION
-            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            robot.frontLeftMotor.setPower(Math.abs(speed));
-            robot.frontRightMotor.setPower(Math.abs(speed));
-            robot.backLeftMotor.setPower(Math.abs(speed));
-            robot.backRightMotor.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
-                    (robot.frontLeftMotor.isBusy() &&
-                            robot.frontRightMotor.isBusy() &&
-                            robot.backLeftMotor.isBusy() &&
-                            robot.backRightMotor.isBusy())&&
-                    robot.odsSensorR.getRawLightDetected()<0.11) {
-
-
-                // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", newFrontLeftTarget,
-                        newFrontRightTarget,
-                        newBackLeftTarget,
-                        newBackRightTarget);
-                telemetry.addData("Path2", "Running at %7d :%7d :%7d :%7d",
-                        robot.frontLeftMotor.getCurrentPosition(),
-                        robot.frontRightMotor.getCurrentPosition(),
-                        robot.backLeftMotor.getCurrentPosition(),
-                        robot.backRightMotor.getCurrentPosition());
-
-                telemetry.addData("right", "%.2f", robot.odsSensorR.getRawLightDetected());
-                telemetry.addData("left", "%.2f", robot.odsSensorL.getRawLightDetected());
-
-
-                telemetry.update();
-
-                // Allow time for other processes to run.
-                idle();
-            }
-        }
-
-        // Stop all motion;
-        robot.frontLeftMotor.setPower(0);
-        robot.frontRightMotor.setPower(0);
-        robot.backLeftMotor.setPower(0);
-        robot.backRightMotor.setPower(0);
-
-        // Turn off RUN_TO_POSITION
-        robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        //  sleep(250);   // optional pause after each move
-    }
+//    public void encoderDriveWithODSRight (double speed,
+//                                          double xInches, double yInches,
+//                                          double timeoutS) throws InterruptedException {
+//        int newFrontLeftTarget;
+//        int newFrontRightTarget;
+//        int newBackLeftTarget;
+//        int newBackRightTarget;
+//
+//        yInches = -yInches;
+//
+//        // Ensure that the opmode is still active
+//        if (opModeIsActive()) {
+//
+//            // Determine new target position, and pass to motor controller
+//            newFrontLeftTarget = robot.frontLeftMotor.getCurrentPosition() + (int)(((yInches - xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
+//            newFrontRightTarget = robot.frontRightMotor.getCurrentPosition() + (int)(((yInches + xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
+//            newBackLeftTarget = robot.backLeftMotor.getCurrentPosition() + (int)(((yInches + xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
+//            newBackRightTarget = robot.backRightMotor.getCurrentPosition() + (int)(((yInches - xInches) * COUNTS_PER_INCH)/Math.sqrt(2));
+//
+//            robot.frontLeftMotor.setTargetPosition(newFrontLeftTarget);
+//            robot.frontRightMotor.setTargetPosition(newFrontRightTarget);
+//            robot.backLeftMotor.setTargetPosition(newBackLeftTarget);
+//            robot.backRightMotor.setTargetPosition(newBackRightTarget);
+//
+//            // Turn On RUN_TO_POSITION
+//            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//            // reset the timeout time and start motion.
+//            runtime.reset();
+//            robot.frontLeftMotor.setPower(Math.abs(speed));
+//            robot.frontRightMotor.setPower(Math.abs(speed));
+//            robot.backLeftMotor.setPower(Math.abs(speed));
+//            robot.backRightMotor.setPower(Math.abs(speed));
+//
+//            // keep looping while we are still active, and there is time left, and both motors are running.
+//            while (opModeIsActive() &&
+//                    (runtime.seconds() < timeoutS) &&
+//                    (robot.frontLeftMotor.isBusy() &&
+//                            robot.frontRightMotor.isBusy() &&
+//                            robot.backLeftMotor.isBusy() &&
+//                            robot.backRightMotor.isBusy())&&
+//                    robot.odsSensorR.getRawLightDetected()<0.11) {
+//
+//
+//                // Display it for the driver.
+//                telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", newFrontLeftTarget,
+//                        newFrontRightTarget,
+//                        newBackLeftTarget,
+//                        newBackRightTarget);
+//                telemetry.addData("Path2", "Running at %7d :%7d :%7d :%7d",
+//                        robot.frontLeftMotor.getCurrentPosition(),
+//                        robot.frontRightMotor.getCurrentPosition(),
+//                        robot.backLeftMotor.getCurrentPosition(),
+//                        robot.backRightMotor.getCurrentPosition());
+//
+//                telemetry.addData("right", "%.2f", robot.odsSensorR.getRawLightDetected());
+//                telemetry.addData("left", "%.2f", robot.odsSensorL.getRawLightDetected());
+//
+//
+//                telemetry.update();
+//
+//                // Allow time for other processes to run.
+//                idle();
+//            }
+//        }
+//
+//        // Stop all motion;
+//        robot.frontLeftMotor.setPower(0);
+//        robot.frontRightMotor.setPower(0);
+//        robot.backLeftMotor.setPower(0);
+//        robot.backRightMotor.setPower(0);
+//
+//        // Turn off RUN_TO_POSITION
+//        robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//
+//        //  sleep(250);   // optional pause after each move
+//    }
 
     public void encoderDrive(double speed,
                              double xInches, double yInches,
