@@ -65,7 +65,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
                             robot.frontRightMotor.isBusy() &&
                             robot.backLeftMotor.isBusy() &&
                             robot.backRightMotor.isBusy())&&
-                    robot.odsSensorL.getRawLightDetected()< .90)
+                    robot.odsSensor.getRawLightDetected()< .90)
             {
 
 
@@ -81,7 +81,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
                         robot.backRightMotor.getCurrentPosition());
 
                 //telemetry.addData("right", "%.2f", robot.odsSensorR.getRawLightDetected());
-                telemetry.addData("left", "%.2f", robot.odsSensorL.getRawLightDetected());
+                telemetry.addData("left", "%.2f", robot.odsSensor.getRawLightDetected());
 
 
                 telemetry.update();
@@ -276,7 +276,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         int newBackRightTarget;
 
         double inches = 20.5 * Math.PI * degrees / 360;
-        degrees = -degrees;
+
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
@@ -548,64 +548,48 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         sleep(500);
 
     }
-//    public void shoot(double speed,
-//                      double time) throws InterruptedException {
-//
-//
-//        // Ensure that the opmode is still active .
-//        if (opModeIsActive()) {
-//
-//            robot.flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//
-//
-//            // reset the timeout time and start motion.
-//            runtime.reset();
-//            robot.flywheelLeftMotor.setPower(Math.abs(speed));
-//
-//            sleep(2000);
-//
-//            intake(1, 5);
-//
-////            robot.leftServo.setPower(0);
-//
-//            sleep(500);
-//            intake(1, 2);
-//
-//            sleep(500);
-//            intake(1, 2);
-//
-//            sleep(500);
-//            intake(1, 2);
-//
-//            sleep(500);
-//            intake(1, 2);
-//
-//
-//
-//
-//
-//        }
-//
-//
-//        // keep looping while we are still active, and there is time left, and both motors are running.
-//        while (opModeIsActive() &&
-//                (runtime.seconds() < time)) {
-//
-//
-//            telemetry.update();
-//
-//            // Allow time for other processes to run.
-//            idle();
-//        }
-//
-//        // Stop all motion;
-//        robot.flywheelLeftMotor.setPower(0);
-//
-//        // Turn off RUN_TO_POSITION
-//        robot.flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//
-//        //  sleep(250);   // optional pause after each move
-//    }
+    public void shoot(double speed,
+                      double time) throws InterruptedException {
+
+
+        // Ensure that the opmode is still active .
+        if (opModeIsActive()) {
+
+            robot.flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.flywheelLeftMotorRampControl.rampPowerTo(Math.abs(speed));
+
+            sleep(2000);
+
+            intake(1, 5);
+
+//            robot.leftServo.setPower(0);
+
+        }
+
+
+        // keep looping while we are still active, and there is time left, and both motors are running.
+        while (opModeIsActive() &&
+                (runtime.seconds() < time)) {
+
+
+            telemetry.update();
+
+            // Allow time for other processes to run.
+            idle();
+        }
+
+        // Stop all motion;
+        robot.flywheelLeftMotor.setPower(0);
+
+        // Turn off RUN_TO_POSITION
+        robot.flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //  sleep(250);   // optional pause after each move
+    }
 
     public void intake(double speed,
                        double time) throws InterruptedException {
@@ -647,7 +631,8 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
     public void beaconPressR() throws InterruptedException {
 
         encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
-        encoderDrive(DRIVE_SPEED, 0, -2, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+        sleep(500);
 
         if(robot.colorSensor.red() > robot.colorSensor.blue()) {
 
@@ -657,8 +642,9 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         else{
 
             wait(4000);
-            encoderDrive(DRIVE_SPEED, 0, 3, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, -2, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+            sleep(1000);
 
             if(robot.colorSensor.red() > robot.colorSensor.blue()) {
 
@@ -668,8 +654,8 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
             else {
 
                 wait(4000);
-                encoderDrive(DRIVE_SPEED, 0, 3, 4.0);
-                encoderDrive(DRIVE_SPEED, 0, -2, 4.0);
+                encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+                encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             }
 
         }
@@ -689,7 +675,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         else{
 
             sleep(4000);
-            encoderDrive(DRIVE_SPEED, 0, 3, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             sleep(1000);
 
@@ -701,7 +687,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
             else {
 
                 sleep(4000);
-                encoderDrive(DRIVE_SPEED, 0, 3, 4.0);
+                encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
                 encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             }
 

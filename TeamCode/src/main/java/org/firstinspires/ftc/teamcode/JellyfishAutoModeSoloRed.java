@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 
 
-@Autonomous(name="Jellyfish: Auto Mode Solo Red ", group="Jellyfish")
+@Autonomous(name="Mode Solo Red ", group="Jellyfish")
 
 public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
 
@@ -57,23 +57,27 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(DRIVE_SPEED, 30, 0, 4.0);
+        encoderDrive(DRIVE_SPEED, 41, 0, 4.0);
 
         encoderDrive(DRIVE_SPEED, 0, 47, 4.0);
 
-        encoderTurn(TURN_SPEED, 15, 4.0);
-//
-//        sleep(2000);
+//      encoderTurn(TURN_SPEED, -15, 4.0);
 
         encoderDriveWithODSLeft(.1, 24, 0, 4.0);
 
         beaconPressR();
 
-        //encoderDrive(DRIVE_SPEED,0,5,4.0);
+        encoderDrive(DRIVE_SPEED, 35, 0, 4.0);
+//
+        encoderDriveWithODSLeft(.1, 15, 0, 4.0);
 
-        //encoderDriveWithODSRight(.1, 24, 0, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, 3, 4.0);
+//
+        beaconPressR();
 
-        //beaconPressRed2();
+        encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
+
+        encoderTurn(TURN_SPEED, 45, 4.0);
 
 
 

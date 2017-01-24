@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * NEED TO TEST
  */
 
-@Autonomous(name="Jellyfish: Auto Beacons Blue ", group="Jellyfish")
+@Autonomous(name="Beacons Blue ", group="Jellyfish")
 
 public class JellyfishAutoDriveBeaconsBlue extends JellyfishAutoBase {
 
@@ -58,24 +58,26 @@ public class JellyfishAutoDriveBeaconsBlue extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        encoderDrive(DRIVE_SPEED,  0 ,30, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
-        encoderTurn(TURN_SPEED, -45, 4.0); // Turn right 45 degrees
+        encoderDrive(DRIVE_SPEED, -41, 0, 4.0);
 
-        encoderDrive(DRIVE_SPEED,   0, 24, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, 0, 47, 4.0);
 
-        encoderTurn(TURN_SPEED, -65, 4.0); // Turn right 100 degress
+        encoderDriveWithODSLeft(.1, -24, 0, 4.0);
 
-        beaconPressBlue();
+        beaconPressB();
 
-        encoderDrive(DRIVE_SPEED, -47, 0, 4.0 ); //left
+        encoderDrive(DRIVE_SPEED, -35, 0, 4.0);
+//
+        encoderDriveWithODSLeft(.1, -15, 0, 4.0);
 
-        encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, 2, 4.0);
+//
+        beaconPressB();
 
-        beaconPressBlue();
+        encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
+
+        encoderTurn(TURN_SPEED, -45, 4.0);
 
 
 

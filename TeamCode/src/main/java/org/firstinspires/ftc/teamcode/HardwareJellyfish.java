@@ -40,7 +40,7 @@ public class HardwareJellyfish
      public DcMotor  flywheelLeftMotor = null;
 
     public ColorSensor colorSensor;
-    OpticalDistanceSensor odsSensorL;
+    OpticalDistanceSensor odsSensor;
     //OpticalDistanceSensor odsSensorR;
 
 //    public Servo left = null;
@@ -133,7 +133,7 @@ public class HardwareJellyfish
         // Set the LED in the beginning
         colorSensor.enableLed(bLedOn);
 
-        odsSensorL = hwMap.opticalDistanceSensor.get("odsleft");
+        odsSensor = hwMap.opticalDistanceSensor.get("odsleft");
         //
         // odsSensorR = hwMap.opticalDistanceSensor.get("odsright");
 

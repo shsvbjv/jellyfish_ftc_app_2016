@@ -54,14 +54,15 @@ public class JellyfishAutoCapShootBlue extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-
-        encoderDrive(DRIVE_SPEED, 15, 3, 4.0);
 
 
+        encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0);  //drive
 
-        sleep(1000);     // pause for servos to move
+        shoot(.8, 10); //shoot
+
+        encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0); //park
+
+
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * NEED TO TEST
  */
 
-@Autonomous(name="Jellyfish: Auto Cap Shoot Red", group="Jellyfish")
+@Autonomous(name="Cap Shoot Red", group="Jellyfish")
 
 public class JellyfishAutoCapShootRed extends JellyfishAutoBase {
 
@@ -63,22 +63,12 @@ public class JellyfishAutoCapShootRed extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        encoderDrive(DRIVE_SPEED,   0, 23.5, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        sleep(100);
-        encoderTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
-        sleep(100);
-        encoderDrive(DRIVE_SPEED,   0, 24, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        sleep(100);
-        encoderTurn(TURN_SPEED, 105, 4.0); // Turn left 90 degress
-        sleep(100);
-        encoderDrive(DRIVE_SPEED, 0, 50, 4.0);
-        sleep(100);
-        robot.intakeBeltMotor.setPower(-1);
-        sleep(5000);
-        robot.intakeBeltMotor.setPower(0);
+
+        encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0);  //drive
+
+        shoot(.8, 10); //shoot
+
+        encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0); //park
 
 
 

@@ -94,7 +94,7 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
 
         encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
 
-        encoderTurn(TURN_SPEED, 45, 4.0);
+        encoderTurn(TURN_SPEED, -45, 4.0);
 
 
 

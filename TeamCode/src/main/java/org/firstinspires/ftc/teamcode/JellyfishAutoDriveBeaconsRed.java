@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * NEED TO TEST
  */
 
-@Autonomous(name="Jellyfish: Auto Beacons Red ", group="Jellyfish")
+@Autonomous(name="Beacons Red ", group="Jellyfish")
 
 public class JellyfishAutoDriveBeaconsRed extends JellyfishAutoBase {
 
@@ -64,25 +64,16 @@ public class JellyfishAutoDriveBeaconsRed extends JellyfishAutoBase {
         //encoderDrive(DRIVE_SPEED,  0 ,32, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
 
-        encoderDrive(DRIVE_SPEED,  0 ,32, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, 30, 0, 4.0);
 
-        encoderTurn(TURN_SPEED, 45, 4.0); // Turn left 45 degrees
+        encoderDrive(DRIVE_SPEED, 0, 47, 4.0);
 
-        encoderDrive(DRIVE_SPEED,   0, 30, 4.0);
+        encoderTurn(TURN_SPEED, -15, 4.0);
 
-        encoderTurn(TURN_SPEED, 65, 4.0); // Turn left 65 degress
+        encoderDriveWithODSLeft(.1, 24, 0, 4.0);
 
-        encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0 );
+        beaconPressR();
 
-        //beaconPress();
-
-        encoderDrive(DRIVE_SPEED, 50, 0, 4.0 ); // move right
-
-        encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
-
-        //beaconPress();
-
-        sleep(1000);     // pause for servos to move
 
         telemetry.addData("Path", "Complete");
         telemetry.addData("Gyro",  ":%3d", robot.gyro.getHeading());
