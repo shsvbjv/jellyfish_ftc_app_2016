@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsAnalogOpticalDistanceSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -39,6 +40,7 @@ public class HardwareJellyfish
     // public DcMotor  flywheelRightMotor= null;
      public DcMotor  flywheelLeftMotor = null;
 
+
     public ColorSensor colorSensor;
     OpticalDistanceSensor odsSensor;
     //OpticalDistanceSensor odsSensorR;
@@ -50,6 +52,7 @@ public class HardwareJellyfish
 
 
     ModernRoboticsI2cGyro gyro    = null;
+    ModernRoboticsI2cRangeSensor rangeSensor;
 
 
 
@@ -74,10 +77,13 @@ public class HardwareJellyfish
         conveyorbelt = hwMap.dcMotor.get("conveyor");
         intakeBeltMotor = hwMap.dcMotor.get("intake");
         flywheelLeftMotor = hwMap.dcMotor.get("flywheelleft");
+
      //   flywheelRightMotor = hwMap.dcMotor.get("flywheelright");
 
 
         gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
+        rangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "sensor_range");
+
 
         gyro.setHeadingMode(ModernRoboticsI2cGyro.HeadingMode.HEADING_CARTESIAN);
 

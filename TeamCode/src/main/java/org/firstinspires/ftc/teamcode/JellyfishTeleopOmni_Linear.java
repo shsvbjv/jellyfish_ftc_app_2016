@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 /**
  * This OpMode uses the common HardwareJellyfish class to define the devices on the robot.
  * All device access is managed through the HardwareJellyfish class. (See this class for device names)
@@ -176,7 +178,10 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             //  robot.flywheelRightMotorRampControl.checkMotor();
 
             // Send telemetry message to signify robot running;
-
+            telemetry.addData("raw ultrasonic", robot.rangeSensor.rawUltrasonic());
+            telemetry.addData("raw optical", robot.rangeSensor.rawOptical());
+            telemetry.addData("cm optical", "%.2f cm", robot.rangeSensor.cmOptical());
+            telemetry.addData("cm", "%.2f cm", robot.rangeSensor.getDistance(DistanceUnit.CM));
             telemetry.addData("Clear", robot.colorSensor.alpha());
             telemetry.addData("Red  ", robot.colorSensor.red());
             telemetry.addData("Green", robot.colorSensor.green());
