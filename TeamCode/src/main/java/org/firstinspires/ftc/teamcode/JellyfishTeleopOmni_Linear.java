@@ -32,6 +32,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     boolean prevA = false;
     boolean flywheelleft = false;
     //boolean flywheelright = false;
+    boolean serv = false;
     boolean prevX = false;
     double speed = 1;
     boolean prevb = false;
@@ -39,6 +40,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     static final double FLYWHEEL_SPEED_INCREMENT = 0.1;
     double leftflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
     boolean conveyor = false;
+    boolean prevservo = false;
     //double rightflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
 
 
@@ -82,6 +84,24 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
                      robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
                 }
                 else robot.flywheelLeftMotorRampControl.setPowerTo(0);
+
+
+
+
+//            if ((prevservo == false) &&
+//                    (gamepad2.right_bumper)) {
+//
+//                serv = !serv;
+
+           // }
+
+            //prevservo = gamepad2.right_bumper;
+
+
+//            if(serv) {
+//                robot.servo.setPosition(.5);
+//            }
+//            else robot.servo.setPosition(0);
 
 
 
@@ -153,24 +173,8 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
            }
 
 
-//            move servos
-//            if (gamepad2.dpad_left) {
-//                robot.left.setPosition(0);
 //
-//            } else {
-//                robot.left.setPosition(.5);
-//
-//            }
-//
-//            if (gamepad2.dpad_right) {
-//
-//                robot.left.setPosition(1);
-//
-//            } else {
-//
-//                robot.left.setPosition(.5);
-//
-//            }
+
 
 
             //motors start slow and get faster

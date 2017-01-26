@@ -45,7 +45,7 @@ public class HardwareJellyfish
     OpticalDistanceSensor odsSensor;
     //OpticalDistanceSensor odsSensorR;
 
-//    public Servo left = null;
+    //public Servo servo = null;
 
     public RampedMotorControl flywheelLeftMotorRampControl = null;
  //   public RampedMotorControl flywheelRightMotorRampControl = null;
@@ -83,6 +83,7 @@ public class HardwareJellyfish
 
         gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
         rangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "range");
+        //servo = hwMap.servo.get("servo");
 
 
         gyro.setHeadingMode(ModernRoboticsI2cGyro.HeadingMode.HEADING_CARTESIAN);
@@ -125,8 +126,7 @@ public class HardwareJellyfish
         conveyorbelt.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ///  flywheelRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-//        left = hwMap.servo.get("servo");
-//        left.setPosition(.5);
+        //servo.setPosition(.5);
 
         hwMap.logDevices();
 
