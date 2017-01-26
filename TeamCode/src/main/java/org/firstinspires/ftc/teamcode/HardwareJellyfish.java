@@ -82,7 +82,7 @@ public class HardwareJellyfish
 
 
         gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
-        rangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "sensor_range");
+        rangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "range");
 
 
         gyro.setHeadingMode(ModernRoboticsI2cGyro.HeadingMode.HEADING_CARTESIAN);

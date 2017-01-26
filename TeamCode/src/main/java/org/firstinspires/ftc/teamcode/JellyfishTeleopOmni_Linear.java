@@ -178,26 +178,28 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             //  robot.flywheelRightMotorRampControl.checkMotor();
 
             // Send telemetry message to signify robot running;
+
+            //range sensor
             telemetry.addData("raw ultrasonic", robot.rangeSensor.rawUltrasonic());
             telemetry.addData("raw optical", robot.rangeSensor.rawOptical());
             telemetry.addData("cm optical", "%.2f cm", robot.rangeSensor.cmOptical());
             telemetry.addData("cm", "%.2f cm", robot.rangeSensor.getDistance(DistanceUnit.CM));
+
+            //color sensor
             telemetry.addData("Clear", robot.colorSensor.alpha());
             telemetry.addData("Red  ", robot.colorSensor.red());
             telemetry.addData("Green", robot.colorSensor.green());
             telemetry.addData("Blue ", robot.colorSensor.blue());
 
+            //ods
             telemetry.addData("Raw Left", "%.2f", robot.odsSensor.getRawLightDetected());
-            //telemetry.addData("Raw Right", "%.2f", robot.odsSensorR.getRawLightDetected());
 
-            telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
-            telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
+//            telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
+//            telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
 
-             telemetry.addData("flywheel", "%.2f", robot.flywheelLeftMotor.getPower());
+            //flywheels
+            telemetry.addData("flywheel", "%.2f", robot.flywheelLeftMotor.getPower());
 
-            //telemetry.addData("Hue", hsvValues[0]);
-
-            telemetry.addData("gyro", "%7d", robot.gyro.getHeading());
             telemetry.update();
 
 
