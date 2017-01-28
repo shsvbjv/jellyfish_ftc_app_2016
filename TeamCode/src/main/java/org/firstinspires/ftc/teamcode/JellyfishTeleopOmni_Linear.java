@@ -187,7 +187,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             telemetry.addData("raw ultrasonic", robot.rangeSensor.rawUltrasonic());
             telemetry.addData("raw optical", robot.rangeSensor.rawOptical());
             telemetry.addData("cm optical", "%.2f cm", robot.rangeSensor.cmOptical());
-            telemetry.addData("cm", "%.2f cm", robot.rangeSensor.getDistance(DistanceUnit.CM));
+            telemetry.addData("in", "%.2f in", robot.rangeSensor.getDistance(DistanceUnit.INCH));
 
             //color sensor
             telemetry.addData("Clear", robot.colorSensor.alpha());
