@@ -24,7 +24,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
     static final double     TURN_SPEED              = 0.2;
 
     public void encoderDriverange (double speed,
-                                         double xInches, double yInches,
+                                         double xInches, double yInches, double inches,
                                          double timeoutS) throws InterruptedException {
         int newFrontLeftTarget;
         int newFrontRightTarget;
@@ -67,7 +67,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
                             robot.frontRightMotor.isBusy() &&
                             robot.backLeftMotor.isBusy() &&
                             robot.backRightMotor.isBusy()) &&
-                    robot.rangeSensor.getDistance(DistanceUnit.INCH) < 3) {
+                    robot.rangeSensor.getDistance(DistanceUnit.INCH) > inches) {
 
 
                 // Display it for the driver.
