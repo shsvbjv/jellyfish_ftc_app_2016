@@ -55,9 +55,11 @@ public class AutoTest extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        encoderDrive(DRIVE_SPEED, 0, -22, 4.0);  //drive
 
-        encoderDrive(.1, 24, 0, 4.0);
+        shoot(.95, 8);
 
+        encoderDrive(DRIVE_SPEED, 0, -28, 4.0);
 
 
         sleep(1000);     // pause for servos to move
