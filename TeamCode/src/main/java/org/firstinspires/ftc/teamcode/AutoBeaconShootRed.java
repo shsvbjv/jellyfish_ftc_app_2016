@@ -16,9 +16,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * NEED TO TEST
  */
 
-@Autonomous(name="Beacons Blue ", group="Jellyfish")
+@Autonomous(name="Beacon+shoot Red ", group="Jellyfish")
 
-public class JellyfishAutoDriveBeaconsBlue extends JellyfishAutoBase {
+public class AutoBeaconShootRed extends JellyfishAutoBase {
 
     /* Declare OpMode members. */
 
@@ -58,37 +58,36 @@ public class JellyfishAutoDriveBeaconsBlue extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        // Step through each leg of the path,
+        // Note: Reverse movement is obtained by setting a negative distance (not speed)
+        //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+        //encoderDrive(DRIVE_SPEED,  0 ,32, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
-        encoderDrive(DRIVE_SPEED, -41, 0, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, -22, 4.0);
 
-        encoderDrive(DRIVE_SPEED, 0, 47, 4.0);
-
-        encoderDriveWithODSLeft(.1, -24, 0, 4.0);
-
-        beaconPressB();
-
-        encoderDrive(DRIVE_SPEED, -35, 0, 4.0);
-//
-        encoderDriveWithODSLeft(.1, -15, 0, 4.0);
-
-        encoderDrive(DRIVE_SPEED, 0, 2, 4.0);
-//
-        beaconPressB();
+        shoot(.75, 8);
 
         encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
 
-        encoderTurn(TURN_SPEED, -45, 4.0);
+        encoderTurn(TURN_SPEED, -90, 4.0);
 
+        encoderDrive(DRIVE_SPEED, 0, 47, 4.0);
 
+        encoderDriverange( 0.1, 0, 5, 4, 4.0);
 
+        encoderDriveWithODSLeft(.1, 24, 0, 4.0);
 
-        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        beaconPressR();
 
+        encoderDrive(DRIVE_SPEED, 0, -48, 6.0);
 
-        sleep(1000);     // pause for servos to move
 
         telemetry.addData("Path", "Complete");
+        //elemetry.addData("Gyro",  ":%3d", robot.gyro.getHeading());
+
         telemetry.update();
+
+        sleep(10000);
     }
 
     /*
@@ -99,5 +98,7 @@ public class JellyfishAutoDriveBeaconsBlue extends JellyfishAutoBase {
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
+
+
 
 }

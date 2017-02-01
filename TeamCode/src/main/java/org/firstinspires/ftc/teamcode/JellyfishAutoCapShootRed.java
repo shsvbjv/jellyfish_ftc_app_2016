@@ -4,29 +4,21 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * Push cap ball
  * Shoot at corner vortex
  * Park on corner vortex
- * NEED TO TEST
+ * TESTED
  */
 
-@Autonomous(name="Cap Shoot Red", group="Jellyfish")
+@Autonomous(name="cap shoot red", group="Jellyfish")
 
 public class JellyfishAutoCapShootRed extends JellyfishAutoBase {
 
     /* Declare OpMode members. */
-    HardwareJellyfish         robot   = new HardwareJellyfish();   // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1220 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 3.0 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
-    static final double     TURN_SPEED              = 0.5;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -63,20 +55,13 @@ public class JellyfishAutoCapShootRed extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        flywheel(.95, 15);
+        encoderDrive(DRIVE_SPEED, 0, -22, 4.0);  //drive
 
-        encoderDrive(DRIVE_SPEED, 0, 24, 4.0);  //drive
+        encoderDrive(DRIVE_SPEED, 25, 0, 6.0);
 
-        robot.servo.setPosition(1);
+        shoot(.75, 8);
 
-        intake(1, 10); //shoot
-
-        //encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0); //park
-
-
-
-
-        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, 0, -28, 4.0);
 
 
         sleep(1000);     // pause for servos to move

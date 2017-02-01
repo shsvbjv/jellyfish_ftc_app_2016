@@ -1,18 +1,19 @@
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+/**
+ * Push cap ball
+ * Shoot at corner vortex
+ * Park on corner vortex
+ * TESTED
+ */
 
-
-
-@Autonomous(name="cap shoot blue ", group="Jellyfish")
+@Autonomous(name="cap shoot blue", group="Jellyfish")
 
 public class JellyfishAutoCapShootBlue extends JellyfishAutoBase {
 
@@ -44,7 +45,7 @@ public class JellyfishAutoCapShootBlue extends JellyfishAutoBase {
         robot.backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0", "Starting at %7d :%7d :%7d :%7d",
+        telemetry.addData("Path0",  "Starting at %7d :%7d :%7d :%7d",
                 robot.frontLeftMotor.getCurrentPosition(),
                 robot.frontRightMotor.getCurrentPosition(),
                 robot.backLeftMotor.getCurrentPosition(),
@@ -54,15 +55,16 @@ public class JellyfishAutoCapShootBlue extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        encoderDrive(DRIVE_SPEED, 0, -22, 4.0);  //drive
+
+        encoderDrive(DRIVE_SPEED, -25, 0, 6.0);
+
+        shoot(.75, 8);
+
+        encoderDrive(DRIVE_SPEED, 0, -28, 4.0);
 
 
-        encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0);  //drive
-
-        shoot(.8, 10); //shoot
-
-        encoderDrive(DRIVE_SPEED, 0, 23.5, 4.0); //park
-
-
+        sleep(1000);     // pause for servos to move
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

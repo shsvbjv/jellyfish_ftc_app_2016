@@ -16,9 +16,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * NEED TO TEST
  */
 
-@Autonomous(name="Beacons Red ", group="Jellyfish")
+@Autonomous(name="Beacons Blue ", group="Jellyfish")
 
-public class JellyfishAutoDriveBeaconsRed extends JellyfishAutoBase {
+public class AutoBeaconShootBlue extends JellyfishAutoBase {
 
     /* Declare OpMode members. */
 
@@ -58,29 +58,35 @@ public class JellyfishAutoDriveBeaconsRed extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        //encoderDrive(DRIVE_SPEED,  -50,  -50, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        //encoderDrive(DRIVE_SPEED,  0 ,32, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
+        encoderDrive(DRIVE_SPEED, 0, -22, 4.0);
 
-        encoderDrive(DRIVE_SPEED, 30, 0, 4.0);
+        shoot(.75, 8);
+
+        encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
+
+        encoderTurn(TURN_SPEED, 90, 4.0);
 
         encoderDrive(DRIVE_SPEED, 0, 47, 4.0);
 
-        encoderTurn(TURN_SPEED, -15, 4.0);
+        encoderDriverange(.1, 0, 5, 3, 4.0);
 
-        encoderDriveWithODSLeft(.1, 24, 0, 4.0);
+        encoderDriveWithODSLeft(.1, -24, 0, 4.0);
 
-        beaconPressR();
+        beaconPressB();
 
+        encoderDrive(DRIVE_SPEED, 0, -48, 6.0);
+
+
+
+
+        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+
+
+        sleep(1000);     // pause for servos to move
 
         telemetry.addData("Path", "Complete");
-        //elemetry.addData("Gyro",  ":%3d", robot.gyro.getHeading());
-
         telemetry.update();
-
-        sleep(10000);
     }
 
     /*
@@ -91,7 +97,5 @@ public class JellyfishAutoDriveBeaconsRed extends JellyfishAutoBase {
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
-
-
 
 }
