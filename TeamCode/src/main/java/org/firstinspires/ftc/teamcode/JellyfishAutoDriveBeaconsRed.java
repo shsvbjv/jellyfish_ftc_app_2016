@@ -76,7 +76,7 @@ public class JellyfishAutoDriveBeaconsRed extends JellyfishAutoBase {
 
 
         telemetry.addData("Path", "Complete");
-        telemetry.addData("Gyro",  ":%3d", robot.gyro.getHeading());
+        //elemetry.addData("Gyro",  ":%3d", robot.gyro.getHeading());
 
         telemetry.update();
 
