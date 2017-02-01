@@ -36,7 +36,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     boolean prevX = false;
     double speed = 1;
     boolean prevb = false;
-    static final double INITIAL_FLYWHEEL_SPEED = .95;
+    static final double INITIAL_FLYWHEEL_SPEED = .75;
     static final double FLYWHEEL_SPEED_INCREMENT = 0.1;
     double leftflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
     boolean conveyor = false;
@@ -45,7 +45,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
 
     /*
-     * Code to run ONCE when the driver hits INIT
+     * Code to run ONCE when the driver hits INIT hi
      */
     @Override
     public void runOpMode() throws InterruptedException {

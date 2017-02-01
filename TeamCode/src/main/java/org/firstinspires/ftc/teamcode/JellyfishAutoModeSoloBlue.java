@@ -90,8 +90,6 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
 //
         encoderDriveWithODSLeft(.1, -14, 0, 4.0);
 
-        encoderTurn(TURN_SPEED, -15, 4.0);
-
         encoderDriverange(.1, 0, 6, 3, 4.0);
 //
         beaconPressB();
@@ -101,8 +99,6 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
         encoderTurn(TURN_SPEED, 45, 4.0);
 
         encoderDrive(DRIVE_SPEED, 0, -36, 6.0);
-
-
 
 
         sleep(1000);     // pause for servos to move

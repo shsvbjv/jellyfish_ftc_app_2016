@@ -22,6 +22,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.2;
+    public int number = 0;
 
     public void encoderDriverange (double speed,
                                          double xInches, double yInches, double inches,
@@ -795,6 +796,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
         encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
         sleep(500);
+        number = 1;
 
         if(robot.colorSensor.red() > robot.colorSensor.blue()) {
 
@@ -807,6 +809,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
             encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             sleep(1000);
+            number = 2;
 
             if(robot.colorSensor.red() > robot.colorSensor.blue()) {
 
@@ -818,6 +821,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
                 sleep(4000);
                 encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
                 encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+                number = 3;
             }
 
         }
