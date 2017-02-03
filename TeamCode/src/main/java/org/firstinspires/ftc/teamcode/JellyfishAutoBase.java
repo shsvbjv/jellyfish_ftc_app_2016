@@ -20,7 +20,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 3.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
+    static final double     DRIVE_SPEED             = 1.0;
     static final double     TURN_SPEED              = 0.2;
     public int number = 0;
 
@@ -151,7 +151,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
                             robot.frontRightMotor.isBusy() &&
                             robot.backLeftMotor.isBusy() &&
                             robot.backRightMotor.isBusy())&&
-                    robot.odsSensor.getRawLightDetected()< .93)
+                    robot.odsSensor.getRawLightDetected()< .9)
             {
 
 
@@ -353,6 +353,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         }
     }
 
+
     public void encoderTurn(double speed,
                             double degrees,
                             double timeoutS) throws InterruptedException {
@@ -430,210 +431,8 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         }
     }
 
-//    public void gyroTurnClockwise(double speed,
-//                                  double degrees,
-//                                  double timeoutS) throws InterruptedException {
-//
-//        //degrees = -degrees;
-//        // Ensure that the opmode is still active
-//        if (opModeIsActive()) {
-//
-//
-//            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//
-//            // reset the timeout time and start motion.
-//            runtime.reset();
-//            robot.frontLeftMotor.setPower(-Math.abs(speed));
-//            robot.frontRightMotor.setPower(Math.abs(speed));
-//            robot.backLeftMotor.setPower(-Math.abs(speed));
-//            robot.backRightMotor.setPower(Math.abs(speed));
-//
-//            // keep looping while we are still active, and there is time left, and both motors are running.
-//            while (opModeIsActive() &&
-//                    (runtime.seconds() < timeoutS) &&
-//                    (robot.gyro.getHeading() < degrees) ) {
-//
-//
-//                // Display it for the driver.
-//
-//                telemetry.addData("Gyro",  ":%3d", robot.gyro.getHeading());
-//                telemetry.update();
-//
-//                // Allow time for other processes to run.
-//                idle();
-//
-//                sleep(10);
-//            }
-//
-//            // Stop all motion;
-//            robot.frontLeftMotor.setPower(0);
-//            robot.frontRightMotor.setPower(0);
-//            robot.backLeftMotor.setPower(0);
-//            robot.backRightMotor.setPower(0);
-//
-//
-//            //  sleep(250);   // optional pause after each move
-//        }
-//    }
-//
-//    public void gyroTurnCounterClock(double speed,
-//                                     double degrees,
-//                                     double timeoutS) throws InterruptedException {
-//
-//        degrees = -degrees;
-//
-//        // Ensure that the opmode is still active
-//        if (opModeIsActive()) {
-//
-//            // Determine new target position, and pass to motor controller
-//
-//            // Turn On RUN_TO_POSITION
-//            robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//            robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//            robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//            robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//
-//            // reset the timeout time and start motion.
-//            runtime.reset();
-//            robot.frontLeftMotor.setPower(Math.abs(speed));
-//            robot.frontRightMotor.setPower(Math.abs(speed));
-//            robot.backLeftMotor.setPower(Math.abs(speed));
-//            robot.backRightMotor.setPower(Math.abs(speed));
-//
-//            // keep looping while we are still active, and there is time left, and both motors are running.
-//            while (opModeIsActive() &&
-//                    (runtime.seconds() < timeoutS) &&
-//                    (robot.gyro.getHeading() > degrees)) {
-//
-//                // Display it for the driver.
-//
-//                telemetry.addData("Gyro",  ":%3d", robot.gyro.getHeading());
-//                telemetry.update();
-//
-//                // Allow time for other processes to run.
-//                idle();
-//            }
-//
-//            // Stop all motion;
-//            robot.frontLeftMotor.setPower(0);
-//            robot.frontRightMotor.setPower(0);
-//            robot.backLeftMotor.setPower(0);
-//            robot.backRightMotor.setPower(0);
-//
-//            //  sleep(250);   // optional pause after each move
-//        }
-//    }
-//
-//    public void gyroTurn(double speed,
-//                         double degrees,
-//                         double timeoutS) throws InterruptedException {
-//
-//        if(robot.gyro.getHeading() > degrees) {
-//            gyroTurnCounterClock(speed, degrees, timeoutS);
-//        }
-//        else {
-//            gyroTurnClockwise(speed, degrees, timeoutS);
-//        }
-//    }
-//
-//    public void turn(double speed,
-//                     double degrees,
-//                     double timeoutS) throws InterruptedException {
-//        telemetry.addData("gyro", "%.2f", degrees-robot.gyro.getHeading());
-//
-//        encoderTurn(speed, degrees-robot.gyro.getHeading(), timeoutS);
-//
-//
-//    }
-
-    public void beaconPressBlue() throws InterruptedException {
-
-        if(robot.colorSensor.blue() > robot.colorSensor.red()) {
-            encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
-            encoderDrive(DRIVE_SPEED, -35.25, 0, 4.0);
-
-        }
 
 
-        else {
-            //encoderDriveWithODSRight(.1, -24, 0, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
-            encoderDrive(DRIVE_SPEED, -11.75, 0, 4.0);
-        }
-
-        sleep(500);
-
-    }
-    public void beaconPressRed() throws InterruptedException {
-
-
-        if(robot.colorSensor.red() > robot.colorSensor.blue()) {
-            encoderDrive(.3, 0, 4, 4.0);
-            sleep(1000);
-            encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
-            encoderDrive(DRIVE_SPEED, 35.25, 0, 4.0);
-        }
-
-        else {
-            encoderDriveWithODSLeft(.1, 24, 0, 4.0);
-            encoderDrive(.3, 0, 4, 4.0);
-            sleep(1000);
-            encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
-            encoderDrive(DRIVE_SPEED, 11.75, 0, 4.0);
-        }
-
-        sleep(500);
-
-    }
-
-    public void beaconPressBlue2() throws InterruptedException {
-
-        if(robot.colorSensor.blue() > robot.colorSensor.red()) {
-            encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, -36, 4.0);
-            encoderTurn(TURN_SPEED, -45, 4.0 );
-            encoderDrive(DRIVE_SPEED, 0, -36, 4.0);
-
-        }
-
-        else {
-            //encoderDriveWithODSRight(.3, -24, 0, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, -33, 4.0);
-            encoderTurn(TURN_SPEED, -45, 4.0 );
-            encoderDrive(DRIVE_SPEED, 0, -39, 4.0);
-
-        }
-
-        sleep(500);
-
-    }
-    public void beaconPressRed2() throws InterruptedException {
-
-        if(robot.colorSensor.red() > robot.colorSensor.blue()) {
-            encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, -36, 4.0);
-            encoderTurn(TURN_SPEED, 45, 4.0 );
-            encoderDrive(DRIVE_SPEED, 0, -36, 4.0);
-        }
-
-        else {
-            encoderDriveWithODSLeft(.3, 24, 0, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, 4, 4.0);
-            encoderDrive(DRIVE_SPEED, 0, -33, 4.0);
-            encoderTurn(TURN_SPEED, -45, 4.0 );
-            encoderDrive(DRIVE_SPEED, 0, -39, 4.0);
-
-        }
-
-        sleep(500);
-
-    }
     public void shoot(double speed,
                       double time) throws InterruptedException {
 
@@ -649,7 +448,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
 
             robot.flywheelLeftMotor.setPower(Math.abs(speed));
 
-            sleep(2000);
+            sleep(4000);
 
             robot.servo.setPosition(1);
 
@@ -692,7 +491,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
             // reset the timeout time and start motion.
             runtime.reset();
             robot.intakeBeltMotor.setPower(Math.abs(speed));
-            conveyor(-1, 10);
+            conveyor(-1, time);
 
  //           robot.leftServo.setPower(1);
 
@@ -829,6 +628,45 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
     }
 
     public void beaconPressB() throws InterruptedException {
+
+        encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+        sleep(500);
+
+        if(robot.colorSensor.red() < robot.colorSensor.blue()) {
+
+            return;
+
+        }
+        else{
+
+            robot.flywheelLeftMotor.setPower(.75);
+            encoderDrive(DRIVE_SPEED, 0, -16, 4.0);
+            sleep(2000);
+            robot.servo.setPosition(1);
+            intake(1, 3);
+            robot.flywheelLeftMotor.setPower(0);
+
+            encoderDrive(DRIVE_SPEED, 0, 20, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+            sleep(1000);
+
+            if(robot.colorSensor.red() < robot.colorSensor.blue()) {
+
+                return;
+
+            }
+            else {
+
+                sleep(4000);
+                encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+                encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+            }
+
+        }
+
+    }
+    public void beaconPressB2() throws InterruptedException {
 
         encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
         encoderDrive(DRIVE_SPEED, 0, -3, 4.0);

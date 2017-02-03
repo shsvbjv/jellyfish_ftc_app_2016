@@ -83,7 +83,7 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
 
             encoderTurn(TURN_SPEED, -45, 4.0);
 
-            encoderDrive(DRIVE_SPEED, 0, -36, 6.0);
+            encoderDrive(DRIVE_SPEED, 0, -45, 6.0);
         }
         else {
             encoderDrive(DRIVE_SPEED, 0, -48, 10.0);
