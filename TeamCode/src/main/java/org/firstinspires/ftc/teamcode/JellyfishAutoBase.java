@@ -20,7 +20,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 3.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 1.0;
+    static final double     DRIVE_SPEED             = 06;
     static final double     TURN_SPEED              = 0.2;
     public int number = 0;
 
@@ -671,6 +671,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
         encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
         sleep(500);
+        number = 1;
 
         if(robot.colorSensor.red() < robot.colorSensor.blue()) {
 
@@ -679,10 +680,11 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
         }
         else{
 
-            sleep(4000);
+            sleep(5000);
             encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             sleep(1000);
+            number = 2;
 
             if(robot.colorSensor.red() < robot.colorSensor.blue()) {
 
@@ -694,6 +696,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
                 sleep(4000);
                 encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
                 encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+                number = 3;
             }
 
         }

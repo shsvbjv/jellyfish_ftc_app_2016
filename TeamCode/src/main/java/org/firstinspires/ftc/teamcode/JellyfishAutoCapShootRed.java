@@ -57,7 +57,7 @@ public class JellyfishAutoCapShootRed extends JellyfishAutoBase {
 
         encoderDrive(DRIVE_SPEED, 0, -22, 4.0);  //drive
 
-        encoderDrive(DRIVE_SPEED, 25, 0, 6.0);
+        encoderDrive(DRIVE_SPEED, 23, 0, 6.0);
 
         shoot(.75, 8);
 

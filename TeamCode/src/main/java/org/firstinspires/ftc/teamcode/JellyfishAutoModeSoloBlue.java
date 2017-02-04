@@ -78,29 +78,36 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
 
         encoderDrive(DRIVE_SPEED, -41, 0, 4.0);
 
-        encoderDrive(DRIVE_SPEED, 0, 47, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, 46, 4.0);
 
-        encoderDriverange(.1, 0, 5, 3, 4.0);
+        encoderDriverange(.3, 0, 5, 3, 4.0);
 
         encoderDriveWithODSLeft(.1, -24, 0, 4.0);
 
         beaconPressB2();
 
-        encoderDrive(DRIVE_SPEED, -35, 0, 4.0);
+        if(number < 3) {
 
-        encoderTurn(TURN_SPEED, -15, 4.0);
+            encoderDrive(DRIVE_SPEED, -39, 0, 4.0);
+
+            encoderTurn(TURN_SPEED, -15, 4.0);
 //
-        encoderDriveWithODSLeft(.1, -14, 0, 4.0);
+            encoderDriveWithODSLeft(.1, -14, 0, 4.0);
 
-        encoderDriverange(.1, 0, 6, 3, 4.0);
+            encoderDriverange(.3, 0, 6, 3, 4.0);
 //
-        beaconPressB2();
+            beaconPressB2();
 
-        encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
 
-        encoderTurn(TURN_SPEED, 45, 4.0);
+            encoderTurn(TURN_SPEED, 45, 4.0);
 
-        encoderDrive(DRIVE_SPEED, 0, -55, 6.0);
+            encoderDrive(DRIVE_SPEED, 0, -55, 6.0);
+        }
+
+        else {
+            encoderDrive(DRIVE_SPEED, 0, -45, 6.0);
+        }
 
 
         sleep(1000);     // pause for servos to move

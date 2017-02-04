@@ -31,9 +31,11 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     boolean prevY = false;
     boolean prevA = false;
     boolean flywheelleft = false;
+    boolean flywheelleftR = false;
     //boolean flywheelright = false;
     boolean serv = false;
     boolean prevX = false;
+    boolean prevLB =false;
     double speed = 1;
     boolean prevb = false;
     static final double INITIAL_FLYWHEEL_SPEED = .75;
@@ -73,7 +75,6 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
                     (gamepad2.x)) {
 
                 flywheelleft = !flywheelleft;
-            //flywheelright = !flywheelright;
 
                  }
 
@@ -84,6 +85,22 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
                      robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
                 }
                 else robot.flywheelLeftMotorRampControl.setPowerTo(0);
+
+
+//            if ((prevLB == false) &&
+//                    (gamepad2.left_bumper)) {
+//
+//                flywheelleftR = !flywheelleftR;
+//
+//            }
+//
+//            prevLB = gamepad2.left_bumper;
+//
+//
+//            if(flywheelleftR) {
+//                robot.flywheelLeftMotorRampControl.rampPowerTo(-.75);
+//            }
+//            else robot.flywheelLeftMotorRampControl.setPowerTo(0);
 
 
 
