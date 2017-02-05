@@ -55,9 +55,9 @@ public class JellyfishAutoCapShootBlue extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        encoderDrive(DRIVE_SPEED, 0, -22, 4.0);  //drive
+        encoderDrive(DRIVE_SPEED, 0, -20, 4.0);  //drive
 
-        encoderDrive(DRIVE_SPEED, -23, 0, 6.0);
+        encoderDrive(DRIVE_SPEED, -24, 0, 6.0);
 
         shoot(.75, 8);
 
