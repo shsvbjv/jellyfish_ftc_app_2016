@@ -131,7 +131,7 @@ public class HardwareJellyfish
         hwMap.logDevices();
 
 
-        boolean bLedOn = true;
+        boolean bLedOn = false;
 
         // get a reference to our ColorSensor object.
         colorSensor = hwMap.colorSensor.get("color");
