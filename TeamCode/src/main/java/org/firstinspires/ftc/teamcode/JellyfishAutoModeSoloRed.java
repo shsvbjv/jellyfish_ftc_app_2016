@@ -69,29 +69,54 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
 
         encoderDriveWithODSLeft(.1, 22, 0, 4.0);
 
-        beaconPressR();
+        encoderDrive(DRIVE_SPEED, -3, 0, 2.0);
 
-        if(number < 3) {
+        sleep(500);
 
-            encoderDrive(DRIVE_SPEED, 37, 0, 4.0);
-//
-            encoderDriveWithODSLeft(.1, 11, 0, 4.0);
+        if(robot.colorSensor.red() > robot.colorSensor.blue()) {
 
-            encoderDriverange(0.1, 0, 7, 4, 4.0);
-//
-            beaconPressR();
-
-            encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
-
-            encoderTurn(TURN_SPEED, -45, 4.0);
-
-            encoderDrive(DRIVE_SPEED, 0, -45, 6.0);
+            encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+            encoderDrive(DRIVE_SPEED, 40, 0, 6.0);
+            encoderDriveWithODSLeft(.1, 10, 0, 4.0);
         }
-        else {
-
-            encoderDrive(DRIVE_SPEED, 0, -45, 10.0);
+        else{
+            encoderDrive(DRIVE_SPEED, 6, 0, 4.0);
+            encoderDriverange(.1, 0, 5, 5, 2.0);
+            encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+            encoderDrive(DRIVE_SPEED, 45, 0, 6.0);
+            encoderDriveWithODSLeft(.1, 10, 0, 4.0);
 
         }
+
+
+
+
+
+//        beaconPressR();
+//
+//        if(number < 3) {
+//
+//            encoderDrive(DRIVE_SPEED, 37, 0, 4.0);
+////
+//            encoderDriveWithODSLeft(.1, 11, 0, 4.0);
+//
+//            encoderDriverange(0.1, 0, 7, 4, 4.0);
+////
+//            beaconPressR();
+//
+//            encoderDrive(DRIVE_SPEED, 0, -12, 4.0);
+//
+//            encoderTurn(TURN_SPEED, -45, 4.0);
+//
+//            encoderDrive(DRIVE_SPEED, 0, -45, 6.0);
+//        }
+//        else {
+//
+//            encoderDrive(DRIVE_SPEED, 0, -45, 10.0);
+//
+//        }
 
 
 
