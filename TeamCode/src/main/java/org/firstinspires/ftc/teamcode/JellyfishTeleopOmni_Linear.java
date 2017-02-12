@@ -32,10 +32,13 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     boolean prevA = false;
     boolean flywheelleft = false;
     boolean flywheelleftR = false;
+    boolean front = false;
     //boolean flywheelright = false;
     boolean serv = false;
     boolean prevX = false;
     boolean prevLB =false;
+    boolean prevRB = false;
+    boolean motors = false;
     double speed = 1;
     boolean prevb = false;
     static final double INITIAL_FLYWHEEL_SPEED = .75;
@@ -69,6 +72,10 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             double y;
             double x2;
 
+            y = gamepad1.right_stick_y;
+            x = gamepad1.right_stick_x;
+            x2 = gamepad1.left_stick_x;
+
             //pushing y once will turn intake on, pushing it again will turn it off
 
             if ((prevX == false) &&
@@ -87,21 +94,51 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
                 else robot.flywheelLeftMotorRampControl.setPowerTo(0);
 
 
-//            if ((prevLB == false) &&
-//                    (gamepad2.left_bumper)) {
-//
-//                flywheelleftR = !flywheelleftR;
-//
-//            }
-//
-//            prevLB = gamepad2.left_bumper;
-//
-//
-//            if(flywheelleftR) {
-//                robot.flywheelLeftMotorRampControl.rampPowerTo(-.75);
-//            }
-//            else robot.flywheelLeftMotorRampControl.setPowerTo(0);
+            if ((prevRB == false) &&
+                    (gamepad1.right_bumper)) {
 
+                front = !front;
+
+            }
+
+            prevRB = gamepad1.right_bumper;
+
+
+            if(front) {
+                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+            }
+            else {
+                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            }
+
+            if((prevLB == false) &&
+                    (gamepad1.left_bumper)) {
+
+                motors = !motors;
+            }
+
+            prevLB = gamepad1.left_bumper;
+
+            if(motors) {
+
+                robot.backLeftMotor.setPower(Range.clip((y + x - x2)/2, -.5, .5));
+                robot.frontLeftMotor.setPower(Range.clip((y - x - x2)/2, -.5, .5));
+                robot.backRightMotor.setPower(Range.clip((y - x + x2)/2, -.5, .5));
+                robot.frontRightMotor.setPower(Range.clip((y + x + x2)/2, -.5, .5));
+            }
+            else {
+                robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
+                robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
+                robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
+                robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
+            }
 
 
 
@@ -123,15 +160,13 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
 
             // Run wheels in omni mode (note: The joystick goes negative when pushed forwards, so negate it)
-            y = gamepad1.right_stick_y;
-            x = gamepad1.right_stick_x;
-            x2 = gamepad1.left_stick_x;
 
-//
-            robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
-            robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
-            robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
-            robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
+
+////
+//            robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
+//            robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
+//            robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
+//            robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
 
 
             if (gamepad2.a) {
@@ -211,6 +246,8 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             telemetry.addData("Red  ", robot.colorSensor.red());
             telemetry.addData("Green", robot.colorSensor.green());
             telemetry.addData("Blue ", robot.colorSensor.blue());
+
+            telemetry.addData("back left", Range.clip((y + x - x2)/2, -1, 1));
 
             //ods
             telemetry.addData("Raw Left", "%.2f", robot.odsSensor.getRawLightDetected());

@@ -151,7 +151,7 @@ public abstract class JellyfishAutoBase extends LinearOpMode {
                             robot.frontRightMotor.isBusy() &&
                             robot.backLeftMotor.isBusy() &&
                             robot.backRightMotor.isBusy())&&
-                    robot.odsSensor.getRawLightDetected()< .9)
+                    robot.odsSensor.getRawLightDetected()< .6)
             {
 
 

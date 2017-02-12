@@ -78,9 +78,9 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
 
         encoderDrive(DRIVE_SPEED, -41, 0, 4.0);
 
-        encoderDrive(DRIVE_SPEED, 0, 46, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, 48, 4.0);
 
-        encoderDriverange(.1, 0, 20, 5, 4.0);
+        encoderDriverange(.1, 0, 20, 4, 4.0);
 
         encoderDriveWithODSLeft(.1, -24, 0, 4.0);
 
@@ -89,18 +89,48 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
         sleep(500);
 
         if(robot.colorSensor.blue() > robot.colorSensor.red()) {
-            encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+            encoderDrive(DRIVE_SPEED, 0, 7, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             encoderDrive(DRIVE_SPEED, -40, 0, 6.0);
             encoderDriveWithODSLeft(.1, -10, 0, 4.0);
+            encoderDriverange(.1, 0, 20, 4, 4.0);
+            encoderDrive(DRIVE_SPEED, 3, 0, 4.0);
+
+            if(robot.colorSensor.blue() > robot.colorSensor.red()) {
+                encoderDrive(DRIVE_SPEED, 0, 7, 4.0);
+                encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+
+            }
+            else {
+
+                encoderDrive(DRIVE_SPEED, -10, 0, 4.0);
+                encoderDriverange(.1, 0, 20, 4, 2.0);
+                encoderDrive(DRIVE_SPEED, 0, 7, 4.0);
+                encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+
+            }
         }
         else{
-            encoderDrive(DRIVE_SPEED, -6, 0, 4.0);
+            encoderDrive(DRIVE_SPEED, -9, 0, 4.0);
             encoderDriverange(.1, 0, 5, 5, 2.0);
             encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
-            encoderDrive(DRIVE_SPEED, -45, 0, 6.0);
+            encoderDrive(DRIVE_SPEED, -35, 0, 6.0);
             encoderDriveWithODSLeft(.1, -10, 0, 4.0);
+
+            if(robot.colorSensor.blue() > robot.colorSensor.red()) {
+                encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+                encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+
+            }
+            else {
+
+                encoderDrive(DRIVE_SPEED, -9, 0, 4.0);
+                encoderDriverange(.1, 0, 5, 5, 2.0);
+                encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+                encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+
+            }
 
         }
 
