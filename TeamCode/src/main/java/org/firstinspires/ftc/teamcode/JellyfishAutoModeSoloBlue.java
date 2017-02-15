@@ -78,7 +78,7 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
 
         encoderDrive(DRIVE_SPEED, -41, 0, 4.0);
 
-        encoderDrive(DRIVE_SPEED, 0, 48, 4.0);
+        encoderDrive(DRIVE_SPEED, 0, 50, 4.0);
 
         encoderDriverange(.1, 0, 20, 4, 4.0);
 

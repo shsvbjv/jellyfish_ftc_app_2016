@@ -121,9 +121,17 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
                 encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
                 encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             }
+
+
         }
 
-
+        robot.flywheelLeftMotor.setPower(.70);
+        robot.servo.setPosition(1);
+        encoderDrive(DRIVE_SPEED, 0, -6, 6.0);
+        encoderTurn(TURN_SPEED, -55, 3.0);
+        encoderDrive(DRIVE_SPEED, 0, -36, 4.0);
+        intake(1, 5);
+        robot.flywheelLeftMotor.setPower(0);
 
 
 

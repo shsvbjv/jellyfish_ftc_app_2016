@@ -41,7 +41,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     boolean motors = false;
     double speed = 1;
     boolean prevb = false;
-    static final double INITIAL_FLYWHEEL_SPEED = .75;
+    static final double INITIAL_FLYWHEEL_SPEED = .7;
     static final double FLYWHEEL_SPEED_INCREMENT = 0.1;
     double leftflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
     boolean conveyor = false;
@@ -105,10 +105,10 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
 
             if(front) {
-                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
             }
             else {
@@ -188,27 +188,18 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             }
 
 
-//            if(gamepad2.x) {
-//                robot.flywheelLeftMotorRampControl.rampPowerTo(.8);
+//            if(gamepad2.right_stick_y >.9) {
+//                robot.lift.setPower(1);
 //            }
-//            else robot.flywheelLeftMotorRampControl.rampPowerTo(0);
+//            else if (gamepad2.left_stick_y < -.9) {
+//                robot.lift.setPower(-1);
+//            }
+//            else {
+//                robot.lift.setPower(0);
+//            }
 
 
-            //flywheel motors go faster or slower NANDINI IS AWESOME
-
-//            if (gamepad2.dpad_down && gamepad2.right_trigger > 0) {
-//            rightflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
-//            rightflywheelSpeed = Range.clip(rightflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-//            robot.flywheelRightMotorRampControl.setPowerTo(rightflywheelSpeed);
 //
-//            }
-//
-//            if (gamepad2.dpad_down && gamepad2.left_trigger > 0) {
-//            rightflywheelSpeed -= FLYWHEEL_SPEED_INCREMENT;
-//             rightflywheelSpeed = Range.clip(rightflywheelSpeed, INITIAL_FLYWHEEL_SPEED, 1.0);
-//            robot.flywheelRightMotorRampControl.setPowerTo(rightflywheelSpeed);
-//
-//            }
 
             if (gamepad2.dpad_up && gamepad2.right_bumper) {
                 leftflywheelSpeed += FLYWHEEL_SPEED_INCREMENT;
@@ -247,6 +238,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             telemetry.addData("Green", robot.colorSensor.green());
             telemetry.addData("Blue ", robot.colorSensor.blue());
 
+            //wheels speed
             telemetry.addData("back left", Range.clip((y + x - x2)/2, -1, 1));
 
             //ods

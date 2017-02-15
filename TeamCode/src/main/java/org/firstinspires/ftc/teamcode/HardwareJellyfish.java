@@ -39,6 +39,7 @@ public class HardwareJellyfish
     public DcMotor  conveyorbelt   = null;
     // public DcMotor  flywheelRightMotor= null;
      public DcMotor  flywheelLeftMotor = null;
+    //public DcMotor  lift = null;
 
 
     public ColorSensor colorSensor;
@@ -77,6 +78,7 @@ public class HardwareJellyfish
         conveyorbelt = hwMap.dcMotor.get("conveyor");
         intakeBeltMotor = hwMap.dcMotor.get("intake");
         flywheelLeftMotor = hwMap.dcMotor.get("flywheelleft");
+        //lift = hwMap.dcMotor.get("lift");
 
      //   flywheelRightMotor = hwMap.dcMotor.get("flywheelright");
 
@@ -110,6 +112,7 @@ public class HardwareJellyfish
         backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         conveyorbelt.setDirection(DcMotorSimple.Direction.REVERSE);
+        //lift.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //MAKE SURE THESE ARE OPPOSITE DIRECTIONS OTHERWISE YOU WILL BREAK MOTORS
         flywheelLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
