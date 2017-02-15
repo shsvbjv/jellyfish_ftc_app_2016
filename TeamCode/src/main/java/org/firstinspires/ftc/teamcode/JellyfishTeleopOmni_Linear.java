@@ -33,11 +33,16 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     boolean flywheelleft = false;
     boolean flywheelleftR = false;
     boolean front = false;
+    boolean side = false;
+    boolean back = false;
     //boolean flywheelright = false;
     boolean serv = false;
     boolean prevX = false;
     boolean prevLB =false;
-    boolean prevRB = false;
+    boolean prevDU = false;
+    boolean prevDD = false;
+    boolean prevDL = false;
+    boolean prevDR = false;
     boolean motors = false;
     double speed = 1;
     boolean prevb = false;
@@ -94,22 +99,52 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
                 else robot.flywheelLeftMotorRampControl.setPowerTo(0);
 
 
-            if ((prevRB == false) &&
-                    (gamepad1.right_bumper)) {
+            if ((prevDL == false) &&
+                    (gamepad1.dpad_left || gamepad1.dpad_right)) {
 
-                front = !front;
+                side = !side;
+
+            }
+            if ((prevDR == false) &&
+                    (gamepad1.dpad_left || gamepad1.dpad_right)) {
+
+                side = !side;
 
             }
 
-            prevRB = gamepad1.right_bumper;
+            if((prevDU == false) &&
+                    (gamepad1.dpad_up)) {
+                front = !front;
+            }
+            if((prevDD == false) &&
+                    (gamepad1.dpad_down)) {
+                back = !back;
+            }
+
+            prevDL = gamepad1.dpad_left;
+            prevDR = gamepad1.dpad_right;
+            prevDU = gamepad1.dpad_up;
+            prevDD = gamepad1.dpad_down;
 
 
-            if(front) {
+            if(side) {
                 robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                 robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
+            }
+            else if(front){
+                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            }
+            else if(back) {
+                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
             }
             else {
                 robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -118,27 +153,27 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
                 robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
             }
 
-            if((prevLB == false) &&
-                    (gamepad1.left_bumper)) {
-
-                motors = !motors;
-            }
-
-            prevLB = gamepad1.left_bumper;
-
-            if(motors) {
-
-                robot.backLeftMotor.setPower(Range.clip((y + x - x2)/2, -.5, .5));
-                robot.frontLeftMotor.setPower(Range.clip((y - x - x2)/2, -.5, .5));
-                robot.backRightMotor.setPower(Range.clip((y - x + x2)/2, -.5, .5));
-                robot.frontRightMotor.setPower(Range.clip((y + x + x2)/2, -.5, .5));
-            }
-            else {
-                robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
-                robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
-                robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
-                robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
-            }
+//            if((prevLB == false) &&
+//                    (gamepad1.left_bumper)) {
+//
+//                motors = !motors;
+//            }
+//
+//            prevLB = gamepad1.left_bumper;
+//
+//            if(motors) {
+//
+//                robot.backLeftMotor.setPower(Range.clip((y + x - x2)/2, -.5, .5));
+//                robot.frontLeftMotor.setPower(Range.clip((y - x - x2)/2, -.5, .5));
+//                robot.backRightMotor.setPower(Range.clip((y - x + x2)/2, -.5, .5));
+//                robot.frontRightMotor.setPower(Range.clip((y + x + x2)/2, -.5, .5));
+//            }
+//            else {
+//                robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
+//                robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
+//                robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
+//                robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
+//            }
 
 
 
@@ -163,10 +198,17 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
 
 ////
-//            robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
-//            robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
-//            robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
-//            robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
+            robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
+            robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
+            robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
+            robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
+
+            if(gamepad1.left_bumper) {
+                robot.backLeftMotor.setPower(Range.clip((y + x - x2)*.35, -.35, .35));
+                robot.frontLeftMotor.setPower(Range.clip((y - x - x2)*.35, -.35, .35));
+                robot.backRightMotor.setPower(Range.clip((y - x + x2)*.35, -.35, .35));
+                robot.frontRightMotor.setPower(Range.clip((y + x + x2)*.35, -.35, .35));
+            }
 
 
             if (gamepad2.a) {
