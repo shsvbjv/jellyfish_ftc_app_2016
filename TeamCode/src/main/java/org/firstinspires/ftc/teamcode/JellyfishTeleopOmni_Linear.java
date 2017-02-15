@@ -25,17 +25,14 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJellyfish robot = new HardwareJellyfish();
- //       double          leftPosition     = robot.leftServo.getPosition();
-  //  double          rightPosition     = robot.rightServo.getPosition();
+
     final double    SERVO_SPEED       = 0.05 ;
     boolean prevY = false;
     boolean prevA = false;
     boolean flywheelleft = false;
-    boolean flywheelleftR = false;
     boolean front = false;
     boolean side = false;
     boolean back = false;
-    //boolean flywheelright = false;
     boolean serv = false;
     boolean prevX = false;
     boolean prevLB =false;
@@ -51,8 +48,6 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     double leftflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
     boolean conveyor = false;
     boolean prevservo = false;
-    //double rightflywheelSpeed = INITIAL_FLYWHEEL_SPEED;
-
 
     /*
      * Code to run ONCE when the driver hits INIT hi
@@ -100,13 +95,13 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
 
             if ((prevDL == false) &&
-                    (gamepad1.dpad_left || gamepad1.dpad_right)) {
+                    (gamepad1.dpad_left)) {
 
                 side = !side;
 
             }
             if ((prevDR == false) &&
-                    (gamepad1.dpad_left || gamepad1.dpad_right)) {
+                    (gamepad1.dpad_right)) {
 
                 side = !side;
 
@@ -233,7 +228,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 //            if(gamepad2.right_stick_y >.9) {
 //                robot.lift.setPower(1);
 //            }
-//            else if (gamepad2.left_stick_y < -.9) {
+//            else if (gamepad2.right_stick_y < -.9) {
 //                robot.lift.setPower(-1);
 //            }
 //            else {
@@ -281,7 +276,7 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             telemetry.addData("Blue ", robot.colorSensor.blue());
 
             //wheels speed
-            telemetry.addData("back left", Range.clip((y + x - x2)/2, -1, 1));
+            telemetry.addData("back left", Range.clip((y + x - x2)*.35, -.35, .35));
 
             //ods
             telemetry.addData("Raw Left", "%.2f", robot.odsSensor.getRawLightDetected());
