@@ -66,7 +66,14 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
             encoderDrive(DRIVE_SPEED, 0, 7, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             encoderDrive(DRIVE_SPEED, -40, 0, 6.0);
-            encoderDriveWithODSLeft(.1, -10, 0, 4.0);
+
+            if(robot.gyro.getHeading() > 4) {
+                gyroTurn(TURN_SPEED, -360, 4.0);
+            }
+
+
+            encoderDriverange(.1, 0, 20, 6, 4.0);
+            encoderDriveWithODSLeft(.1, -15, 0, 4.0);
             encoderDriverange(.1, 0, 20, 4, 4.0);
             encoderDrive(DRIVE_SPEED, 3, 0, 4.0);
 
@@ -77,7 +84,12 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
             }
             else {
 
-                encoderDrive(DRIVE_SPEED, -10, 0, 4.0);
+                encoderDrive(DRIVE_SPEED, -8, 0, 4.0);
+
+                if(robot.gyro.getHeading() > 4) {
+                    gyroTurn(TURN_SPEED, -360, 4.0);
+                }
+
                 encoderDriverange(.1, 0, 20, 4, 2.0);
                 encoderDrive(DRIVE_SPEED, 0, 7, 4.0);
                 encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
@@ -85,12 +97,32 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
             }
         }
         else{
-            encoderDrive(DRIVE_SPEED, -9, 0, 4.0);
+            encoderDrive(DRIVE_SPEED, -8, 0, 4.0);
+
+            if(robot.gyro.getHeading() > 4) {
+                gyroTurn(TURN_SPEED, -360, 4.0);
+            }
+
+            encoderDrive(DRIVE_SPEED, -1, 0, 4.0);
+
             encoderDriverange(.1, 0, 5, 5, 2.0);
             encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             encoderDrive(DRIVE_SPEED, -35, 0, 6.0);
-            encoderDriveWithODSLeft(.1, -10, 0, 4.0);
+
+            if(robot.gyro.getHeading() > 4) {
+                gyroTurn(TURN_SPEED, -360, 4.0);
+            }
+
+            encoderDriverange(.1, 0, 20, 6, 4.0);
+            encoderDriveWithODSLeft(.1, -20, 0, 4.0);
+            encoderDriverange(.1, 0, 20, 4, 4.0);
+            encoderDrive(DRIVE_SPEED, 3, 0, 4.0);
+
+            if(robot.gyro.getHeading() > 4 && robot.gyro.getHeading() < 25) {
+                gyroTurn(TURN_SPEED, -180, 4.0);
+            }
+
 
             if(robot.colorSensor.blue() > robot.colorSensor.red()) {
                 encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
@@ -100,6 +132,11 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
             else {
 
                 encoderDrive(DRIVE_SPEED, -9, 0, 4.0);
+
+                if(robot.gyro.getHeading() > 4) {
+                    gyroTurn(TURN_SPEED, -180, 4.0);
+                }
+
                 encoderDriverange(.1, 0, 5, 5, 2.0);
                 encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
                 encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
@@ -107,6 +144,21 @@ public class JellyfishAutoModeSoloBlue extends JellyfishAutoBase {
             }
 
         }
+
+        robot.flywheelLeftMotor.setPower(.70);
+        robot.intakeBeltMotor.setPower(1);
+        robot.conveyorbelt.setPower(-1);
+        encoderDrive(DRIVE_SPEED, 0, -6, 6.0);
+        encoderTurn(TURN_SPEED, 65, 3.0);
+        encoderDrive(DRIVE_SPEED, 0, -33, 4.0);
+        sleep(1000);
+        robot.conveyorbelt.setPower(0);
+        robot.intakeBeltMotor.setPower(0);
+        robot.servo.setPosition(1);
+        sleep(2000);
+        robot.servo.setPosition(.55);
+        robot.flywheelLeftMotor.setPower(0);
+        encoderDrive(DRIVE_SPEED, 0, -20, 4.0);
 
 
 

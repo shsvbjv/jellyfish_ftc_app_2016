@@ -75,10 +75,33 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
 
         if(robot.colorSensor.red() > robot.colorSensor.blue()) {
 
+            if(robot.gyro.getHeading() > 4 && robot.gyro.getHeading() < 25) {
+                gyroTurn(TURN_SPEED, -180, 4.0);
+            }
+            else {
+                gyroTurn(TURN_SPEED, 180, 4.0);
+            }
+
             encoderDrive(DRIVE_SPEED, -3, 0, 2.0);
-            encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
+
+            if(robot.gyro.getHeading() > 4 && robot.gyro.getHeading() < 25) {
+                gyroTurn(TURN_SPEED, -180, 4.0);
+            }
+            else {
+                gyroTurn(TURN_SPEED, 180, 4.0);
+            }
+
+            encoderDrive(DRIVE_SPEED, 0, 7, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
             encoderDrive(DRIVE_SPEED, 40, 0, 6.0);
+
+            if(robot.gyro.getHeading() > 4 && robot.gyro.getHeading() < 25) {
+                gyroTurn(TURN_SPEED, -180, 4.0);
+            }
+            else {
+                gyroTurn(TURN_SPEED, 180, 4.0);
+            }
+
             encoderDriveWithODSLeft(.1, 10, 0, 4.0);
             encoderDriverange(.1, 0, 20, 4, 4.0);
             encoderDrive(DRIVE_SPEED, -3, 0, 2.0);
@@ -91,7 +114,7 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
 
             }
             else{
-                encoderDrive(DRIVE_SPEED, 6, 0, 4.0);
+                encoderDrive(DRIVE_SPEED, 8, 0, 4.0);
                 encoderDriverange(.1, 0, 5, 4, 2.0);
                 encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
                 encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
@@ -103,7 +126,23 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
             encoderDriverange(.1, 0, 5, 4, 2.0);
             encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
             encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
+
+            if(robot.gyro.getHeading() > 4 && robot.gyro.getHeading() < 25) {
+                gyroTurn(TURN_SPEED, -180, 4.0);
+            }
+            else {
+                gyroTurn(TURN_SPEED, 180, 4.0);
+            }
+
             encoderDrive(DRIVE_SPEED, 38, 0, 6.0);
+
+            if(robot.gyro.getHeading() > 4 && robot.gyro.getHeading() < 25) {
+                gyroTurn(TURN_SPEED, -180, 4.0);
+            }
+            else {
+                gyroTurn(TURN_SPEED, 180, 4.0);
+            }
+
             encoderDriveWithODSLeft(.1, 10, 0, 4.0);
             encoderDriverange(.1, 0, 20, 4, 4.0);
             encoderDrive(DRIVE_SPEED, -5, 0, 2.0);
@@ -116,7 +155,15 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
 
             }
             else{
-                encoderDrive(DRIVE_SPEED, 10, 0, 4.0);
+                encoderDrive(DRIVE_SPEED, 8, 0, 4.0);
+
+                if(robot.gyro.getHeading() > 4 && robot.gyro.getHeading() < 25) {
+                    gyroTurn(TURN_SPEED, -180, 4.0);
+                }
+                else {
+                    gyroTurn(TURN_SPEED, 180, 4.0);
+                }
+
                 encoderDriverange(.1, 0, 5, 4, 2.0);
                 encoderDrive(DRIVE_SPEED, 0, 5, 4.0);
                 encoderDrive(DRIVE_SPEED, 0, -3, 4.0);
@@ -125,13 +172,21 @@ public class JellyfishAutoModeSoloRed extends JellyfishAutoBase {
 
         }
 
+//        robot.flywheelLeftMotor.setPower(.70);
         robot.flywheelLeftMotor.setPower(.70);
-        robot.servo.setPosition(1);
+        robot.intakeBeltMotor.setPower(1);
+        robot.conveyorbelt.setPower(-1);
         encoderDrive(DRIVE_SPEED, 0, -6, 6.0);
-        encoderTurn(TURN_SPEED, -55, 3.0);
-        encoderDrive(DRIVE_SPEED, 0, -36, 4.0);
-        intake(1, 5);
+        encoderTurn(TURN_SPEED, -65, 3.0);
+        encoderDrive(DRIVE_SPEED, 0, -33, 4.0);
+        sleep(1000);
+        robot.conveyorbelt.setPower(0);
+        robot.intakeBeltMotor.setPower(0);
+        robot.servo.setPosition(1);
+        sleep(2000);
+        robot.servo.setPosition(.55);
         robot.flywheelLeftMotor.setPower(0);
+        encoderDrive(DRIVE_SPEED, 0, -10, 4.0);
 
 
 

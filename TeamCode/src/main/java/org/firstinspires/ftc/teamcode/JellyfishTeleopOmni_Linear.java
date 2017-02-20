@@ -34,12 +34,10 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
     boolean side = false;
     boolean back = false;
     boolean serv = false;
+    boolean cserv = false;
     boolean prevX = false;
     boolean prevLB =false;
-    boolean prevDU = false;
-    boolean prevDD = false;
-    boolean prevDL = false;
-    boolean prevDR = false;
+    boolean prevRB = false;
     boolean motors = false;
     double speed = 1;
     boolean prevb = false;
@@ -90,63 +88,62 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
                 if(flywheelleft) {
                      robot.flywheelLeftMotorRampControl.rampPowerTo(leftflywheelSpeed);
+                    idle();
                 }
                 else robot.flywheelLeftMotorRampControl.setPowerTo(0);
 
 
-            if ((prevDL == false) &&
-                    (gamepad1.dpad_left)) {
-
-                side = !side;
-
-            }
-            if ((prevDR == false) &&
-                    (gamepad1.dpad_right)) {
+            if ((prevRB) &&
+                    (gamepad1.right_bumper)) {
 
                 side = !side;
 
             }
 
-            if((prevDU == false) &&
-                    (gamepad1.dpad_up)) {
-                front = !front;
-            }
-            if((prevDD == false) &&
-                    (gamepad1.dpad_down)) {
-                back = !back;
-            }
 
-            prevDL = gamepad1.dpad_left;
-            prevDR = gamepad1.dpad_right;
-            prevDU = gamepad1.dpad_up;
-            prevDD = gamepad1.dpad_down;
+            prevRB = gamepad1.right_bumper;
 
 
             if(side) {
                 robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            }
-            else if(front){
-                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-            }
-            else if(back) {
-                robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.frontLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
+                robot.backLeftMotor.setPower(Range.clip(y - x + x2, -1, 1));
+                robot.frontRightMotor.setPower(Range.clip(y - x - x2, -1, 1));
+                robot.backRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
+
+
             }
             else {
                 robot.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                 robot.backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+                robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
+                robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
+                robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
+                robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
             }
+
+            if ((prevLB == false) &&
+                    (gamepad2.left_bumper)) {
+
+                cserv = !cserv;
+
+            }
+
+            prevLB = gamepad2.left_bumper;
+
+
+            if(cserv) {
+                robot.capservo.setPosition(0);
+
+            }
+            else robot.capservo.setPosition(.6);
 
 //            if((prevLB == false) &&
 //                    (gamepad1.left_bumper)) {
@@ -172,20 +169,21 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
 
 
-            if ((prevservo == false) &&
-                    (gamepad2.right_bumper)) {
+//            if ((prevservo == false) &&
+//                    (gamepad2.right_bumper)) {
+//
+//                serv = !serv;
+//
+//            }
 
-                serv = !serv;
-
-            }
-
-            prevservo = gamepad2.right_bumper;
-
-
-            if(serv) {
-                robot.servo.setPosition(1);
-            }
-            else robot.servo.setPosition(.5);
+//
+//            prevservo = gamepad2.right_bumper;
+//
+//
+//            if(serv) {
+//                robot.servo.setPosition(1);
+//            }
+//            else robot.servo.setPosition(.5);
 
 
 
@@ -193,16 +191,13 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
 
 
 ////
-            robot.backLeftMotor.setPower(Range.clip(y + x - x2, -1, 1));
-            robot.frontLeftMotor.setPower(Range.clip(y - x - x2, -1, 1));
-            robot.backRightMotor.setPower(Range.clip(y - x + x2, -1, 1));
-            robot.frontRightMotor.setPower(Range.clip(y + x + x2, -1, 1));
+
 
             if(gamepad1.left_bumper) {
-                robot.backLeftMotor.setPower(Range.clip((y + x - x2)*.35, -.35, .35));
-                robot.frontLeftMotor.setPower(Range.clip((y - x - x2)*.35, -.35, .35));
-                robot.backRightMotor.setPower(Range.clip((y - x + x2)*.35, -.35, .35));
-                robot.frontRightMotor.setPower(Range.clip((y + x + x2)*.35, -.35, .35));
+                robot.backLeftMotor.setPower(Range.clip((y + x - x2)*.1, -.1, .1));
+                robot.frontLeftMotor.setPower(Range.clip((y - x - x2)*.1, -.1, .1));
+                robot.backRightMotor.setPower(Range.clip((y - x + x2)*.1, -.1, .1));
+                robot.frontRightMotor.setPower(Range.clip((y + x + x2)*.1, -.1, .1));
             }
 
 
@@ -225,15 +220,22 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             }
 
 
-//            if(gamepad2.right_stick_y >.9) {
-//                robot.lift.setPower(1);
-//            }
-//            else if (gamepad2.right_stick_y < -.9) {
-//                robot.lift.setPower(-1);
-//            }
-//            else {
-//                robot.lift.setPower(0);
-//            }
+            if(gamepad2.right_bumper) {
+                robot.servo.setPosition(1);
+            }
+            else {
+                robot.servo.setPosition(.6);
+            }
+
+            if(gamepad2.right_stick_y >.9) {
+                robot.lift.setPower(1);
+            }
+            else if (gamepad2.right_stick_y < -.9) {
+                robot.lift.setPower(-1);
+            }
+            else {
+                robot.lift.setPower(0);
+            }
 
 
 //
@@ -274,6 +276,8 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             telemetry.addData("Red  ", robot.colorSensor.red());
             telemetry.addData("Green", robot.colorSensor.green());
             telemetry.addData("Blue ", robot.colorSensor.blue());
+
+            telemetry.addData("gyro", robot.gyro.getHeading());
 
             //wheels speed
             telemetry.addData("back left", Range.clip((y + x - x2)*.35, -.35, .35));

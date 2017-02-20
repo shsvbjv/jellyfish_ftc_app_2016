@@ -55,14 +55,7 @@ public class AutoTest extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        robot.flywheelLeftMotor.setPower(.70);
-        robot.servo.setPosition(1);
-        encoderDrive(DRIVE_SPEED, 0, -6, 6.0);
-        encoderTurn(TURN_SPEED, -55, 3.0);
-        encoderDrive(DRIVE_SPEED, 0, -36, 4.0);
-        intake(1, 5);
-        robot.flywheelLeftMotor.setPower(0);
-
+        gyroTurn(TURN_SPEED, -180, 4.0);
 
         sleep(1000);     // pause for servos to move
 

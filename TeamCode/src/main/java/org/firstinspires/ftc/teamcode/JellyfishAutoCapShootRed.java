@@ -55,11 +55,30 @@ public class JellyfishAutoCapShootRed extends JellyfishAutoBase {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        sleep(15000);
+
         encoderDrive(DRIVE_SPEED, 0, -20, 4.0);  //drive
 
         encoderDrive(DRIVE_SPEED, 24, 0, 6.0);
 
-        shoot(.75, 8);
+        robot.flywheelLeftMotor.setPower(.70);
+        robot.intakeBeltMotor.setPower(1);
+        robot.conveyorbelt.setPower(-1);
+        sleep(1000);
+        robot.conveyorbelt.setPower(0);
+        robot.intakeBeltMotor.setPower(0);
+        robot.servo.setPosition(1);
+        sleep(2000);
+        robot.servo.setPosition(.55);
+//        robot.intakeBeltMotor.setPower(1);
+//        robot.conveyorbelt.setPower(-1);
+//        sleep(1000);
+//        robot.conveyorbelt.setPower(0);
+//        robot.intakeBeltMotor.setPower(0);
+//        robot.servo.setPosition(1);
+//        sleep(2000);
+//        robot.servo.setPosition(.55);
+        robot.flywheelLeftMotor.setPower(0);
 
         encoderDrive(DRIVE_SPEED, 0, -28, 4.0);
 
