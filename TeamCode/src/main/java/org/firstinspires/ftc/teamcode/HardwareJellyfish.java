@@ -131,13 +131,13 @@ public class HardwareJellyfish
         ///  flywheelRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        servo.setPosition(.55);
+        servo.setPosition(.6);
         capservo.setPosition(.6);
 
         hwMap.logDevices();
 
 
-        boolean bLedOn = false;
+        boolean bLedOn = true;
 
         // get a reference to our ColorSensor object.
         colorSensor = hwMap.colorSensor.get("color");
