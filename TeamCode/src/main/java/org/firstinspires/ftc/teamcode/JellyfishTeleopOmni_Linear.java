@@ -139,11 +139,11 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             prevLB = gamepad2.left_bumper;
 
 
-            if(cserv) {
-                robot.capservo.setPosition(0);
-
-            }
-            else robot.capservo.setPosition(.6);
+//            if(cserv) {
+//                robot.capservo.setPosition(0);
+//
+//            }
+//            else robot.capservo.setPosition(.6);
 
 //            if((prevLB == false) &&
 //                    (gamepad1.left_bumper)) {
@@ -227,15 +227,15 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
                 robot.servo.setPosition(.6);
             }
 
-            if(gamepad2.right_stick_y >.9) {
-                robot.lift.setPower(1);
-            }
-            else if (gamepad2.right_stick_y < -.9) {
-                robot.lift.setPower(-1);
-            }
-            else {
-                robot.lift.setPower(0);
-            }
+//            if(gamepad2.right_stick_y >.9) {
+//                robot.lift.setPower(1);
+//            }
+//            else if (gamepad2.right_stick_y < -.9) {
+//                robot.lift.setPower(-1);
+//            }
+//            else {
+//                robot.lift.setPower(0);
+//            }
 
 
 //
@@ -285,8 +285,8 @@ public class JellyfishTeleopOmni_Linear extends LinearOpMode {
             //ods
             telemetry.addData("Raw Left", "%.2f", robot.odsSensor.getRawLightDetected());
 
-//            telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
-//            telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
+            telemetry.addData("Y", "%.2f", gamepad1.right_stick_y);
+            telemetry.addData("X", "%.2f", gamepad1.right_stick_x);
 
             //flywheels
             telemetry.addData("flywheel", "%.2f", robot.flywheelLeftMotor.getPower());

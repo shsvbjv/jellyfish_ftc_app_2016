@@ -39,7 +39,7 @@ public class HardwareJellyfish
     public DcMotor  conveyorbelt   = null;
     // public DcMotor  flywheelRightMotor= null;
      public DcMotor  flywheelLeftMotor = null;
-    public DcMotor  lift = null;
+    //public DcMotor  lift = null;
 
 
     public ColorSensor colorSensor;
@@ -47,7 +47,7 @@ public class HardwareJellyfish
     //OpticalDistanceSensor odsSensorR;
 
     public Servo servo = null;
-    public Servo capservo = null;
+    //public Servo capservo = null;
 
     public RampedMotorControl flywheelLeftMotorRampControl = null;
  //   public RampedMotorControl flywheelRightMotorRampControl = null;
@@ -79,14 +79,14 @@ public class HardwareJellyfish
         conveyorbelt = hwMap.dcMotor.get("conveyor");
         intakeBeltMotor = hwMap.dcMotor.get("intake");
         flywheelLeftMotor = hwMap.dcMotor.get("flywheelleft");
-        lift = hwMap.dcMotor.get("lift");
+        //lift = hwMap.dcMotor.get("lift");
 
      //   flywheelRightMotor = hwMap.dcMotor.get("flywheelright");
 
         gyro = (ModernRoboticsI2cGyro)hwMap.gyroSensor.get("gyro");
         rangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "range");
         servo = hwMap.servo.get("servo");
-        capservo = hwMap.servo.get("capservo");
+        //capservo = hwMap.servo.get("capservo");
 
 
         gyro.setHeadingMode(ModernRoboticsI2cGyro.HeadingMode.HEADING_CARTESIAN);
@@ -113,7 +113,7 @@ public class HardwareJellyfish
         backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeBeltMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         conveyorbelt.setDirection(DcMotorSimple.Direction.REVERSE);
-        lift.setDirection(DcMotorSimple.Direction.REVERSE);
+        //lift.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //MAKE SURE THESE ARE OPPOSITE DIRECTIONS OTHERWISE YOU WILL BREAK MOTORS
         flywheelLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -129,10 +129,10 @@ public class HardwareJellyfish
       //  flywheelLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         conveyorbelt.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ///  flywheelRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         servo.setPosition(.6);
-        capservo.setPosition(.6);
+        //capservo.setPosition(.6);
 
         hwMap.logDevices();
 
